@@ -17,6 +17,15 @@
 		5F3C91CC29DC2FC300BA5A2D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91C829DC2FC300BA5A2D /* AppState.swift */; };
 		5F3C91CD29DC2FC300BA5A2D /* AppGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91C929DC2FC300BA5A2D /* AppGetters.swift */; };
 		5F3C91CE29DC2FC300BA5A2D /* AppActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91CA29DC2FC300BA5A2D /* AppActions.swift */; };
+		5F3C91D629DC5A8A00BA5A2D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D529DC5A8A00BA5A2D /* RootView.swift */; };
+		5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D729DC5ABC00BA5A2D /* TabBarView.swift */; };
+		5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */; };
+		5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91DB29DC5B1200BA5A2D /* SettingsView.swift */; };
+		5F3C91DE29DC5B1B00BA5A2D /* VerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91DD29DC5B1B00BA5A2D /* VerifyView.swift */; };
+		5F3C91E029DC5EE500BA5A2D /* TrainingRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91DF29DC5EE500BA5A2D /* TrainingRecordsView.swift */; };
+		5F3C91E229DC5F7000BA5A2D /* TrainingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */; };
+		5F3C91E429DC60DF00BA5A2D /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E329DC60DF00BA5A2D /* DIContainer.swift */; };
+		5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +58,15 @@
 		5F3C91C829DC2FC300BA5A2D /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5F3C91C929DC2FC300BA5A2D /* AppGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGetters.swift; sourceTree = "<group>"; };
 		5F3C91CA29DC2FC300BA5A2D /* AppActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppActions.swift; sourceTree = "<group>"; };
+		5F3C91D529DC5A8A00BA5A2D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		5F3C91D729DC5ABC00BA5A2D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsView.swift; sourceTree = "<group>"; };
+		5F3C91DB29DC5B1200BA5A2D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5F3C91DD29DC5B1B00BA5A2D /* VerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyView.swift; sourceTree = "<group>"; };
+		5F3C91DF29DC5EE500BA5A2D /* TrainingRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsView.swift; sourceTree = "<group>"; };
+		5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingLabel.swift; sourceTree = "<group>"; };
+		5F3C91E329DC60DF00BA5A2D /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +156,7 @@
 		5F3C91AB29DC2ACE00BA5A2D /* Injected */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91E329DC60DF00BA5A2D /* DIContainer.swift */,
 			);
 			path = Injected;
 			sourceTree = "<group>";
@@ -177,6 +196,7 @@
 		5F3C91BC29DC2F3400BA5A2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3C91CF29DC31E700BA5A2D /* Labels */,
+				5F3C91D429DC5A7C00BA5A2D /* Root */,
 				5F3C91D229DC31E700BA5A2D /* Settings */,
 				5F3C91D029DC31E700BA5A2D /* TabBar */,
 				5F3C91D329DC31E700BA5A2D /* TrainingRecords */,
@@ -239,6 +260,8 @@
 		5F3C91CF29DC31E700BA5A2D /* Labels */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */,
+				5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -246,6 +269,7 @@
 		5F3C91D029DC31E700BA5A2D /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91D729DC5ABC00BA5A2D /* TabBarView.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -253,6 +277,7 @@
 		5F3C91D129DC31E700BA5A2D /* Verify */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91DD29DC5B1B00BA5A2D /* VerifyView.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -260,6 +285,7 @@
 		5F3C91D229DC31E700BA5A2D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91DB29DC5B1200BA5A2D /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -267,8 +293,17 @@
 		5F3C91D329DC31E700BA5A2D /* TrainingRecords */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91DF29DC5EE500BA5A2D /* TrainingRecordsView.swift */,
 			);
 			path = TrainingRecords;
+			sourceTree = "<group>";
+		};
+		5F3C91D429DC5A7C00BA5A2D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				5F3C91D529DC5A8A00BA5A2D /* RootView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,10 +443,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F3C91CD29DC2FC300BA5A2D /* AppGetters.swift in Sources */,
+				5F3C91DE29DC5B1B00BA5A2D /* VerifyView.swift in Sources */,
+				5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */,
+				5F3C91E029DC5EE500BA5A2D /* TrainingRecordsView.swift in Sources */,
 				5F3C91CB29DC2FC300BA5A2D /* AppReducer.swift in Sources */,
+				5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */,
+				5F3C91E429DC60DF00BA5A2D /* DIContainer.swift in Sources */,
+				5F3C91E229DC5F7000BA5A2D /* TrainingLabel.swift in Sources */,
+				5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */,
+				5F3C91D629DC5A8A00BA5A2D /* RootView.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
 				5F3C91CC29DC2FC300BA5A2D /* AppState.swift in Sources */,
 				5F3C91CE29DC2FC300BA5A2D /* AppActions.swift in Sources */,
+				5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct ActivityClassifierApp: App {
-    var body: some Scene {
-        WindowGroup {
-            EmptyView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      RootView()
+        .environmentObject(DIContainer())
     }
+  }
 }
