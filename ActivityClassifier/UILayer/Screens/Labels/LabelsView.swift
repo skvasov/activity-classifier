@@ -84,15 +84,17 @@ struct LabelsView: View {
           HStack {
             Text(label.name)
             Spacer()
-            Text("(\(label.numOfRecords))")
+            Text("(\(label.numOfChildren))")
           }
         }
         .swipeActions(edge: .trailing) {
-          Button(role: .destructive) {
-            model.remove(at: index)
-          } label: {
-            Image(systemName: "trash")
-              .foregroundColor(.white)
+          if model.isEditing {
+            Button(role: .destructive) {
+              model.remove(at: index)
+            } label: {
+              Image(systemName: "trash")
+                .foregroundColor(.white)
+            }
           }
         }
       }

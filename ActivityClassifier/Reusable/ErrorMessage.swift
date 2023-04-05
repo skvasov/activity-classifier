@@ -9,4 +9,8 @@ import Foundation
 
 struct ErrorMessage: Error, Hashable {
   let message: String
+  
+  init(error: Error) {
+    self.message = error.localizedDescription
+  }
 }

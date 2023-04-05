@@ -9,19 +9,24 @@ import Foundation
 
 class GetLabelsUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
+  private let trainingDataRepository: TrainingDataRepository
   
-  init(actionDispatcher: ActionDispatcher) {
+  init(actionDispatcher: ActionDispatcher, trainingDataRepository: TrainingDataRepository) {
     self.actionDispatcher = actionDispatcher
+    self.trainingDataRepository = trainingDataRepository
   }
   
   func execute() {
     Task {
       actionDispatcher.dispatch(LabelsActions.GettingLabels())
-      try? await Task.sleep(for: .seconds(2))
-      actionDispatcher.dispatch(LabelsActions.GotLabels(labels: [
-        TrainingLabel(name: "Wing", numOfRecords: 30),
-        TrainingLabel(name: "Shot", numOfRecords: 5)
-      ]))
+      do {
+        let labels = try await trainingDataRepository.getAllLabels()
+        actionDispatcher.dispatch(LabelsActions.GotLabels(labels: labels))
+      }
+      catch {
+        let errorMessage = ErrorMessage(error: error)
+        actionDispatcher.dispatch(LabelsActions.GettingLabelsFailed(error: errorMessage))
+      }
     }
   }
 }
