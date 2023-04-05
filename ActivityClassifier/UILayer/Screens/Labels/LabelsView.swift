@@ -20,7 +20,10 @@ struct LabelsView: View {
   var body: some View {
     NavigationStack {
       Group {
-        if model.labels.isEmpty {
+        if model.isLoading {
+          loadingView()
+        }
+        else if model.labels.isEmpty {
           emptyStateView()
         } else {
           contentView()
@@ -60,6 +63,9 @@ struct LabelsView: View {
           }
         }
       }
+      .onAppear {
+        model.onAppear()
+      }
       .alert("Input label name", isPresented: $model.isAddingNewLabel, actions: {
         TextField("Label name", text: $newLabelName)
         Button("Save", action: {
@@ -96,11 +102,17 @@ struct LabelsView: View {
   func emptyStateView() -> some View {
     Text("Tap + to add new labels")
   }
+  
+  func loadingView() -> some View {
+    ProgressView("Loading...")
+  }
 }
 
 struct LabelsView_Previews: PreviewProvider {
   static var previews: some View {
-    LabelsView(model: LabelsViewModel())
-      .environmentObject(DIContainer())
+    let contrainer = DIContainer()
+    let labelsView = contrainer.makeLabelsView()
+    return labelsView
+      .environmentObject(contrainer)
   }
 }

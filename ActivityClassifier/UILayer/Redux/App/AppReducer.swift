@@ -7,11 +7,14 @@
 import Foundation
 import ReSwift
 
-public struct Reducers {}
+struct Reducers {}
 
 extension Reducers {
-
   static func appReducer(action: Action, state: AppState?) -> AppState {
-    return state ?? AppState.tab
+    var state = state ?? AppState()
+    
+    state.tabBarState = tabBarReducer(action: action, state: state.tabBarState)
+    
+    return state
   }
 }

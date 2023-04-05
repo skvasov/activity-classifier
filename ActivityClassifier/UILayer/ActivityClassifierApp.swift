@@ -11,8 +11,9 @@ import SwiftUI
 struct ActivityClassifierApp: App {
   var body: some Scene {
     WindowGroup {
-      RootView()
-        .environmentObject(DIContainer())
+      let contrainer = DIContainer()
+      contrainer.makeTabBarView()
+        .environmentObject(contrainer)
     }
   }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TrainingLabel: Hashable {
+struct TrainingLabel: Hashable, Equatable {
   let name: String
   let numOfRecords: Int
 }

@@ -8,7 +8,5 @@
 import Foundation
 import ReSwift
 
-public protocol Action { }
-
 struct AppActions {
 }

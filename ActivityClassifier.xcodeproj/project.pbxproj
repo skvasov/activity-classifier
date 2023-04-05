@@ -13,11 +13,6 @@
 		5F3C91A629DC29AB00BA5A2D /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F3C91A529DC29AB00BA5A2D /* ReSwift */; };
 		5F3C91B429DC2ACF00BA5A2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F3C91AE29DC2ACE00BA5A2D /* Assets.xcassets */; };
 		5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91BF29DC2F3400BA5A2D /* ActivityClassifierApp.swift */; };
-		5F3C91CB29DC2FC300BA5A2D /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91C729DC2FC300BA5A2D /* AppReducer.swift */; };
-		5F3C91CC29DC2FC300BA5A2D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91C829DC2FC300BA5A2D /* AppState.swift */; };
-		5F3C91CD29DC2FC300BA5A2D /* AppGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91C929DC2FC300BA5A2D /* AppGetters.swift */; };
-		5F3C91CE29DC2FC300BA5A2D /* AppActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91CA29DC2FC300BA5A2D /* AppActions.swift */; };
-		5F3C91D629DC5A8A00BA5A2D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D529DC5A8A00BA5A2D /* RootView.swift */; };
 		5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D729DC5ABC00BA5A2D /* TabBarView.swift */; };
 		5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */; };
 		5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91DB29DC5B1200BA5A2D /* SettingsView.swift */; };
@@ -26,6 +21,30 @@
 		5F3C91E229DC5F7000BA5A2D /* TrainingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */; };
 		5F3C91E429DC60DF00BA5A2D /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E329DC60DF00BA5A2D /* DIContainer.swift */; };
 		5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */; };
+		5F3C91EA29DD44C300BA5A2D /* ObserverForLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E929DD44C300BA5A2D /* ObserverForLabels.swift */; };
+		5F3C91EC29DD44D900BA5A2D /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91EB29DD44D900BA5A2D /* Observer.swift */; };
+		5F3C91F029DD4AFA00BA5A2D /* ActionPrinterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91EF29DD4AFA00BA5A2D /* ActionPrinterMiddleware.swift */; };
+		5F3C91F229DD4B5400BA5A2D /* ActionDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F129DD4B5400BA5A2D /* ActionDispatcher.swift */; };
+		5F3C91F429DD4EAB00BA5A2D /* StorePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F329DD4EAB00BA5A2D /* StorePublisher.swift */; };
+		5F3C91F629DD4EE800BA5A2D /* ScopedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F529DD4EE800BA5A2D /* ScopedState.swift */; };
+		5F3C91F829DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F729DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift */; };
+		5F3C91FA29DD571900BA5A2D /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F929DD571900BA5A2D /* UseCase.swift */; };
+		5F3C91FC29DD57DA00BA5A2D /* GetLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91FB29DD57DA00BA5A2D /* GetLabelsUseCase.swift */; };
+		5F3C91FE29DD5C3E00BA5A2D /* AddLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91FD29DD5C3E00BA5A2D /* AddLabelUseCase.swift */; };
+		5F3C920029DD67C300BA5A2D /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91FF29DD67C300BA5A2D /* ErrorMessage.swift */; };
+		5F3C921329DD689B00BA5A2D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920229DD689B00BA5A2D /* AppState.swift */; };
+		5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920329DD689B00BA5A2D /* AppReducer.swift */; };
+		5F3C921529DD689B00BA5A2D /* TabBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920729DD689B00BA5A2D /* TabBarState.swift */; };
+		5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920829DD689B00BA5A2D /* TabBarActions.swift */; };
+		5F3C921729DD689B00BA5A2D /* LabelsActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920B29DD689B00BA5A2D /* LabelsActions.swift */; };
+		5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920C29DD689B00BA5A2D /* LabelsGetters.swift */; };
+		5F3C921929DD689B00BA5A2D /* LabelsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920D29DD689B00BA5A2D /* LabelsState.swift */; };
+		5F3C921A29DD689B00BA5A2D /* LabelsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920E29DD689B00BA5A2D /* LabelsReducer.swift */; };
+		5F3C921B29DD689B00BA5A2D /* TabBarGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C920F29DD689B00BA5A2D /* TabBarGetters.swift */; };
+		5F3C921C29DD689B00BA5A2D /* TabBarReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C921029DD689B00BA5A2D /* TabBarReducer.swift */; };
+		5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C921129DD689B00BA5A2D /* AppGetters.swift */; };
+		5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C921229DD689B00BA5A2D /* AppActions.swift */; };
+		5F3C922029DD7A0500BA5A2D /* RemoveLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C921F29DD7A0500BA5A2D /* RemoveLabelsUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,11 +73,6 @@
 		5F3C919729DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityClassifierUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F3C91AE29DC2ACE00BA5A2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F3C91BF29DC2F3400BA5A2D /* ActivityClassifierApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityClassifierApp.swift; sourceTree = "<group>"; };
-		5F3C91C729DC2FC300BA5A2D /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
-		5F3C91C829DC2FC300BA5A2D /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		5F3C91C929DC2FC300BA5A2D /* AppGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGetters.swift; sourceTree = "<group>"; };
-		5F3C91CA29DC2FC300BA5A2D /* AppActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppActions.swift; sourceTree = "<group>"; };
-		5F3C91D529DC5A8A00BA5A2D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		5F3C91D729DC5ABC00BA5A2D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsView.swift; sourceTree = "<group>"; };
 		5F3C91DB29DC5B1200BA5A2D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -67,6 +81,30 @@
 		5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingLabel.swift; sourceTree = "<group>"; };
 		5F3C91E329DC60DF00BA5A2D /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsViewModel.swift; sourceTree = "<group>"; };
+		5F3C91E929DD44C300BA5A2D /* ObserverForLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForLabels.swift; sourceTree = "<group>"; };
+		5F3C91EB29DD44D900BA5A2D /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		5F3C91EF29DD4AFA00BA5A2D /* ActionPrinterMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPrinterMiddleware.swift; sourceTree = "<group>"; };
+		5F3C91F129DD4B5400BA5A2D /* ActionDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDispatcher.swift; sourceTree = "<group>"; };
+		5F3C91F329DD4EAB00BA5A2D /* StorePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePublisher.swift; sourceTree = "<group>"; };
+		5F3C91F529DD4EE800BA5A2D /* ScopedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedState.swift; sourceTree = "<group>"; };
+		5F3C91F729DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForLabelsEventResponder.swift; sourceTree = "<group>"; };
+		5F3C91F929DD571900BA5A2D /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
+		5F3C91FB29DD57DA00BA5A2D /* GetLabelsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLabelsUseCase.swift; sourceTree = "<group>"; };
+		5F3C91FD29DD5C3E00BA5A2D /* AddLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLabelUseCase.swift; sourceTree = "<group>"; };
+		5F3C91FF29DD67C300BA5A2D /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		5F3C920229DD689B00BA5A2D /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		5F3C920329DD689B00BA5A2D /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		5F3C920729DD689B00BA5A2D /* TabBarState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarState.swift; sourceTree = "<group>"; };
+		5F3C920829DD689B00BA5A2D /* TabBarActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarActions.swift; sourceTree = "<group>"; };
+		5F3C920B29DD689B00BA5A2D /* LabelsActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsActions.swift; sourceTree = "<group>"; };
+		5F3C920C29DD689B00BA5A2D /* LabelsGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsGetters.swift; sourceTree = "<group>"; };
+		5F3C920D29DD689B00BA5A2D /* LabelsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsState.swift; sourceTree = "<group>"; };
+		5F3C920E29DD689B00BA5A2D /* LabelsReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsReducer.swift; sourceTree = "<group>"; };
+		5F3C920F29DD689B00BA5A2D /* TabBarGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarGetters.swift; sourceTree = "<group>"; };
+		5F3C921029DD689B00BA5A2D /* TabBarReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarReducer.swift; sourceTree = "<group>"; };
+		5F3C921129DD689B00BA5A2D /* AppGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGetters.swift; sourceTree = "<group>"; };
+		5F3C921229DD689B00BA5A2D /* AppActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppActions.swift; sourceTree = "<group>"; };
+		5F3C921F29DD7A0500BA5A2D /* RemoveLabelsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveLabelsUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +210,10 @@
 		5F3C91AF29DC2ACE00BA5A2D /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91F929DD571900BA5A2D /* UseCase.swift */,
+				5F3C91FB29DD57DA00BA5A2D /* GetLabelsUseCase.swift */,
+				5F3C91FD29DD5C3E00BA5A2D /* AddLabelUseCase.swift */,
+				5F3C921F29DD7A0500BA5A2D /* RemoveLabelsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -223,7 +265,6 @@
 			isa = PBXGroup;
 			children = (
 				5F3C91CF29DC31E700BA5A2D /* Labels */,
-				5F3C91D429DC5A7C00BA5A2D /* Root */,
 				5F3C91D229DC31E700BA5A2D /* Settings */,
 				5F3C91D029DC31E700BA5A2D /* TabBar */,
 				5F3C91D329DC31E700BA5A2D /* TrainingRecords */,
@@ -235,10 +276,8 @@
 		5F3C91C129DC2F3400BA5A2D /* Redux */ = {
 			isa = PBXGroup;
 			children = (
-				5F3C91CA29DC2FC300BA5A2D /* AppActions.swift */,
-				5F3C91C929DC2FC300BA5A2D /* AppGetters.swift */,
-				5F3C91C729DC2FC300BA5A2D /* AppReducer.swift */,
-				5F3C91C829DC2FC300BA5A2D /* AppState.swift */,
+				5F3C920129DD689B00BA5A2D /* App */,
+				5F3C91F529DD4EE800BA5A2D /* ScopedState.swift */,
 			);
 			path = Redux;
 			sourceTree = "<group>";
@@ -253,6 +292,11 @@
 		5F3C91C429DC2F3400BA5A2D /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				5F3C91EB29DD44D900BA5A2D /* Observer.swift */,
+				5F3C91EF29DD4AFA00BA5A2D /* ActionPrinterMiddleware.swift */,
+				5F3C91F129DD4B5400BA5A2D /* ActionDispatcher.swift */,
+				5F3C91F329DD4EAB00BA5A2D /* StorePublisher.swift */,
+				5F3C91FF29DD67C300BA5A2D /* ErrorMessage.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -262,6 +306,8 @@
 			children = (
 				5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */,
 				5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */,
+				5F3C91E929DD44C300BA5A2D /* ObserverForLabels.swift */,
+				5F3C91F729DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -298,12 +344,63 @@
 			path = TrainingRecords;
 			sourceTree = "<group>";
 		};
-		5F3C91D429DC5A7C00BA5A2D /* Root */ = {
+		5F3C920129DD689B00BA5A2D /* App */ = {
 			isa = PBXGroup;
 			children = (
-				5F3C91D529DC5A8A00BA5A2D /* RootView.swift */,
+				5F3C920229DD689B00BA5A2D /* AppState.swift */,
+				5F3C920329DD689B00BA5A2D /* AppReducer.swift */,
+				5F3C921129DD689B00BA5A2D /* AppGetters.swift */,
+				5F3C921229DD689B00BA5A2D /* AppActions.swift */,
+				5F3C920429DD689B00BA5A2D /* TabBar */,
 			);
-			path = Root;
+			path = App;
+			sourceTree = "<group>";
+		};
+		5F3C920429DD689B00BA5A2D /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5F3C920729DD689B00BA5A2D /* TabBarState.swift */,
+				5F3C920829DD689B00BA5A2D /* TabBarActions.swift */,
+				5F3C920F29DD689B00BA5A2D /* TabBarGetters.swift */,
+				5F3C921029DD689B00BA5A2D /* TabBarReducer.swift */,
+				5F3C920529DD689B00BA5A2D /* Settings */,
+				5F3C920629DD689B00BA5A2D /* Verify */,
+				5F3C920929DD689B00BA5A2D /* Labels */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		5F3C920529DD689B00BA5A2D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5F3C920629DD689B00BA5A2D /* Verify */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Verify;
+			sourceTree = "<group>";
+		};
+		5F3C920929DD689B00BA5A2D /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				5F3C920B29DD689B00BA5A2D /* LabelsActions.swift */,
+				5F3C920C29DD689B00BA5A2D /* LabelsGetters.swift */,
+				5F3C920D29DD689B00BA5A2D /* LabelsState.swift */,
+				5F3C920E29DD689B00BA5A2D /* LabelsReducer.swift */,
+				5F3C920A29DD689B00BA5A2D /* TrainingRecords */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		5F3C920A29DD689B00BA5A2D /* TrainingRecords */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TrainingRecords;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,20 +539,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F3C91CD29DC2FC300BA5A2D /* AppGetters.swift in Sources */,
+				5F3C91F229DD4B5400BA5A2D /* ActionDispatcher.swift in Sources */,
+				5F3C91EC29DD44D900BA5A2D /* Observer.swift in Sources */,
+				5F3C91F029DD4AFA00BA5A2D /* ActionPrinterMiddleware.swift in Sources */,
 				5F3C91DE29DC5B1B00BA5A2D /* VerifyView.swift in Sources */,
+				5F3C921C29DD689B00BA5A2D /* TabBarReducer.swift in Sources */,
+				5F3C91FE29DD5C3E00BA5A2D /* AddLabelUseCase.swift in Sources */,
+				5F3C921729DD689B00BA5A2D /* LabelsActions.swift in Sources */,
+				5F3C920029DD67C300BA5A2D /* ErrorMessage.swift in Sources */,
+				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
+				5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */,
+				5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */,
+				5F3C91EA29DD44C300BA5A2D /* ObserverForLabels.swift in Sources */,
+				5F3C91FA29DD571900BA5A2D /* UseCase.swift in Sources */,
+				5F3C91F429DD4EAB00BA5A2D /* StorePublisher.swift in Sources */,
 				5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */,
+				5F3C921929DD689B00BA5A2D /* LabelsState.swift in Sources */,
+				5F3C91F829DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift in Sources */,
 				5F3C91E029DC5EE500BA5A2D /* TrainingRecordsView.swift in Sources */,
-				5F3C91CB29DC2FC300BA5A2D /* AppReducer.swift in Sources */,
+				5F3C91F629DD4EE800BA5A2D /* ScopedState.swift in Sources */,
 				5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */,
+				5F3C922029DD7A0500BA5A2D /* RemoveLabelsUseCase.swift in Sources */,
 				5F3C91E429DC60DF00BA5A2D /* DIContainer.swift in Sources */,
+				5F3C921A29DD689B00BA5A2D /* LabelsReducer.swift in Sources */,
 				5F3C91E229DC5F7000BA5A2D /* TrainingLabel.swift in Sources */,
 				5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */,
-				5F3C91D629DC5A8A00BA5A2D /* RootView.swift in Sources */,
+				5F3C921329DD689B00BA5A2D /* AppState.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
-				5F3C91CC29DC2FC300BA5A2D /* AppState.swift in Sources */,
-				5F3C91CE29DC2FC300BA5A2D /* AppActions.swift in Sources */,
+				5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */,
+				5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */,
+				5F3C91FC29DD57DA00BA5A2D /* GetLabelsUseCase.swift in Sources */,
+				5F3C921529DD689B00BA5A2D /* TabBarState.swift in Sources */,
 				5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */,
+				5F3C921B29DD689B00BA5A2D /* TabBarGetters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

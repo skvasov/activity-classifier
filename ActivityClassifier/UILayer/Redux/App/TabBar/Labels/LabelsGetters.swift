@@ -7,6 +7,5 @@
 
 import Foundation
 
-public enum AppState: Equatable {
-  case tab
+struct LabelsGetters {
 }

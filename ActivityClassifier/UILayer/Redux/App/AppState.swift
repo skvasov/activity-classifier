@@ -7,8 +7,10 @@
 
 import Foundation
 
-public struct AppGetters {
-
-  // MARK: - Properties
-  public let getAppState: (AppState) -> AppState
+struct AppState: Equatable {
+  var tabBarState: TabBarState
+  
+  init() {
+    tabBarState = TabBarState()
+  }
 }
