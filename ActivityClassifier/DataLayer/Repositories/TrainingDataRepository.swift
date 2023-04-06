@@ -13,7 +13,9 @@ protocol TrainingDataRepository {
   func addLabel(_ label: TrainingLabel) async throws
   func getAllLabels() async throws -> [TrainingLabel]
   func removeLabels(_ labels: [TrainingLabel]) async throws
-  func addRecord(_ record: TrainingRecord, for label: TrainingLabel) async throws
+  func addTrainingRecord(_ record: TrainingRecord, for label: TrainingLabel) async throws
+  func getAllTrainingRecords(for label: TrainingLabel) async throws -> [TrainingRecord]
+  func removeTrainingRecords(_ records: [TrainingRecord], for label: TrainingLabel) async throws
 }
 
 class RealTrainingDataRepository {
@@ -39,8 +41,18 @@ extension RealTrainingDataRepository: TrainingDataRepository {
     try await labelsStore.remove(labels)
   }
   
-  func addRecord(_ record: TrainingRecord, for label: TrainingLabel) async throws {
+  func addTrainingRecord(_ record: TrainingRecord, for label: TrainingLabel) async throws {
     let recordsStore = recordsStoreFactory(label)
     try await recordsStore.save(record)
+  }
+  
+  func getAllTrainingRecords(for label: TrainingLabel) async throws -> [TrainingRecord] {
+    let recordsStore = recordsStoreFactory(label)
+    return try await recordsStore.loadAll()
+  }
+  
+  func removeTrainingRecords(_ records: [TrainingRecord], for label: TrainingLabel) async throws {
+    let recordsStore = recordsStoreFactory(label)
+    try await recordsStore.remove(records)
   }
 }

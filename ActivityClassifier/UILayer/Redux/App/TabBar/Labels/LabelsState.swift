@@ -11,6 +11,7 @@ struct LabelsState: Equatable {
   var labels: [TrainingLabel] = []
   var viewState: LabelsViewState
   var errorsToPresent = Set<ErrorMessage>()
+  var trainingRecordsState: TrainingRecordsState?
 }
 
 struct LabelsViewState: Equatable {

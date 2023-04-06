@@ -11,6 +11,7 @@ struct LabelsView: View {
   @EnvironmentObject var container: DIContainer
   @ObservedObject var model: LabelsViewModel
   @State private var newLabelName: String = ""
+  @State private var presentedLabels: [TrainingLabel] = []
   
   
   init(model: LabelsViewModel) {
@@ -18,7 +19,7 @@ struct LabelsView: View {
   }
   
   var body: some View {
-    NavigationStack {
+    NavigationStack(path: $presentedLabels) {
       Group {
         if model.isLoading {
           loadingView()
@@ -29,9 +30,6 @@ struct LabelsView: View {
           contentView()
         }
       }
-      .navigationDestination(for: TrainingLabel.self, destination: { label in
-        container.makeTrainingRecordsView()
-      })
       .navigationTitle("Labels")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
@@ -99,6 +97,9 @@ struct LabelsView: View {
         }
       }
     }
+    .navigationDestination(for: TrainingLabel.self, destination: { label in
+      container.makeTrainingRecordsView(label: label)
+    })
   }
   
   func emptyStateView() -> some View {

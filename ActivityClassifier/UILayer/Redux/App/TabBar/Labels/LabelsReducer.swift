@@ -42,6 +42,8 @@ extension Reducers {
       break
     }
     
+    state.trainingRecordsState = trainingRecordsReducer(action: action, state: state.trainingRecordsState)
+    
     return state
   }
 }

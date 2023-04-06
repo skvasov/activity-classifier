@@ -8,13 +8,94 @@
 import SwiftUI
 
 struct TrainingRecordsView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  @ObservedObject var model: TrainingRecordsViewModel
+  
+  
+  init(model: TrainingRecordsViewModel) {
+    self.model = model
+  }
+  
+  var body: some View {
+      Group {
+        if model.isLoading {
+          loadingView()
+        }
+        else if model.trainingRecords.isEmpty {
+          emptyStateView()
+        } else {
+          contentView()
+        }
+      }
+      .navigationTitle(model.title)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button {
+            model.isEditing ? model.cancel() : model.edit()
+          } label: {
+            Text(model.isEditing ? "Done" : "Edit")
+          }
+        }
+        if model.isEditing {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+              model.removeAll()
+            } label: {
+              Text("Remove all")
+            }
+          }
+        }
+      }
+      .onAppear {
+        model.onAppear()
+      }
+  }
+  
+  func contentView() -> some View {
+    VStack {
+      List {
+        ForEach(Array(model.trainingRecords.enumerated()), id: \.offset) { index, trainingRecord in
+          HStack {
+            Text(trainingRecord.name)
+          }
+          .swipeActions(edge: .trailing) {
+            if model.isEditing {
+              Button(role: .destructive) {
+                model.remove(at: index)
+              } label: {
+                Image(systemName: "trash")
+                  .foregroundColor(.white)
+              }
+            }
+          }
+        }
+      }
+      Button("Record") {
+        model.add()
+      }
     }
+  }
+  
+  func emptyStateView() -> some View {
+    VStack {
+      Text("Tap Record to add new records")
+      Button("Record") {
+        model.add()
+      }
+    }
+  }
+  
+  func loadingView() -> some View {
+    ProgressView("Loading...")
+  }
 }
 
-struct TrainingRecordsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrainingRecordsView()
-    }
+struct TrainingRecords_Previews: PreviewProvider {
+  static var previews: some View {
+    let contrainer = DIContainer()
+    let label = TrainingLabel(name: "Wing", numOfChildren: 30)
+    let trainingRecordsView = contrainer.makeTrainingRecordsView(label: label)
+    return trainingRecordsView
+      .environmentObject(contrainer)
+  }
 }
