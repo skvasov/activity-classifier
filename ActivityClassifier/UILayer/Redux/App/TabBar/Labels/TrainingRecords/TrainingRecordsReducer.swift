@@ -9,8 +9,8 @@ import Foundation
 import ReSwift
 
 extension Reducers {
-  static func trainingRecordsReducer(action: Action, state: TrainingRecordsState?) -> TrainingRecordsState {
-    var state = state ?? TrainingRecordsState(viewState: TrainingRecordsViewState())
+  static func trainingRecordsReducer(action: Action, state: TrainingRecordsState) -> TrainingRecordsState {
+    var state = state
     
     switch action {
     case _ as TrainingRecordsActions.GettingTrainingRecords:

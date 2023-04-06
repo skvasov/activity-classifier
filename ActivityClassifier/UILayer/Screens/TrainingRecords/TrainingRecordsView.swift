@@ -10,45 +10,45 @@ import SwiftUI
 struct TrainingRecordsView: View {
   @ObservedObject var model: TrainingRecordsViewModel
   
-  
   init(model: TrainingRecordsViewModel) {
     self.model = model
   }
   
   var body: some View {
-      Group {
-        if model.isLoading {
-          loadingView()
-        }
-        else if model.trainingRecords.isEmpty {
-          emptyStateView()
-        } else {
-          contentView()
+    Group {
+      if model.isLoading {
+        loadingView()
+      }
+      else if model.trainingRecords.isEmpty {
+        emptyStateView()
+      } else {
+        contentView()
+      }
+    }
+    .navigationTitle(model.title)
+    .navigationBarTitleDisplayMode(.inline)
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .navigationBarTrailing) {
+        Button {
+          model.isEditing ? model.cancel() : model.edit()
+        } label: {
+          Text(model.isEditing ? "Done" : "Edit")
         }
       }
-      .navigationTitle(model.title)
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-            model.isEditing ? model.cancel() : model.edit()
-          } label: {
-            Text(model.isEditing ? "Done" : "Edit")
-          }
-        }
-        if model.isEditing {
-          ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-              model.removeAll()
-            } label: {
-              Text("Remove all")
-            }
-          }
+      ToolbarItem(placement: .navigationBarLeading) {
+        Button {
+          model.isEditing ? model.removeAll() : model.goBack()
+        } label: {
+          model.isEditing
+          ? AnyView(Text("Remove all"))
+          : AnyView(Image(systemName: "chevron.backward"))
         }
       }
-      .onAppear {
-        model.onAppear()
-      }
+    }
+    .onAppear {
+      model.onAppear()
+    }
   }
   
   func contentView() -> some View {

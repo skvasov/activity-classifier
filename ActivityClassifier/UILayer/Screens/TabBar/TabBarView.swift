@@ -11,7 +11,7 @@ struct TabBarView: View {
   @EnvironmentObject var contaier: DIContainer
   
   var body: some View {
-    TabView {
+    TabView() {
       contaier.makeLabelsView()
         .tabItem {
           Label("Labels", systemImage: "list.bullet")

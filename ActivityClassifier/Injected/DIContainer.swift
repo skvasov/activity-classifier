@@ -12,20 +12,30 @@ import Combine
 
 typealias AddLabelUseCaseFactory = (String) -> UseCase
 typealias RemoveLabelsUseCaseFactory = ([TrainingLabel]) -> UseCase
+typealias GoToTrainingRecordsUseCaseFactory = (TrainingLabel) -> UseCase
 typealias TrainingDataRepositoryFactory = (URL) -> TrainingDataRepository
 typealias AddTrainingRecordUseCaseFactory = () -> UseCase
 typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
 
 class DIContainer: ObservableObject {
   private let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
-  private let actionDispatcher: ActionDispatcher
   private let appGetters = AppGetters()
   private let tabBarGetters: TabBarGetters
   private let labelsGetters: LabelsGetters
-  private lazy var trainingDataRepository = makeTrainingDataRepository(folderURL: URL.documentsDirectory)
+  private let trainingDataRepository: TrainingDataRepository = {
+    let folderURL = URL.documentsDirectory
+    let labelsStore = DiskManager<TrainingLabel>(folderURL: folderURL)
+    let recordsStoreFactory: RecordsStoreFactory = { (storable: Storable) in
+      DiskManager(folderURL: folderURL.appending(path: storable.name))
+    }
+    return RealTrainingDataRepository(
+      labelsStore: labelsStore,
+      recordsStoreFactory: recordsStoreFactory)
+  }()
+  
+  private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
   
   init() {
-    self.actionDispatcher = stateStore
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
     self.labelsGetters = LabelsGetters(getLabelsState: tabBarGetters.getLabelsState)
   }
@@ -52,11 +62,17 @@ class DIContainer: ObservableObject {
         labels: labels,
         trainingDataRepository: self.trainingDataRepository)
     }
+    let goToTrainingRecordsUseCaseFactory = { label in
+      GoToTrainingRecordsUseCase(
+        actionDispatcher: self.stateStore,
+        label: label)
+    }
     let model = LabelsViewModel(
       observerForLabels: observerForLabels,
       getLabelsUseCase: getLabelsUseCase,
       addLabelUseCaseFactory: addLabelUseCaseFactory,
-      removeLabelsUseCaseFactory: removeLabelsUseCaseFactory)
+      removeLabelsUseCaseFactory: removeLabelsUseCaseFactory,
+      goToTrainingRecordsUseCaseFactory: goToTrainingRecordsUseCaseFactory)
     observerForLabels.eventResponder = model
     return LabelsView(model: model)
   }
@@ -81,13 +97,17 @@ class DIContainer: ObservableObject {
         trainingRecords: trainingRecords,
         trainingDataRepository: self.trainingDataRepository)
     }
-    let model = TrainingRecordsViewModel(
+    let backToLabelsUseCase = BackToLabelsUseCase(actionDispatcher: stateStore)
+    let model = trainingRecordsModels[label] ?? TrainingRecordsViewModel(
       label: label,
       observerForTrainingRecords: observerForLabels,
       getTrainingRecordsUseCase: getTrainingRecordsUseCase,
       addTrainingRecordUseCaseFactory: addTrainingRecordUseCaseFactory,
-      removeTrainingRecordsUseCaseFactory: removeTrainingRecordsUseCaseFactory)
+      removeTrainingRecordsUseCaseFactory: removeTrainingRecordsUseCaseFactory,
+      backToLabelsUseCase: backToLabelsUseCase)
     observerForLabels.eventResponder = model
+    trainingRecordsModels.removeAll()
+    trainingRecordsModels[label] = model
     return TrainingRecordsView(model: model)
   }
   
@@ -97,15 +117,5 @@ class DIContainer: ObservableObject {
   
   func makeSettingsView() -> some View {
     SettingsView()
-  }
-  
-  func makeTrainingDataRepository(folderURL: URL) -> TrainingDataRepository {
-    let labelsStore = DiskManager<TrainingLabel>(folderURL: folderURL)
-    let recordsStoreFactory: RecordsStoreFactory = { (storable: Storable) in
-      DiskManager(folderURL: folderURL.appending(path: storable.name))
-    }
-    return RealTrainingDataRepository(
-      labelsStore: labelsStore,
-      recordsStoreFactory: recordsStoreFactory)
   }
 }

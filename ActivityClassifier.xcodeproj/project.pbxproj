@@ -57,8 +57,9 @@
 		5FE726BC29DEC2F7008AF5E0 /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726BB29DEC2F7008AF5E0 /* AddTrainingRecordUseCase.swift */; };
 		5FE726BE29DEC303008AF5E0 /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726BD29DEC303008AF5E0 /* RemoveTrainingRecordsUseCase.swift */; };
 		5FE726C029DEC322008AF5E0 /* TrainingRecordsActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726BF29DEC322008AF5E0 /* TrainingRecordsActions.swift */; };
-		5FE726C229DECD44008AF5E0 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726C129DECD44008AF5E0 /* BigButton.swift */; };
 		5FE726C429DECFFF008AF5E0 /* TrainingRecordsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726C329DECFFE008AF5E0 /* TrainingRecordsReducer.swift */; };
+		5FE726C629DF1B31008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726C529DF1B31008AF5E0 /* GoToTrainingRecordsUseCase.swift */; };
+		5FE726C829DF5D2D008AF5E0 /* BackToLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726C729DF5D2D008AF5E0 /* BackToLabelsUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,8 +132,9 @@
 		5FE726BB29DEC2F7008AF5E0 /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
 		5FE726BD29DEC303008AF5E0 /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FE726BF29DEC322008AF5E0 /* TrainingRecordsActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsActions.swift; sourceTree = "<group>"; };
-		5FE726C129DECD44008AF5E0 /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		5FE726C329DECFFE008AF5E0 /* TrainingRecordsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsReducer.swift; sourceTree = "<group>"; };
+		5FE726C529DF1B31008AF5E0 /* GoToTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
+		5FE726C729DF5D2D008AF5E0 /* BackToLabelsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackToLabelsUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,8 @@
 				5FE726B929DEC2E9008AF5E0 /* GetTrainingRecordsUseCase.swift */,
 				5FE726BB29DEC2F7008AF5E0 /* AddTrainingRecordUseCase.swift */,
 				5FE726BD29DEC303008AF5E0 /* RemoveTrainingRecordsUseCase.swift */,
+				5FE726C529DF1B31008AF5E0 /* GoToTrainingRecordsUseCase.swift */,
+				5FE726C729DF5D2D008AF5E0 /* BackToLabelsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -320,7 +324,6 @@
 		5F3C91C329DC2F3400BA5A2D /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
-				5FE726C129DECD44008AF5E0 /* BigButton.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				5F3C922E29DDC4D700BA5A2D /* StorePublisher.swift in Sources */,
 				5F3C91F829DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift in Sources */,
 				5F3C91E029DC5EE500BA5A2D /* TrainingRecordsView.swift in Sources */,
+				5FE726C829DF5D2D008AF5E0 /* BackToLabelsUseCase.swift in Sources */,
 				5F3C922D29DDC4D700BA5A2D /* ActionDispatcher.swift in Sources */,
 				5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */,
 				5F3C922229DDBB5500BA5A2D /* PersistentStore.swift in Sources */,
@@ -626,7 +630,7 @@
 				5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */,
 				5FE726BA29DEC2E9008AF5E0 /* GetTrainingRecordsUseCase.swift in Sources */,
 				5F3C921329DD689B00BA5A2D /* AppState.swift in Sources */,
-				5FE726C229DECD44008AF5E0 /* BigButton.swift in Sources */,
+				5FE726C629DF1B31008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */,
 				5F3C922429DDBBCD00BA5A2D /* DiskManager.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
 				5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */,

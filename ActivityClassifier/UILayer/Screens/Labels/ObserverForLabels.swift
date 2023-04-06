@@ -30,6 +30,7 @@ class ObserverForLabels: Observer {
     
     labelsState
       .receive(on: DispatchQueue.main)
+      .removeDuplicates(by: LabelsState.sameCase)
       .sink { [weak self] state in
         self?.received(newState: state)
       }

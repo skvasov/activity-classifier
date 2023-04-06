@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TrainingRecord: Hashable, Equatable, Storable {
+struct TrainingRecord: Equatable, Storable {
   var name: String
   var numOfChildren: Int
   var content: Data? = nil

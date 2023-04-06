@@ -13,22 +13,30 @@ class LabelsViewModel: ObservableObject {
   @Published var isLoading = false
   @Published var isEditing = false
   @Published var isAddingNewLabel = false
+  @Published var presentedLabels: [TrainingLabel] = []
   
   private let observerForLabels: Observer
   private let getLabelsUseCase: UseCase
   private let addLabelUseCaseFactory: AddLabelUseCaseFactory
   private let removeLabelsUseCaseFactory: RemoveLabelsUseCaseFactory
+  private let goToTrainingRecordsUseCaseFactory: GoToTrainingRecordsUseCaseFactory
   
-  init(observerForLabels: Observer, getLabelsUseCase: UseCase, addLabelUseCaseFactory: @escaping AddLabelUseCaseFactory, removeLabelsUseCaseFactory: @escaping RemoveLabelsUseCaseFactory) {
+  init(observerForLabels: Observer, getLabelsUseCase: UseCase, addLabelUseCaseFactory: @escaping AddLabelUseCaseFactory, removeLabelsUseCaseFactory: @escaping RemoveLabelsUseCaseFactory, goToTrainingRecordsUseCaseFactory: @escaping GoToTrainingRecordsUseCaseFactory) {
     self.observerForLabels = observerForLabels
     self.getLabelsUseCase = getLabelsUseCase
     self.addLabelUseCaseFactory = addLabelUseCaseFactory
     self.removeLabelsUseCaseFactory = removeLabelsUseCaseFactory
+    self.goToTrainingRecordsUseCaseFactory = goToTrainingRecordsUseCaseFactory
   }
   
   func onAppear() {
     observerForLabels.startObserving()
     getLabelsUseCase.execute()
+  }
+  
+  func goToTrainingRecords(for index: Int) {
+    let useCase = goToTrainingRecordsUseCaseFactory(labels[index])
+    useCase.execute()
   }
   
   func export() {
@@ -69,9 +77,10 @@ class LabelsViewModel: ObservableObject {
 
 extension LabelsViewModel: ObserverForLabelsEventResponder {
   func received(newState state: LabelsState) {
-    labels = state.labels
+    labels = state.labels.sorted(by: { $0.name.compare($1.name) == .orderedAscending })
     isLoading = state.viewState.isLoading
     isEditing = state.viewState.isEditing
     isAddingNewLabel = state.viewState.isAddingNewLabel
+    presentedLabels = state.presentedLabels
   }
 }

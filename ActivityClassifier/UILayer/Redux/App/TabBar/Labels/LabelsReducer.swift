@@ -28,21 +28,29 @@ extension Reducers {
     case let action as LabelsActions.AddingLabelFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
-    case _ as LabelsActions.RemovingLabel:
+    case _ as LabelsActions.RemovingLabels:
       state.viewState.isLoading = true
-    case let action as LabelsActions.RemovedLabel:
+    case let action as LabelsActions.RemovedLabels:
       state.labels.removeAll { label in
         action.removedLabels.contains(label)
       }
       state.viewState.isLoading = false
-    case let action as LabelsActions.RemovingLabelFailed:
+    case let action as LabelsActions.RemovingLabelsFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
+    case let action as LabelsActions.GoToTrainingRecords:
+      state.trainingRecordsState = TrainingRecordsState(label: action.label, viewState: .init())
+      state.presentedLabels = [action.label]
+    case let _ as LabelsActions.BackToLabels:
+      state.trainingRecordsState = nil
+      state.presentedLabels = []
     default:
       break
     }
     
-    state.trainingRecordsState = trainingRecordsReducer(action: action, state: state.trainingRecordsState)
+    if let trainingRecordsState = state.trainingRecordsState {
+      state.trainingRecordsState = trainingRecordsReducer(action: action, state: trainingRecordsState)
+    }
     
     return state
   }

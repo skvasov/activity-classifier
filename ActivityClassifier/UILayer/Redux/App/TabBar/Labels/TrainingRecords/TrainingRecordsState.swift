@@ -8,6 +8,7 @@
 import Foundation
 
 struct TrainingRecordsState: Equatable {
+  let label: TrainingLabel
   var trainingRecords: [TrainingRecord] = []
   var viewState: TrainingRecordsViewState
   var errorsToPresent = Set<ErrorMessage>()

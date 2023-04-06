@@ -11,15 +11,13 @@ struct LabelsView: View {
   @EnvironmentObject var container: DIContainer
   @ObservedObject var model: LabelsViewModel
   @State private var newLabelName: String = ""
-  @State private var presentedLabels: [TrainingLabel] = []
-  
   
   init(model: LabelsViewModel) {
     self.model = model
   }
   
   var body: some View {
-    NavigationStack(path: $presentedLabels) {
+    NavigationStack(path: $model.presentedLabels) {
       Group {
         if model.isLoading {
           loadingView()
@@ -78,11 +76,14 @@ struct LabelsView: View {
   func contentView() -> some View {
     List {
       ForEach(Array(model.labels.enumerated()), id: \.offset) { index, label in
-        NavigationLink(value: label) {
+        Button {
+          model.goToTrainingRecords(for: index)
+        } label: {
           HStack {
             Text(label.name)
             Spacer()
             Text("(\(label.numOfChildren))")
+            Image(systemName: "chevron.right")
           }
         }
         .swipeActions(edge: .trailing) {

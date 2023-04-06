@@ -26,12 +26,18 @@ struct LabelsActions {
     let error: ErrorMessage
   }
   
-  struct RemovingLabel: Action {}
-  struct RemovedLabel: Action {
+  struct RemovingLabels: Action {}
+  struct RemovedLabels: Action {
     let removedLabels: [TrainingLabel]
   }
-  struct RemovingLabelFailed: Action {
+  struct RemovingLabelsFailed: Action {
     let error: ErrorMessage
   }
+  
+  struct GoToTrainingRecords: Action {
+    let label: TrainingLabel
+  }
+  
+  struct BackToLabels: Action {}
 }
 
