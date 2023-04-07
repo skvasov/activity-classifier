@@ -19,6 +19,13 @@ class DiskManager<T: Storable> {
 extension DiskManager: PersistentStore {
   func save(_ item: T) async throws {
     let url = folderURL.appending(path: item.name)
+    let path = url.path()
+    
+    guard
+      fileManager.fileExists(atPath: path, isDirectory: nil) == false
+    else {
+      throw PersistentStoreError.alreadyExists
+    }
     if type(of: item).canHaveChildren {
       try fileManager.createDirectory(atPath: url.path(), withIntermediateDirectories: true)
     } else {

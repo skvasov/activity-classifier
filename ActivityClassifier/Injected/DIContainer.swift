@@ -12,10 +12,16 @@ import Combine
 
 typealias AddLabelUseCaseFactory = (String) -> UseCase
 typealias RemoveLabelsUseCaseFactory = ([TrainingLabel]) -> UseCase
+typealias EditLabelsUseCaseFactory = () -> UseCase
+typealias CancelEditingLabelsUseCaseFactory = () -> UseCase
+typealias InputLabelNameUseCaseFactory = () -> UseCase
+typealias CancelInputtingLabelNameUseCaseFactory = () -> UseCase
 typealias GoToTrainingRecordsUseCaseFactory = (TrainingLabel) -> UseCase
 typealias TrainingDataRepositoryFactory = (URL) -> TrainingDataRepository
 typealias AddTrainingRecordUseCaseFactory = () -> UseCase
 typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
+typealias CloseLabelsErrorUseCaseFactory = () -> UseCase
+
 
 class DIContainer: ObservableObject {
   private let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
@@ -67,12 +73,33 @@ class DIContainer: ObservableObject {
         actionDispatcher: self.stateStore,
         label: label)
     }
+    let editLabelsUseCaseFactory = {
+      EditLabelsUseCase(actionDispatcher: self.stateStore)
+    }
+    let cancelEditingLabelsUseCaseFactory = {
+      CancelEditingLabelsUseCase(actionDispatcher: self.stateStore)
+    }
+    let inputLabelNameUseCaseFactory = {
+      InputLabelNameUseCase(actionDispatcher: self.stateStore)
+    }
+    let cancelInputtingLabelNameUseCaseFactory = {
+      CancelInputtingLabelNameUseCase(actionDispatcher: self.stateStore)
+    }
+    let closeLabelsErrorUseCaseFactory = {
+      CloseLabelsErrorUseCase(actionDispatcher: self.stateStore)
+    }
     let model = LabelsViewModel(
       observerForLabels: observerForLabels,
       getLabelsUseCase: getLabelsUseCase,
       addLabelUseCaseFactory: addLabelUseCaseFactory,
       removeLabelsUseCaseFactory: removeLabelsUseCaseFactory,
-      goToTrainingRecordsUseCaseFactory: goToTrainingRecordsUseCaseFactory)
+      goToTrainingRecordsUseCaseFactory: goToTrainingRecordsUseCaseFactory,
+      editLabelsUseCaseFactory: editLabelsUseCaseFactory,
+      cancelEditingLabelsUseCaseFactory: cancelEditingLabelsUseCaseFactory,
+      inputLabelNameUseCaseFactory: inputLabelNameUseCaseFactory,
+      cancelInputtingLabelNameUseCaseFactory: cancelInputtingLabelNameUseCaseFactory,
+      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory
+    )
     observerForLabels.eventResponder = model
     return LabelsView(model: model)
   }

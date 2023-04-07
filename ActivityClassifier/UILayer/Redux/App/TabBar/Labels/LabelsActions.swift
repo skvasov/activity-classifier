@@ -18,6 +18,9 @@ struct LabelsActions {
     let error: ErrorMessage
   }
   
+  struct InputLabelName: Action {}
+  struct CancelInputtingLabelName: Action {}
+  
   struct AddingLabel: Action {}
   struct AddedLabel: Action {
     let label: TrainingLabel
@@ -39,5 +42,17 @@ struct LabelsActions {
   }
   
   struct BackToLabels: Action {}
+  struct EditLabels: Action {}
+  struct CancelEditingLabels: Action {}
+  
+  struct ExportingTrainingData: Action {}
+  struct ExportedTrainingData: Action {
+    
+  }
+  struct ExportingTrainingDataFailed: Action {
+    let label: TrainingLabel
+  }
+  
+  struct CloseLabelsErrorUseCase: Action {}
 }
 

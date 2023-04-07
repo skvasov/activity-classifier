@@ -16,6 +16,10 @@ protocol Storable: Codable {
   init(name: String, numOfChildren: Int)
 }
 
+enum PersistentStoreError: Error {
+  case alreadyExists
+}
+
 protocol PersistentStore<Item> {
   associatedtype Item: Storable
   

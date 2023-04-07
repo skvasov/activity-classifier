@@ -12,7 +12,8 @@ class LabelsViewModel: ObservableObject {
   @Published var labels: [TrainingLabel] = []
   @Published var isLoading = false
   @Published var isEditing = false
-  @Published var isAddingNewLabel = false
+  @Published var isPresentingAlert = false
+  @Published var presentedAlert: AlertDetails = .init()
   @Published var presentedLabels: [TrainingLabel] = []
   
   private let observerForLabels: Observer
@@ -20,13 +21,34 @@ class LabelsViewModel: ObservableObject {
   private let addLabelUseCaseFactory: AddLabelUseCaseFactory
   private let removeLabelsUseCaseFactory: RemoveLabelsUseCaseFactory
   private let goToTrainingRecordsUseCaseFactory: GoToTrainingRecordsUseCaseFactory
+  private let editLabelsUseCaseFactory: EditLabelsUseCaseFactory
+  private let cancelEditingLabelsUseCaseFactory: CancelEditingLabelsUseCaseFactory
+  private let inputLabelNameUseCaseFactory: InputLabelNameUseCaseFactory
+  private let cancelInputtingLabelNameUseCaseFactory: CancelInputtingLabelNameUseCaseFactory
+  private let closeLabelsErrorUseCaseFactory: CloseLabelsErrorUseCaseFactory
   
-  init(observerForLabels: Observer, getLabelsUseCase: UseCase, addLabelUseCaseFactory: @escaping AddLabelUseCaseFactory, removeLabelsUseCaseFactory: @escaping RemoveLabelsUseCaseFactory, goToTrainingRecordsUseCaseFactory: @escaping GoToTrainingRecordsUseCaseFactory) {
+  
+  init(observerForLabels: Observer,
+       getLabelsUseCase: UseCase,
+       addLabelUseCaseFactory: @escaping AddLabelUseCaseFactory,
+       removeLabelsUseCaseFactory: @escaping RemoveLabelsUseCaseFactory,
+       goToTrainingRecordsUseCaseFactory: @escaping GoToTrainingRecordsUseCaseFactory,
+       editLabelsUseCaseFactory: @escaping EditLabelsUseCaseFactory,
+       cancelEditingLabelsUseCaseFactory: @escaping CancelEditingLabelsUseCaseFactory,
+       inputLabelNameUseCaseFactory: @escaping InputLabelNameUseCaseFactory,
+       cancelInputtingLabelNameUseCaseFactory: @escaping CancelInputtingLabelNameUseCaseFactory,
+       closeLabelsErrorUseCaseFactory: @escaping CloseLabelsErrorUseCaseFactory
+  ) {
     self.observerForLabels = observerForLabels
     self.getLabelsUseCase = getLabelsUseCase
     self.addLabelUseCaseFactory = addLabelUseCaseFactory
     self.removeLabelsUseCaseFactory = removeLabelsUseCaseFactory
     self.goToTrainingRecordsUseCaseFactory = goToTrainingRecordsUseCaseFactory
+    self.editLabelsUseCaseFactory = editLabelsUseCaseFactory
+    self.cancelEditingLabelsUseCaseFactory = cancelEditingLabelsUseCaseFactory
+    self.inputLabelNameUseCaseFactory = inputLabelNameUseCaseFactory
+    self.cancelInputtingLabelNameUseCaseFactory = cancelInputtingLabelNameUseCaseFactory
+    self.closeLabelsErrorUseCaseFactory = closeLabelsErrorUseCaseFactory
   }
   
   func onAppear() {
@@ -43,8 +65,9 @@ class LabelsViewModel: ObservableObject {
     
   }
   
-  func add() {
-    isAddingNewLabel = true
+  func addLabel() {
+    let useCase = inputLabelNameUseCaseFactory()
+    useCase.execute()
   }
   
   func save(labelName: String) {
@@ -52,12 +75,19 @@ class LabelsViewModel: ObservableObject {
     useCase.execute()
   }
   
+  func cancelLabelNameInput() {
+    let useCase = cancelInputtingLabelNameUseCaseFactory()
+    useCase.execute()
+  }
+  
   func edit() {
-    isEditing = true
+    let useCase = editLabelsUseCaseFactory()
+    useCase.execute()
   }
   
   func cancel() {
-    isEditing = false
+    let useCase = cancelEditingLabelsUseCaseFactory()
+    useCase.execute()
   }
   
   func removeAll() {
@@ -67,6 +97,11 @@ class LabelsViewModel: ObservableObject {
   
   func remove(at index: Int) {
     let useCase = removeLabelsUseCaseFactory([labels[index]])
+    useCase.execute()
+  }
+  
+  func finishPresentingError() {
+    let useCase = closeLabelsErrorUseCaseFactory()
     useCase.execute()
   }
   
@@ -80,7 +115,50 @@ extension LabelsViewModel: ObserverForLabelsEventResponder {
     labels = state.labels.sorted(by: { $0.name.compare($1.name) == .orderedAscending })
     isLoading = state.viewState.isLoading
     isEditing = state.viewState.isEditing
-    isAddingNewLabel = state.viewState.isAddingNewLabel
     presentedLabels = state.presentedLabels
+    if state.viewState.isAddingNewLabel {
+      isPresentingAlert = true
+      presentedAlert = makeNameInputAlert()
+    } else if let error = state.errorsToPresent.first {
+      isPresentingAlert = true
+      presentedAlert = makeAlert(with: error)
+    }
+    else {
+      isPresentingAlert = false
+    }
+  }
+  
+  private func makeNameInputAlert() -> AlertDetails {
+    var name = ""
+    let nameBinding: Binding<String> = .init {
+      name
+    } set: { newValue in
+      name = newValue
+    }
+    
+    return AlertDetails(
+      title: "Input label name",
+      messages: [],
+      textFields: [AlertDetails.TextField(placeholder: "Label name", text: nameBinding)],
+      buttons: [
+        AlertDetails.Button(title: "Cancel", isCancel: true, action: { [weak self] in
+          self?.cancelLabelNameInput()
+        }),
+        AlertDetails.Button(title: "Save", isCancel: false, action: { [weak self] in
+          self?.save(labelName: name)
+        })
+      ])
+  }
+  
+  private func makeAlert(with error: ErrorMessage) -> AlertDetails {
+    return AlertDetails(
+      title: "Error",
+      messages: [error.message],
+      textFields: [],
+      buttons: [
+        AlertDetails.Button(title: "OK", isCancel: true, action: { [weak self] in
+          self?.finishPresentingError()
+        })
+      ])
   }
 }

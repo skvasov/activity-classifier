@@ -34,7 +34,7 @@ struct LabelsView: View {
         if !model.isEditing {
           ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-              model.add()
+              model.addLabel()
             } label: {
               Image(systemName: "plus")
             }
@@ -62,13 +62,8 @@ struct LabelsView: View {
       .onAppear {
         model.onAppear()
       }
-      .alert("Input label name", isPresented: $model.isAddingNewLabel, actions: {
-        TextField("Label name", text: $newLabelName)
-        Button("Save", action: {
-          model.save(labelName: newLabelName)
-          newLabelName = ""
-        })
-        Button("Cancel", role: .cancel, action: {})
+      .alert(model.presentedAlert.title, isPresented: $model.isPresentingAlert, actions: {
+        model.presentedAlert.body
       })
     }
   }
