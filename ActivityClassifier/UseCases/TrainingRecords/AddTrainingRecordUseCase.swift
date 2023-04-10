@@ -20,7 +20,7 @@ class AddTrainingRecordUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.AddingTrainingRecord())
+      actionDispatcher.dispatch(TrainingRecordsActions.AddTrainingRecord())
       do {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

@@ -10,7 +10,7 @@ import ReSwift
 
 struct LabelsActions {
 
-  struct GettingLabels: Action {}
+  struct GetLabels: Action {}
   struct GotLabels: Action {
     let labels: [TrainingLabel]
   }
@@ -21,7 +21,7 @@ struct LabelsActions {
   struct InputLabelName: Action {}
   struct CancelInputtingLabelName: Action {}
   
-  struct AddingLabel: Action {}
+  struct AddLabel: Action {}
   struct AddedLabel: Action {
     let label: TrainingLabel
   }
@@ -29,7 +29,7 @@ struct LabelsActions {
     let error: ErrorMessage
   }
   
-  struct RemovingLabels: Action {}
+  struct RemoveLabels: Action {}
   struct RemovedLabels: Action {
     let removedLabels: [TrainingLabel]
   }
@@ -45,9 +45,8 @@ struct LabelsActions {
   struct EditLabels: Action {}
   struct CancelEditingLabels: Action {}
   
-  struct ExportingTrainingData: Action {}
+  struct ExportTrainingData: Action {}
   struct ExportedTrainingData: Action {
-    
   }
   struct ExportingTrainingDataFailed: Action {
     let label: TrainingLabel

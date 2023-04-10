@@ -20,7 +20,7 @@ class GetTrainingRecordsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.GettingTrainingRecords())
+      actionDispatcher.dispatch(TrainingRecordsActions.GetTrainingRecords())
       do {
         let trainingRecords = try await trainingDataRepository.getAllTrainingRecords(for: label)
         actionDispatcher.dispatch(TrainingRecordsActions.GotTrainingRecords(trainingRecords: trainingRecords))

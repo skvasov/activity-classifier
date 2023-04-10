@@ -12,7 +12,7 @@ extension Reducers {
     var state = state ?? LabelsState(viewState: LabelsViewState())
     
     switch action {
-    case _ as LabelsActions.GettingLabels:
+    case _ as LabelsActions.GetLabels:
       state.viewState.isLoading = true
     case let action as LabelsActions.GotLabels:
       state.labels = action.labels
@@ -20,7 +20,7 @@ extension Reducers {
     case let action as LabelsActions.GettingLabelsFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
-    case _ as LabelsActions.AddingLabel:
+    case _ as LabelsActions.AddLabel:
       state.viewState.isLoading = true
       state.viewState.isAddingNewLabel = false
       state.viewState.isEditing = false
@@ -34,7 +34,7 @@ extension Reducers {
       state.viewState.isAddingNewLabel = false
       state.viewState.isEditing = false
       state.errorsToPresent.insert(action.error)
-    case _ as LabelsActions.RemovingLabels:
+    case _ as LabelsActions.RemoveLabels:
       state.viewState.isLoading = true
       state.viewState.isAddingNewLabel = false
       state.viewState.isEditing = false

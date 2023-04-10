@@ -20,12 +20,12 @@ struct LabelsView: View {
     NavigationStack(path: $model.presentedLabels) {
       Group {
         if model.isLoading {
-          loadingView()
+          makeLoadingView()
         }
         else if model.labels.isEmpty {
-          emptyStateView()
+          makeEmptyStateView()
         } else {
-          contentView()
+          makeContentView()
         }
       }
       .navigationTitle("Labels")
@@ -68,7 +68,7 @@ struct LabelsView: View {
     }
   }
   
-  func contentView() -> some View {
+  func makeContentView() -> some View {
     List {
       ForEach(Array(model.labels.enumerated()), id: \.offset) { index, label in
         Button {
@@ -98,11 +98,11 @@ struct LabelsView: View {
     })
   }
   
-  func emptyStateView() -> some View {
+  func makeEmptyStateView() -> some View {
     Text("Tap + to add new labels")
   }
   
-  func loadingView() -> some View {
+  func makeLoadingView() -> some View {
     ProgressView("Loading...")
   }
 }

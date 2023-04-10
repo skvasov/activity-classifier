@@ -17,10 +17,14 @@ typealias CancelEditingLabelsUseCaseFactory = () -> UseCase
 typealias InputLabelNameUseCaseFactory = () -> UseCase
 typealias CancelInputtingLabelNameUseCaseFactory = () -> UseCase
 typealias GoToTrainingRecordsUseCaseFactory = (TrainingLabel) -> UseCase
+typealias CloseLabelsErrorUseCaseFactory = () -> UseCase
 typealias TrainingDataRepositoryFactory = (URL) -> TrainingDataRepository
+
 typealias AddTrainingRecordUseCaseFactory = () -> UseCase
 typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
-typealias CloseLabelsErrorUseCaseFactory = () -> UseCase
+typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
+typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
+typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
 
 
 class DIContainer: ObservableObject {
@@ -125,13 +129,26 @@ class DIContainer: ObservableObject {
         trainingDataRepository: self.trainingDataRepository)
     }
     let backToLabelsUseCase = BackToLabelsUseCase(actionDispatcher: stateStore)
+    let editTrainingRecordsUseCaseFactory = {
+      EditTrainingRecordsUseCase(actionDispatcher: self.stateStore)
+    }
+    let cancelEditingTrainingRecordsUseCaseFactory = {
+      CancelEditingTrainingRecordsUseCase(actionDispatcher: self.stateStore)
+    }
+    let closeTrainingRecordsErrorUseCaseFactory = {
+      CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
+    }
     let model = trainingRecordsModels[label] ?? TrainingRecordsViewModel(
       label: label,
       observerForTrainingRecords: observerForLabels,
       getTrainingRecordsUseCase: getTrainingRecordsUseCase,
       addTrainingRecordUseCaseFactory: addTrainingRecordUseCaseFactory,
       removeTrainingRecordsUseCaseFactory: removeTrainingRecordsUseCaseFactory,
-      backToLabelsUseCase: backToLabelsUseCase)
+      backToLabelsUseCase: backToLabelsUseCase,
+      editTrainingRecordsUseCaseFactory: editTrainingRecordsUseCaseFactory,
+      cancelEditingTrainingRecordsUseCaseFactory: cancelEditingTrainingRecordsUseCaseFactory,
+      closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory
+    )
     observerForLabels.eventResponder = model
     trainingRecordsModels.removeAll()
     trainingRecordsModels[label] = model

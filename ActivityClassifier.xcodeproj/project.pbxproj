@@ -46,6 +46,13 @@
 		5F3C922F29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */; };
 		5F3C923129DDC53B00BA5A2D /* TrainingDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C923029DDC53B00BA5A2D /* TrainingDataRepository.swift */; };
 		5F3C923329DDD52A00BA5A2D /* TrainingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */; };
+		5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */; };
+		5FB1A4ED29E40E7C00A2220A /* GetTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */; };
+		5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */; };
+		5FB1A4EF29E40E7C00A2220A /* BackToLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4EB29E40E7C00A2220A /* BackToLabelsUseCase.swift */; };
+		5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */; };
+		5FB1A4F329E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */; };
+		5FB1A4F529E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */; };
 		5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */; };
 		5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */; };
 		5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */; };
@@ -56,12 +63,8 @@
 		5FE726DC29E0207F008AF5E0 /* ExportTrainingDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D129E0207F008AF5E0 /* ExportTrainingDataUseCase.swift */; };
 		5FE726DD29E0207F008AF5E0 /* AddLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D229E0207F008AF5E0 /* AddLabelUseCase.swift */; };
 		5FE726DE29E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D329E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift */; };
-		5FE726DF29E0207F008AF5E0 /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D429E0207F008AF5E0 /* AddTrainingRecordUseCase.swift */; };
 		5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D529E0207F008AF5E0 /* RemoveLabelsUseCase.swift */; };
-		5FE726E129E0207F008AF5E0 /* GetTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D629E0207F008AF5E0 /* GetTrainingRecordsUseCase.swift */; };
 		5FE726E229E0207F008AF5E0 /* EditLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D729E0207F008AF5E0 /* EditLabelsUseCase.swift */; };
-		5FE726E329E0207F008AF5E0 /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D829E0207F008AF5E0 /* RemoveTrainingRecordsUseCase.swift */; };
-		5FE726E429E0207F008AF5E0 /* BackToLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726D929E0207F008AF5E0 /* BackToLabelsUseCase.swift */; };
 		5FE726E529E0207F008AF5E0 /* GetLabelsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726DA29E0207F008AF5E0 /* GetLabelsUseCase.swift */; };
 		5FE726E729E023C6008AF5E0 /* InputLabelNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726E629E023C6008AF5E0 /* InputLabelNameUseCase.swift */; };
 		5FE726E929E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726E829E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift */; };
@@ -128,6 +131,13 @@
 		5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPrinterMiddleware.swift; sourceTree = "<group>"; };
 		5F3C923029DDC53B00BA5A2D /* TrainingDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDataRepository.swift; sourceTree = "<group>"; };
 		5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecord.swift; sourceTree = "<group>"; };
+		5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4EB29E40E7C00A2220A /* BackToLabelsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackToLabelsUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelEditingTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTrainingRecordsErrorUseCase.swift; sourceTree = "<group>"; };
 		5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsViewModel.swift; sourceTree = "<group>"; };
 		5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecords.swift; sourceTree = "<group>"; };
 		5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecordsEventResponder.swift; sourceTree = "<group>"; };
@@ -138,12 +148,8 @@
 		5FE726D129E0207F008AF5E0 /* ExportTrainingDataUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportTrainingDataUseCase.swift; sourceTree = "<group>"; };
 		5FE726D229E0207F008AF5E0 /* AddLabelUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLabelUseCase.swift; sourceTree = "<group>"; };
 		5FE726D329E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoToTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
-		5FE726D429E0207F008AF5E0 /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
 		5FE726D529E0207F008AF5E0 /* RemoveLabelsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveLabelsUseCase.swift; sourceTree = "<group>"; };
-		5FE726D629E0207F008AF5E0 /* GetTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FE726D729E0207F008AF5E0 /* EditLabelsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditLabelsUseCase.swift; sourceTree = "<group>"; };
-		5FE726D829E0207F008AF5E0 /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
-		5FE726D929E0207F008AF5E0 /* BackToLabelsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackToLabelsUseCase.swift; sourceTree = "<group>"; };
 		5FE726DA29E0207F008AF5E0 /* GetLabelsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetLabelsUseCase.swift; sourceTree = "<group>"; };
 		5FE726E629E023C6008AF5E0 /* InputLabelNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputLabelNameUseCase.swift; sourceTree = "<group>"; };
 		5FE726E829E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelInputtingLabelNameUseCase.swift; sourceTree = "<group>"; };
@@ -256,6 +262,7 @@
 			children = (
 				5F3C91F929DD571900BA5A2D /* UseCase.swift */,
 				5FE726CF29E0207F008AF5E0 /* Labels */,
+				5FB1A4E729E40E7C00A2220A /* TrainingRecords */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -464,6 +471,20 @@
 			path = Redux;
 			sourceTree = "<group>";
 		};
+		5FB1A4E729E40E7C00A2220A /* TrainingRecords */ = {
+			isa = PBXGroup;
+			children = (
+				5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */,
+				5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */,
+				5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */,
+				5FB1A4EB29E40E7C00A2220A /* BackToLabelsUseCase.swift */,
+				5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */,
+				5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */,
+				5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */,
+			);
+			path = TrainingRecords;
+			sourceTree = "<group>";
+		};
 		5FE726CF29E0207F008AF5E0 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,12 +492,8 @@
 				5FE726D129E0207F008AF5E0 /* ExportTrainingDataUseCase.swift */,
 				5FE726D229E0207F008AF5E0 /* AddLabelUseCase.swift */,
 				5FE726D329E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift */,
-				5FE726D429E0207F008AF5E0 /* AddTrainingRecordUseCase.swift */,
 				5FE726D529E0207F008AF5E0 /* RemoveLabelsUseCase.swift */,
-				5FE726D629E0207F008AF5E0 /* GetTrainingRecordsUseCase.swift */,
 				5FE726D729E0207F008AF5E0 /* EditLabelsUseCase.swift */,
-				5FE726D829E0207F008AF5E0 /* RemoveTrainingRecordsUseCase.swift */,
-				5FE726D929E0207F008AF5E0 /* BackToLabelsUseCase.swift */,
 				5FE726DA29E0207F008AF5E0 /* GetLabelsUseCase.swift */,
 				5FE726E629E023C6008AF5E0 /* InputLabelNameUseCase.swift */,
 				5FE726E829E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift */,
@@ -633,28 +650,31 @@
 				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
 				5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */,
 				5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */,
+				5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */,
 				5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */,
 				5FE726B829DEC2A3008AF5E0 /* TrainingRecordsState.swift in Sources */,
 				5FE726E929E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift in Sources */,
 				5F3C91EA29DD44C300BA5A2D /* ObserverForLabels.swift in Sources */,
 				5F3C91FA29DD571900BA5A2D /* UseCase.swift in Sources */,
-				5FE726E129E0207F008AF5E0 /* GetTrainingRecordsUseCase.swift in Sources */,
 				5F3C923329DDD52A00BA5A2D /* TrainingRecord.swift in Sources */,
+				5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */,
 				5FE726DB29E0207F008AF5E0 /* CancelEditingLabelsUseCase.swift in Sources */,
 				5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */,
 				5F3C921929DD689B00BA5A2D /* LabelsState.swift in Sources */,
-				5FE726E329E0207F008AF5E0 /* RemoveTrainingRecordsUseCase.swift in Sources */,
 				5FE726E529E0207F008AF5E0 /* GetLabelsUseCase.swift in Sources */,
 				5F3C922E29DDC4D700BA5A2D /* StorePublisher.swift in Sources */,
 				5F3C91F829DD545D00BA5A2D /* ObserverForLabelsEventResponder.swift in Sources */,
 				5F3C91E029DC5EE500BA5A2D /* TrainingRecordsView.swift in Sources */,
+				5FB1A4ED29E40E7C00A2220A /* GetTrainingRecordsUseCase.swift in Sources */,
 				5F3C922D29DDC4D700BA5A2D /* ActionDispatcher.swift in Sources */,
 				5FE726ED29E074DA008AF5E0 /* AlertDetails.swift in Sources */,
 				5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */,
 				5F3C922229DDBB5500BA5A2D /* PersistentStore.swift in Sources */,
-				5FE726DF29E0207F008AF5E0 /* AddTrainingRecordUseCase.swift in Sources */,
+				5FB1A4F529E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift in Sources */,
 				5F3C91F629DD4EE800BA5A2D /* ScopedState.swift in Sources */,
+				5FB1A4EF29E40E7C00A2220A /* BackToLabelsUseCase.swift in Sources */,
 				5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */,
+				5FB1A4F329E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift in Sources */,
 				5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */,
 				5F3C922F29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift in Sources */,
 				5FE726DD29E0207F008AF5E0 /* AddLabelUseCase.swift in Sources */,
@@ -668,13 +688,13 @@
 				5F3C922429DDBBCD00BA5A2D /* DiskManager.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
 				5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */,
+				5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */,
 				5FE726DE29E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */,
 				5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */,
 				5F3C922C29DDC4D700BA5A2D /* ErrorMessage.swift in Sources */,
 				5F3C921529DD689B00BA5A2D /* TabBarState.swift in Sources */,
 				5FE726EB29E0731D008AF5E0 /* CloseLabelsErrorUseCase.swift in Sources */,
 				5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */,
-				5FE726E429E0207F008AF5E0 /* BackToLabelsUseCase.swift in Sources */,
 				5F3C921B29DD689B00BA5A2D /* TabBarGetters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

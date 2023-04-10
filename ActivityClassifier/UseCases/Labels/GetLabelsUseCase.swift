@@ -18,7 +18,7 @@ class GetLabelsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.GettingLabels())
+      actionDispatcher.dispatch(LabelsActions.GetLabels())
       do {
         let labels = try await trainingDataRepository.getAllLabels()
         actionDispatcher.dispatch(LabelsActions.GotLabels(labels: labels))

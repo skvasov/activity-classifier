@@ -22,7 +22,7 @@ class RemoveTrainingRecordsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.RemovingTrainingRecords())
+      actionDispatcher.dispatch(TrainingRecordsActions.RemoveTrainingRecords())
       do {
         try await trainingDataRepository.removeTrainingRecords(trainingRecords, for: label)
         actionDispatcher.dispatch(TrainingRecordsActions.RemovedTrainingRecords(removedTrainingRecords: trainingRecords))

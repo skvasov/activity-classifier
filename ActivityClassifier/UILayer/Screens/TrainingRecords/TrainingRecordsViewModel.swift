@@ -13,6 +13,8 @@ class TrainingRecordsViewModel: ObservableObject {
   @Published var isLoading = false
   @Published var isEditing = false
   @Published var isAddingNewRecord = false
+  @Published var isPresentingAlert = false
+  @Published var presentedAlert: AlertDetails = .init()
   var title: String { label.name }
   
   private let label: TrainingLabel
@@ -21,14 +23,30 @@ class TrainingRecordsViewModel: ObservableObject {
   private let addTrainingRecordUseCaseFactory: AddTrainingRecordUseCaseFactory
   private let removeTrainingRecordsUseCaseFactory: RemoveTrainingRecordsUseCaseFactory
   private let backToLabelsUseCase: UseCase
+  private let editTrainingRecordsUseCaseFactory: EditTrainingRecordsUseCaseFactory
+  private let cancelEditingTrainingRecordsUseCaseFactory: CancelEditingTrainingRecordsUseCaseFactory
+  private let closeTrainingRecordsErrorUseCaseFactory: CloseTrainingRecordsErrorUseCaseFactory
   
-  init(label: TrainingLabel, observerForTrainingRecords: Observer, getTrainingRecordsUseCase: UseCase, addTrainingRecordUseCaseFactory: @escaping AddTrainingRecordUseCaseFactory, removeTrainingRecordsUseCaseFactory: @escaping RemoveTrainingRecordsUseCaseFactory, backToLabelsUseCase: UseCase) {
+  init(
+    label: TrainingLabel,
+    observerForTrainingRecords: Observer,
+    getTrainingRecordsUseCase: UseCase,
+    addTrainingRecordUseCaseFactory: @escaping AddTrainingRecordUseCaseFactory,
+    removeTrainingRecordsUseCaseFactory: @escaping RemoveTrainingRecordsUseCaseFactory,
+    backToLabelsUseCase: UseCase,
+    editTrainingRecordsUseCaseFactory: @escaping EditTrainingRecordsUseCaseFactory,
+    cancelEditingTrainingRecordsUseCaseFactory: @escaping CancelEditingTrainingRecordsUseCaseFactory,
+    closeTrainingRecordsErrorUseCaseFactory: @escaping CloseTrainingRecordsErrorUseCaseFactory
+  ) {
     self.label = label
     self.observerForTrainingRecords = observerForTrainingRecords
     self.getTrainingRecordsUseCase = getTrainingRecordsUseCase
     self.addTrainingRecordUseCaseFactory = addTrainingRecordUseCaseFactory
     self.removeTrainingRecordsUseCaseFactory = removeTrainingRecordsUseCaseFactory
     self.backToLabelsUseCase = backToLabelsUseCase
+    self.editTrainingRecordsUseCaseFactory = editTrainingRecordsUseCaseFactory
+    self.cancelEditingTrainingRecordsUseCaseFactory = cancelEditingTrainingRecordsUseCaseFactory
+    self.closeTrainingRecordsErrorUseCaseFactory = closeTrainingRecordsErrorUseCaseFactory
   }
   
   func onAppear() {
@@ -37,17 +55,18 @@ class TrainingRecordsViewModel: ObservableObject {
   }
   
   func add() {
-    isAddingNewRecord = true
     let useCase = addTrainingRecordUseCaseFactory()
     useCase.execute()
   }
   
   func edit() {
-    isEditing = true
+    let useCase = editTrainingRecordsUseCaseFactory()
+    useCase.execute()
   }
   
   func cancel() {
-    isEditing = false
+    let useCase = cancelEditingTrainingRecordsUseCaseFactory()
+    useCase.execute()
   }
   
   func removeAll() {
@@ -64,6 +83,11 @@ class TrainingRecordsViewModel: ObservableObject {
     useCase.execute()
   }
   
+  func finishPresentingError() {
+    let useCase = closeTrainingRecordsErrorUseCaseFactory()
+    useCase.execute()
+  }
+  
   deinit {
     observerForTrainingRecords.stopObserving()
   }
@@ -75,5 +99,12 @@ extension TrainingRecordsViewModel: ObserverForTrainingRecordsEventResponder {
     isLoading = state.viewState.isLoading
     isEditing = state.viewState.isEditing
     isAddingNewRecord = state.viewState.isAddingNewRecord
+    if let error = state.errorsToPresent.first {
+      isPresentingAlert = true
+      presentedAlert = .init(error: error, completion: finishPresentingError)
+    }
+    else {
+      isPresentingAlert = false
+    }
   }
 }

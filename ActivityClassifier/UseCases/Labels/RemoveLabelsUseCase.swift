@@ -20,7 +20,7 @@ class RemoveLabelsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.RemovingLabels())
+      actionDispatcher.dispatch(LabelsActions.RemoveLabels())
       do {
         try await trainingDataRepository.removeLabels(labels)
         actionDispatcher.dispatch(LabelsActions.RemovedLabels(removedLabels: labels))

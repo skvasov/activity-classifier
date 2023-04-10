@@ -45,5 +45,16 @@ extension AlertDetails {
     self.textFields = []
     self.buttons = []
   }
+  
+  init(error: ErrorMessage, completion: @escaping () -> Void) {
+    self.title = "Error"
+    self.messages = [error.message]
+    self.textFields = []
+    self.buttons = [
+      AlertDetails.Button(title: "OK", isCancel: true, action: {
+        completion()
+      })
+    ]
+  }
 }
 

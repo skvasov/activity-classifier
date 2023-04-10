@@ -13,7 +13,7 @@ extension Reducers {
     var state = state
     
     switch action {
-    case _ as TrainingRecordsActions.GettingTrainingRecords:
+    case _ as TrainingRecordsActions.GetTrainingRecords:
       state.viewState.isLoading = true
     case let action as TrainingRecordsActions.GotTrainingRecords:
       state.trainingRecords = action.trainingRecords
@@ -21,24 +21,41 @@ extension Reducers {
     case let action as TrainingRecordsActions.GettingTrainingRecordsFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
-    case _ as TrainingRecordsActions.AddingTrainingRecord:
-      state.viewState.isLoading = true
+    case _ as TrainingRecordsActions.AddTrainingRecord:
+      state.viewState.isAddingNewRecord = true
+      state.viewState.isEditing = false
     case let action as TrainingRecordsActions.AddedTrainingRecord:
       state.trainingRecords.append(action.trainingRecord)
+      state.viewState.isAddingNewRecord = false
       state.viewState.isLoading = false
+      state.viewState.isEditing = false
     case let action as TrainingRecordsActions.AddingTrainingRecordFailed:
       state.viewState.isLoading = false
+      state.viewState.isAddingNewRecord = false
+      state.viewState.isEditing = false
       state.errorsToPresent.insert(action.error)
-    case _ as TrainingRecordsActions.RemovingTrainingRecords:
+    case _ as TrainingRecordsActions.RemoveTrainingRecords:
       state.viewState.isLoading = true
+      state.viewState.isAddingNewRecord = false
+      state.viewState.isEditing = false
     case let action as TrainingRecordsActions.RemovedTrainingRecords:
-      state.trainingRecords.removeAll { record in
-        action.removedTrainingRecords.contains(record)
+      state.trainingRecords.removeAll { label in
+        action.removedTrainingRecords.contains(label)
       }
       state.viewState.isLoading = false
+      state.viewState.isAddingNewRecord = false
     case let action as TrainingRecordsActions.RemovingTrainingRecordsFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
+    case _ as TrainingRecordsActions.EditTrainingRecords:
+      state.viewState.isEditing = true
+      state.viewState.isAddingNewRecord = false
+    case _ as TrainingRecordsActions.CancelEditingTrainingRecords:
+      state.viewState.isEditing = false
+      state.viewState.isAddingNewRecord = false
+    case _ as TrainingRecordsActions.CloseTrainingRecordsErrorUseCase:
+      state.errorsToPresent.removeFirst()
+      
     default:
       break
     }

@@ -121,7 +121,7 @@ extension LabelsViewModel: ObserverForLabelsEventResponder {
       presentedAlert = makeNameInputAlert()
     } else if let error = state.errorsToPresent.first {
       isPresentingAlert = true
-      presentedAlert = makeAlert(with: error)
+      presentedAlert = .init(error: error, completion: finishPresentingError)
     }
     else {
       isPresentingAlert = false
@@ -146,18 +146,6 @@ extension LabelsViewModel: ObserverForLabelsEventResponder {
         }),
         AlertDetails.Button(title: "Save", isCancel: false, action: { [weak self] in
           self?.save(labelName: name)
-        })
-      ])
-  }
-  
-  private func makeAlert(with error: ErrorMessage) -> AlertDetails {
-    return AlertDetails(
-      title: "Error",
-      messages: [error.message],
-      textFields: [],
-      buttons: [
-        AlertDetails.Button(title: "OK", isCancel: true, action: { [weak self] in
-          self?.finishPresentingError()
         })
       ])
   }

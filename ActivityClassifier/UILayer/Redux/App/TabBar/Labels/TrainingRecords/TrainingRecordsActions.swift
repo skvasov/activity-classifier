@@ -10,7 +10,7 @@ import ReSwift
 
 struct TrainingRecordsActions {
 
-  struct GettingTrainingRecords: Action {}
+  struct GetTrainingRecords: Action {}
   struct GotTrainingRecords: Action {
     let trainingRecords: [TrainingRecord]
   }
@@ -18,7 +18,7 @@ struct TrainingRecordsActions {
     let error: ErrorMessage
   }
   
-  struct AddingTrainingRecord: Action {}
+  struct AddTrainingRecord: Action {}
   struct AddedTrainingRecord: Action {
     let trainingRecord: TrainingRecord
   }
@@ -26,12 +26,17 @@ struct TrainingRecordsActions {
     let error: ErrorMessage
   }
   
-  struct RemovingTrainingRecords: Action {}
+  struct RemoveTrainingRecords: Action {}
   struct RemovedTrainingRecords: Action {
     let removedTrainingRecords: [TrainingRecord]
   }
   struct RemovingTrainingRecordsFailed: Action {
     let error: ErrorMessage
   }
+  
+  struct EditTrainingRecords: Action {}
+  struct CancelEditingTrainingRecords: Action {}
+  
+  struct CloseTrainingRecordsErrorUseCase: Action {}
 }
 

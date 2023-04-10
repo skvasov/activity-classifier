@@ -20,7 +20,7 @@ class AddLabelUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.AddingLabel())
+      actionDispatcher.dispatch(LabelsActions.AddLabel())
       do {
         let label = TrainingLabel(name: labelName, numOfChildren: 0)
         try await trainingDataRepository.addLabel(label)

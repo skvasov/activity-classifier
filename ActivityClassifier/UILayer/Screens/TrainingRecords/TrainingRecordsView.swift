@@ -17,12 +17,12 @@ struct TrainingRecordsView: View {
   var body: some View {
     Group {
       if model.isLoading {
-        loadingView()
+        makeLoadingView()
       }
       else if model.trainingRecords.isEmpty {
-        emptyStateView()
+        makeEmptyStateView()
       } else {
-        contentView()
+        makeContentView()
       }
     }
     .navigationTitle(model.title)
@@ -49,9 +49,13 @@ struct TrainingRecordsView: View {
     .onAppear {
       model.onAppear()
     }
+    .alert(model.presentedAlert.title, isPresented: $model.isPresentingAlert, actions: {
+      model.presentedAlert.body
+    })
+    .disabled(model.isAddingNewRecord)
   }
   
-  func contentView() -> some View {
+  func makeContentView() -> some View {
     VStack {
       List {
         ForEach(Array(model.trainingRecords.enumerated()), id: \.offset) { index, trainingRecord in
@@ -70,23 +74,29 @@ struct TrainingRecordsView: View {
           }
         }
       }
-      Button("Record") {
-        model.add()
+      .safeAreaInset(edge: .bottom) {
+        makeRecordButton()
+        .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
       }
     }
   }
   
-  func emptyStateView() -> some View {
+  func makeEmptyStateView() -> some View {
     VStack {
-      Text("Tap Record to add new records")
-      Button("Record") {
-        model.add()
-      }
+      Text("Tap Record to add a new record")
+      makeRecordButton()
     }
   }
   
-  func loadingView() -> some View {
+  func makeLoadingView() -> some View {
     ProgressView("Loading...")
+  }
+  
+  func makeRecordButton() -> some View {
+    Button(model.isAddingNewRecord ? "Recording..." : "Record") {
+      model.add()
+    }
+    .buttonStyle(BorderedProminentButtonStyle())
   }
 }
 
