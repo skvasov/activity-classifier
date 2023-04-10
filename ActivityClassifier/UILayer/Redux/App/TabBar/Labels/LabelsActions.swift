@@ -47,6 +47,7 @@ struct LabelsActions {
   
   struct ExportTrainingData: Action {}
   struct ExportedTrainingData: Action {
+    let data: Data
   }
   struct ExportingTrainingDataFailed: Action {
     let label: TrainingLabel

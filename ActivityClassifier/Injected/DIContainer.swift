@@ -33,14 +33,18 @@ class DIContainer: ObservableObject {
   private let tabBarGetters: TabBarGetters
   private let labelsGetters: LabelsGetters
   private let trainingDataRepository: TrainingDataRepository = {
-    let folderURL = URL.documentsDirectory
+    let folderURL = URL.trainingDataDirectory
     let labelsStore = DiskManager<TrainingLabel>(folderURL: folderURL)
     let recordsStoreFactory: RecordsStoreFactory = { (storable: Storable) in
       DiskManager(folderURL: folderURL.appending(path: storable.name))
     }
+    let motionManagerFactory: MotionManagerFactory = {
+      RealMotionManager.shared
+    }
     return RealTrainingDataRepository(
       labelsStore: labelsStore,
-      recordsStoreFactory: recordsStoreFactory)
+      recordsStoreFactory: recordsStoreFactory,
+      motionManagerFactory: motionManagerFactory)
   }()
   
   private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
@@ -102,7 +106,8 @@ class DIContainer: ObservableObject {
       cancelEditingLabelsUseCaseFactory: cancelEditingLabelsUseCaseFactory,
       inputLabelNameUseCaseFactory: inputLabelNameUseCaseFactory,
       cancelInputtingLabelNameUseCaseFactory: cancelInputtingLabelNameUseCaseFactory,
-      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory
+      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory,
+      archiver: Archiver(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive)
     )
     observerForLabels.eventResponder = model
     return LabelsView(model: model)

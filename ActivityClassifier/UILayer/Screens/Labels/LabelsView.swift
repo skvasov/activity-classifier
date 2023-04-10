@@ -54,7 +54,10 @@ struct LabelsView: View {
             } label: {
               model.isEditing
               ? AnyView(Text("Remove all"))
-              : AnyView(Image(systemName: "square.and.arrow.up"))
+              : AnyView(
+                ShareLink(item: model.archiver, preview: SharePreview(Text("ZIP archive"))) {
+                  Image(systemName: "square.and.arrow.up")
+                })
             }
           }
         }

@@ -53,6 +53,10 @@
 		5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */; };
 		5FB1A4F329E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */; };
 		5FB1A4F529E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */; };
+		5FB1A4F829E41E3500A2220A /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F729E41E3500A2220A /* MotionManager.swift */; };
+		5FB1A4FA29E43BC000A2220A /* DeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F929E43BC000A2220A /* DeviceMotion.swift */; };
+		5FB1A4FC29E44DA500A2220A /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4FB29E44DA500A2220A /* URL+Ext.swift */; };
+		5FB1A50329E4877D00A2220A /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A50229E4877D00A2220A /* Archiver.swift */; };
 		5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */; };
 		5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */; };
 		5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */; };
@@ -138,6 +142,11 @@
 		5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelEditingTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTrainingRecordsErrorUseCase.swift; sourceTree = "<group>"; };
+		5FB1A4F729E41E3500A2220A /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		5FB1A4F929E43BC000A2220A /* DeviceMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMotion.swift; sourceTree = "<group>"; };
+		5FB1A4FB29E44DA500A2220A /* URL+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
+		5FB1A50129E4832200A2220A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5FB1A50229E4877D00A2220A /* Archiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archiver.swift; sourceTree = "<group>"; };
 		5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsViewModel.swift; sourceTree = "<group>"; };
 		5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecords.swift; sourceTree = "<group>"; };
 		5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecordsEventResponder.swift; sourceTree = "<group>"; };
@@ -206,6 +215,7 @@
 		5F3C917929DC28FE00BA5A2D /* ActivityClassifier */ = {
 			isa = PBXGroup;
 			children = (
+				5FB1A50129E4832200A2220A /* Info.plist */,
 				5F3C91BA29DC2F3400BA5A2D /* DataLayer */,
 				5F3C91AB29DC2ACE00BA5A2D /* Injected */,
 				5F3C91AD29DC2ACE00BA5A2D /* Resources */,
@@ -237,6 +247,7 @@
 		5F3C91AA29DC2ACE00BA5A2D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5FB1A50229E4877D00A2220A /* Archiver.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -270,6 +281,7 @@
 		5F3C91BA29DC2F3400BA5A2D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5FB1A4F629E41E2A00A2220A /* Managers */,
 				5F3C91BB29DC2F3400BA5A2D /* Repositories */,
 				5F3C91BC29DC2F3400BA5A2D /* Models */,
 				5F3C91BD29DC2F3400BA5A2D /* Persistance */,
@@ -290,6 +302,7 @@
 			children = (
 				5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */,
 				5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */,
+				5FB1A4F929E43BC000A2220A /* DeviceMotion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -346,6 +359,7 @@
 		5F3C91C429DC2F3400BA5A2D /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				5FB1A4FB29E44DA500A2220A /* URL+Ext.swift */,
 				5F3C922629DDC4D700BA5A2D /* ErrorMessage.swift */,
 				5F3C922529DDC4D700BA5A2D /* Observer.swift */,
 				5F3C922729DDC4D700BA5A2D /* Redux */,
@@ -483,6 +497,14 @@
 				5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */,
 			);
 			path = TrainingRecords;
+			sourceTree = "<group>";
+		};
+		5FB1A4F629E41E2A00A2220A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5FB1A4F729E41E3500A2220A /* MotionManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		5FE726CF29E0207F008AF5E0 /* Labels */ = {
@@ -645,12 +667,14 @@
 				5FE726E229E0207F008AF5E0 /* EditLabelsUseCase.swift in Sources */,
 				5FE726E729E023C6008AF5E0 /* InputLabelNameUseCase.swift in Sources */,
 				5F3C923129DDC53B00BA5A2D /* TrainingDataRepository.swift in Sources */,
+				5FB1A50329E4877D00A2220A /* Archiver.swift in Sources */,
 				5FE726DC29E0207F008AF5E0 /* ExportTrainingDataUseCase.swift in Sources */,
 				5FE726C429DECFFF008AF5E0 /* TrainingRecordsReducer.swift in Sources */,
 				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
 				5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */,
 				5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */,
 				5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */,
+				5FB1A4FA29E43BC000A2220A /* DeviceMotion.swift in Sources */,
 				5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */,
 				5FE726B829DEC2A3008AF5E0 /* TrainingRecordsState.swift in Sources */,
 				5FE726E929E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift in Sources */,
@@ -688,6 +712,8 @@
 				5F3C922429DDBBCD00BA5A2D /* DiskManager.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
 				5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */,
+				5FB1A4FC29E44DA500A2220A /* URL+Ext.swift in Sources */,
+				5FB1A4F829E41E3500A2220A /* MotionManager.swift in Sources */,
 				5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */,
 				5FE726DE29E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */,
 				5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */,
@@ -857,11 +883,14 @@
 				DEVELOPMENT_TEAM = D249BKW3TA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ActivityClassifier/Info.plist;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Collect motion data to identify and classify activities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = accelerometer;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -887,11 +916,14 @@
 				DEVELOPMENT_TEAM = D249BKW3TA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ActivityClassifier/Info.plist;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Collect motion data to identify and classify activities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = accelerometer;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

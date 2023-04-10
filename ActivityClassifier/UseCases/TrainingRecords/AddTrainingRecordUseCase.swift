@@ -24,8 +24,12 @@ class AddTrainingRecordUseCase: UseCase {
       do {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let name = dateFormatter.string(from: Date())
-        let trainingRecord = TrainingRecord(name: name, numOfChildren: 0)
+        let name = dateFormatter.string(from: Date()) + ".json"
+        
+        let motions = try await trainingDataRepository.getDeviceMotion(for: 2, with: 50)
+        let data = try JSONEncoder().encode(motions)
+        
+        let trainingRecord = TrainingRecord(name: name, numOfChildren: 0, content: data)
         try await trainingDataRepository.addTrainingRecord(trainingRecord, for: label)
         actionDispatcher.dispatch(TrainingRecordsActions.AddedTrainingRecord(trainingRecord: trainingRecord))
       }

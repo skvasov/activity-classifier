@@ -15,6 +15,7 @@ class LabelsViewModel: ObservableObject {
   @Published var isPresentingAlert = false
   @Published var presentedAlert: AlertDetails = .init()
   @Published var presentedLabels: [TrainingLabel] = []
+  let archiver: Archiver
   
   private let observerForLabels: Observer
   private let getLabelsUseCase: UseCase
@@ -37,7 +38,8 @@ class LabelsViewModel: ObservableObject {
        cancelEditingLabelsUseCaseFactory: @escaping CancelEditingLabelsUseCaseFactory,
        inputLabelNameUseCaseFactory: @escaping InputLabelNameUseCaseFactory,
        cancelInputtingLabelNameUseCaseFactory: @escaping CancelInputtingLabelNameUseCaseFactory,
-       closeLabelsErrorUseCaseFactory: @escaping CloseLabelsErrorUseCaseFactory
+       closeLabelsErrorUseCaseFactory: @escaping CloseLabelsErrorUseCaseFactory,
+       archiver: Archiver
   ) {
     self.observerForLabels = observerForLabels
     self.getLabelsUseCase = getLabelsUseCase
@@ -49,6 +51,7 @@ class LabelsViewModel: ObservableObject {
     self.inputLabelNameUseCaseFactory = inputLabelNameUseCaseFactory
     self.cancelInputtingLabelNameUseCaseFactory = cancelInputtingLabelNameUseCaseFactory
     self.closeLabelsErrorUseCaseFactory = closeLabelsErrorUseCaseFactory
+    self.archiver = archiver
   }
   
   func onAppear() {

@@ -18,3 +18,11 @@ struct TrainingRecord: Equatable, Storable {
     self.numOfChildren = numOfChildren
   }
 }
+
+extension TrainingRecord {
+  init(name: String, numOfChildren: Int, content: Data) {
+    self.name = name
+    self.numOfChildren = numOfChildren
+    self.content = content
+  }
+}

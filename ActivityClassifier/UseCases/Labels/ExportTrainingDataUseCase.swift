@@ -17,6 +17,10 @@ class ExportTrainingDataUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.CancelEditingLabels())
+    Task {
+      actionDispatcher.dispatch(LabelsActions.ExportTrainingData())
+      let data = try await trainingDataRepository.exportTrainingData()
+      actionDispatcher.dispatch(LabelsActions.ExportedTrainingData(data: data))
+    }
   }
 }
