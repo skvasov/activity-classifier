@@ -96,6 +96,7 @@ class VerifyViewModel: ObservableObject {
 extension VerifyViewModel: ObserverForVerifyEventResponder {
   func received(newState state: VerifyState) {
     model = state.model
+    prediction = state.prediction
     isLoading = state.viewState.isLoading
     isImporting = state.viewState.isImporting
     isRunning = state.viewState.isRunning

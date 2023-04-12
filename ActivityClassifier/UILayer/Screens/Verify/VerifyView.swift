@@ -51,7 +51,7 @@ struct VerifyView: View {
   func makeContentView() -> some View {
     ZStack {
       VStack {
-        Text("-")
+        Text("\(model.prediction?.topLabel ?? "") : \(String(model.prediction?.topProbability ?? 0.0))")
         makeRunButton()
       }
       VStack {

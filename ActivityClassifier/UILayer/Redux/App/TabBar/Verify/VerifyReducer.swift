@@ -41,9 +41,6 @@ extension Reducers {
       state.errorsToPresent.insert(action.error)
     case _ as VerifyActions.RunModel:
       state.viewState.isLoading = true
-    case _ as VerifyActions.DidRunModel:
-      state.viewState.isLoading = false
-      state.viewState.isRunning = true
     case let action as VerifyActions.RunningModelFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
@@ -55,10 +52,12 @@ extension Reducers {
     case let action as VerifyActions.StoppingModelFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
-      
     case _ as TrainingRecordsActions.CloseTrainingRecordsErrorUseCase:
       state.errorsToPresent.removeFirst()
-      
+    case let action as VerifyActions.GotPrediction:
+      state.viewState.isLoading = false
+      state.viewState.isRunning = true
+      state.prediction = action.prediction
     default:
       break
     }

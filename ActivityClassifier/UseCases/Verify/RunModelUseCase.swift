@@ -23,8 +23,10 @@ class RunModelUseCase: UseCase {
     Task {
       actionDispatcher.dispatch(VerifyActions.RunModel())
       do {
-        try await modelRepository.run(model)
-        actionDispatcher.dispatch(VerifyActions.DidRunModel())
+        for try await motions in try await modelRepository.run(model, for: 100, with: 50) {
+          var prediction = try modelRepository.predict(motions)
+          actionDispatcher.dispatch(VerifyActions.GotPrediction(prediction: prediction))
+        }
       }
       catch {
         let errorMessage = ErrorMessage(error: error)

@@ -9,6 +9,7 @@ import Foundation
 
 struct VerifyState: Equatable {
   var model: Model?
+  var prediction: Prediction?
   var viewState: VerifyViewState
   var errorsToPresent = Set<ErrorMessage>()
 }

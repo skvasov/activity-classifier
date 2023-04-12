@@ -35,7 +35,9 @@ class SaveModelUseCase: UseCase {
         }
         
         do {
+          _ = url.startAccessingSecurityScopedResource()
           let data = try Data(contentsOf: url)
+          url.stopAccessingSecurityScopedResource()
           let model = Model(name: url.lastPathComponent, numOfChildren: 0, content: data)
           try await modelRepository.save(model)
           let firstModel = try await modelRepository.loadAll().first
@@ -51,7 +53,6 @@ class SaveModelUseCase: UseCase {
   }
   
   private func dispatch(error: Error) {
-    print(error)
     let errorMessage = ErrorMessage(error: error)
     actionDispatcher.dispatch(VerifyActions.SavingModelFailed(error: errorMessage))
   }

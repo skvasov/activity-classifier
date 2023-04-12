@@ -9,33 +9,30 @@ import Foundation
 import CoreML
 
 struct Prediction {
-  private let featureProvider: MLFeatureProvider
-  lazy var topFeatureName: String? = {
-    var topFeatureName: String? = nil
-    var topValue: Double = 0
-    
-    featureProvider.featureNames.forEach { featureName in
-      let featureValue = featureProvider.featureValue(for: featureName)
-      if let value = featureValue?.doubleValue, value > topValue {
-        topValue = value
-        topFeatureName = featureName
-      }
-    }
-    
-    guard let topFeatureName else { return nil }
-    return topFeatureName
-  }()
+  private enum Keys: String {
+    case label = "label"
+    case labelProbability = "labelProbability"
+  }
   
-  lazy var topValue: Double? = {
-    guard
-      let topFeatureName,
-      let value = featureProvider.featureValue(for: topFeatureName)?.doubleValue
-    else { return nil }
-    
-    return value
-  }()
+  private let featureProvider: MLFeatureProvider
+  
+  var topLabel: String? {
+    return featureProvider.featureValue(for: Keys.label.rawValue)?.stringValue
+  }
+  
+  var topProbability: Double? {
+    let dict = featureProvider.featureValue(for: Keys.labelProbability.rawValue)?.dictionaryValue
+    guard let topLabel else { return nil }
+    return dict?[topLabel]?.doubleValue
+  }
   
   init(_ featureProvider: MLFeatureProvider) {
     self.featureProvider = featureProvider
+  }
+}
+
+extension Prediction: Equatable {
+  static func == (lhs: Prediction, rhs: Prediction) -> Bool {
+    lhs.featureProvider === rhs.featureProvider
   }
 }

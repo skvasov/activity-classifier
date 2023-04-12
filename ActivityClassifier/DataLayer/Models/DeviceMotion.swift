@@ -79,21 +79,139 @@ class DeviceMotion: Codable {
   }
 }
 
-extension DeviceMotion: MLFeatureProvider {
+extension DeviceMotion {
+  static var featureNames: Set<String> {
+    Set([
+      "rotationX",
+      "rotationY",
+      "rotationZ",
+            
+      "attitudeRoll",
+      "attitudePitch",
+      "attitudeYaw",
+            
+      "attitudeRotationMatrixM11",
+      "attitudeRotationMatrixM12",
+      "attitudeRotationMatrixM13",
+      "attitudeRotationMatrixM21",
+      "attitudeRotationMatrixM22",
+      "attitudeRotationMatrixM23",
+      "attitudeRotationMatrixM31",
+      "attitudeRotationMatrixM32",
+      "attitudeRotationMatrixM33",
+            
+      "attitudeQuaternionX",
+      "attitudeQuaternionY",
+      "attitudeQuaternionZ",
+      "attitudeQuaternionW",
+            
+      "gravityX",
+      "gravityY",
+      "gravityZ",
+            
+      "userAccelerationX",
+      "userAccelerationY",
+      "userAccelerationZ"
+    ])
+  }
+  
+  func featureValue(for featureName: String) -> Double? {
+    switch featureName {
+    case "rotationX":
+      return rotationX
+    case "rotationY":
+      return rotationY
+    case "rotationZ":
+      return rotationZ
+      
+    case "attitudeRoll":
+      return attitudeRoll
+    case "attitudePitch":
+      return attitudePitch
+    case "attitudeYaw":
+      return attitudeYaw
+      
+    case "attitudeRotationMatrixM11":
+      return attitudeRotationMatrixM11
+    case "attitudeRotationMatrixM12":
+      return attitudeRotationMatrixM12
+    case "attitudeRotationMatrixM13":
+      return attitudeRotationMatrixM13
+    case "attitudeRotationMatrixM21":
+      return attitudeRotationMatrixM21
+    case "attitudeRotationMatrixM22":
+      return attitudeRotationMatrixM22
+    case "attitudeRotationMatrixM23":
+      return attitudeRotationMatrixM23
+    case "attitudeRotationMatrixM31":
+      return attitudeRotationMatrixM31
+    case "attitudeRotationMatrixM32":
+      return attitudeRotationMatrixM32
+    case "attitudeRotationMatrixM33":
+      return attitudeRotationMatrixM33
+      
+    case "attitudeQuaternionX":
+      return attitudeQuaternionX
+    case "attitudeQuaternionY":
+      return attitudeQuaternionY
+    case "attitudeQuaternionZ":
+      return attitudeQuaternionZ
+    case "attitudeQuaternionW":
+      return attitudeQuaternionW
+      
+    case "gravityX":
+      return gravityX
+    case "gravityY":
+      return gravityY
+    case "gravityZ":
+      return gravityZ
+      
+    case "userAccelerationX":
+      return userAccelerationX
+    case "userAccelerationY":
+      return userAccelerationY
+    case "userAccelerationZ":
+      return userAccelerationZ
+      
+    default:
+      return nil
+    }
+  }
+}
+
+class DeviceMotionFeatureProvider: MLFeatureProvider {
+  private enum AdditionalFeatures: String {
+    case stateIn = "stateIn"
+  }
+  
+  private let motions: [DeviceMotion]
+  private let stateIn: MLMultiArray
+  
+  init(_ motions: [DeviceMotion], stateIn: MLMultiArray?) throws {
+    self.motions = motions
+    // TODO: what is 400 ???
+    self.stateIn = try (stateIn ?? MLMultiArray(Array(repeating: 0.0, count: 400)))
+  }
+  
   var featureNames: Set<String> {
-    Set(Mirror(reflecting: self)
-      .children
-      .compactMap { $0.label })
-      .filter { $0.compare("timestamp") != .orderedSame }
+    var set = DeviceMotion.featureNames
+    set.insert(AdditionalFeatures.stateIn.rawValue)
+    return set
   }
   
   func featureValue(for featureName: String) -> MLFeatureValue? {
-    let value = Mirror(reflecting: self)
-      .children
-      .first { $0.label?.compare(featureName) == .orderedSame }
-      .map { $0.value }
+    if featureName.compare(AdditionalFeatures.stateIn.rawValue) == .orderedSame {
+      return MLFeatureValue(multiArray: stateIn)
+    }
     
-    guard let value = value as? Double else { return nil }
-    return MLFeatureValue(double: value)
+    var values: [Double] = []
+    for motion in motions {
+      guard let value = motion.featureValue(for: featureName) else { return nil }
+      values.append(value)
+    }
+    
+    guard let array = try? MLMultiArray(values) else { return nil }
+    
+    return MLFeatureValue(multiArray: array)
   }
 }

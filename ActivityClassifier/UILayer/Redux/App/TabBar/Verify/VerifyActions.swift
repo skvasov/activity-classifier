@@ -30,7 +30,6 @@ struct VerifyActions {
   }
   
   struct RunModel: Action {}
-  struct DidRunModel: Action {}
   struct RunningModelFailed: Action {
     let error: ErrorMessage
   }
@@ -39,6 +38,10 @@ struct VerifyActions {
   struct DidStopModel: Action {}
   struct StoppingModelFailed: Action {
     let error: ErrorMessage
+  }
+  
+  struct GotPrediction: Action {
+    let prediction: Prediction
   }
   
   struct CloseVerifyError: Action {}

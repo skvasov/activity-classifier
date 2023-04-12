@@ -56,7 +56,8 @@ class DIContainer: ObservableObject {
     let folderURL = URL.modelsDirectory
     let modelStore = DiskManager<Model>(folderURL: folderURL)
     return RealModelRepository(
-      modelStore: modelStore)
+      modelStore: modelStore,
+      motionManager: RealMotionManager.shared)
   }()
   
   private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
