@@ -49,15 +49,16 @@ struct LabelsView: View {
             }
           }
           ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-              model.isEditing ? model.removeAll() : model.export()
-            } label: {
-              model.isEditing
-              ? AnyView(Text("Remove all"))
-              : AnyView(
-                ShareLink(item: model.archiver, preview: SharePreview(Text("ZIP archive"))) {
-                  Image(systemName: "square.and.arrow.up")
-                })
+            if model.isEditing {
+              Button {
+                model.removeAll()
+              } label: {
+                Text("Remove all")
+              }
+            } else {
+              ShareLink(item: model.archiver, preview: SharePreview(Text("Traning data archive"))) {
+                Image(systemName: "square.and.arrow.up")
+              }
             }
           }
         }

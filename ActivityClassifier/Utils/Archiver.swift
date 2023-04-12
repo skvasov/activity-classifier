@@ -16,6 +16,8 @@ struct Archiver {
   
   // Source: https://gist.github.com/algal/2880f79061197cc54d918631f252cd75
   func archive() throws {
+    // TODO: Try archiving in TrainingDataRepository
+    
     let fileManager = FileManager.default
     
     try fileManager.removeItem(at: archivedFileURL)
@@ -31,15 +33,15 @@ struct Archiver {
     try fileManager.copyItem(at: sourceFolderURL, to: tmpURL)
     srcDirIsTemporary = true
     
-    let coord = NSFileCoordinator()
+    let fileCoordinator = NSFileCoordinator()
     var readError: NSError?
     var copyError: NSError?
-    var errorToThrow: NSError?
+    var error: NSError?
     
     var readSucceeded:Bool = false
     // coordinateReadingItemAtURL is invoked synchronously, but the passed in zippedURL is only valid
     // for the duration of the block, so it needs to be copied out
-    coord.coordinate(readingItemAt: srcDir,
+    fileCoordinator.coordinate(readingItemAt: srcDir,
                      options: NSFileCoordinator.ReadingOptions.forUploading,
                      error: &readError)
     {
@@ -56,16 +58,16 @@ struct Archiver {
     if let readError, !readSucceeded {
       // assert: read failed, readError describes our reading error
       NSLog("%@","zipping failed")
-      errorToThrow =  readError
+      error =  readError
     }
     else if readError == nil && !readSucceeded  {
       NSLog("%@","NSFileCoordinator has violated its API contract. It has errored without throwing an error object")
-      errorToThrow = NSError.init(domain: Bundle.main.bundleIdentifier!, code: 0, userInfo: nil)
+      error = NSError.init(domain: Bundle.main.bundleIdentifier!, code: 0, userInfo: nil)
     }
     else if let copyError {
       // assert: read succeeded, copy failed
       NSLog("%@","zipping succeeded but copying the zip file failed")
-      errorToThrow = copyError
+      error = copyError
     }
     
     if srcDirIsTemporary {
@@ -78,7 +80,7 @@ struct Archiver {
         NSLog("%@","Warning. Zipping succeeded but could not remove temporary directory afterwards")
       }
     }
-    if let error = errorToThrow { throw error }
+    if let error { throw error }
   }
 }
 

@@ -53,6 +53,6 @@ struct LabelsActions {
     let label: TrainingLabel
   }
   
-  struct CloseLabelsErrorUseCase: Action {}
+  struct CloseLabelsError: Action {}
 }
 

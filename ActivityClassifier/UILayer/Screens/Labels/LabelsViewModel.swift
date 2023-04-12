@@ -64,10 +64,6 @@ class LabelsViewModel: ObservableObject {
     useCase.execute()
   }
   
-  func export() {
-    
-  }
-  
   func addLabel() {
     let useCase = inputLabelNameUseCaseFactory()
     useCase.execute()

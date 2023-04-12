@@ -46,6 +46,21 @@
 		5F3C922F29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */; };
 		5F3C923129DDC53B00BA5A2D /* TrainingDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C923029DDC53B00BA5A2D /* TrainingDataRepository.swift */; };
 		5F3C923329DDD52A00BA5A2D /* TrainingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */; };
+		5F5BBDAB29E6AA03003D8646 /* VerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDAA29E6AA03003D8646 /* VerifyViewModel.swift */; };
+		5F5BBDAD29E6AA61003D8646 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDAC29E6AA61003D8646 /* Model.swift */; };
+		5F5BBDAF29E6AB39003D8646 /* ObserverForVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDAE29E6AB39003D8646 /* ObserverForVerify.swift */; };
+		5F5BBDB129E6AB45003D8646 /* ObserverForVerifyEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDB029E6AB45003D8646 /* ObserverForVerifyEventResponder.swift */; };
+		5F5BBDB529E6AB89003D8646 /* VerifyActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDB229E6AB89003D8646 /* VerifyActions.swift */; };
+		5F5BBDB629E6AB89003D8646 /* VerifyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDB329E6AB89003D8646 /* VerifyReducer.swift */; };
+		5F5BBDB729E6AB89003D8646 /* VerifyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDB429E6AB89003D8646 /* VerifyState.swift */; };
+		5F5BBDBA29E6B5F8003D8646 /* ImportModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDB929E6B5F8003D8646 /* ImportModelUseCase.swift */; };
+		5F5BBDBC29E6B654003D8646 /* SaveModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDBB29E6B654003D8646 /* SaveModelUseCase.swift */; };
+		5F5BBDBE29E6B9C6003D8646 /* CancelImportingModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDBD29E6B9C6003D8646 /* CancelImportingModelUseCase.swift */; };
+		5F5BBDC029E6C07B003D8646 /* ModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDBF29E6C07B003D8646 /* ModelRepository.swift */; };
+		5F5BBDC229E6EC7B003D8646 /* RunModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDC129E6EC7B003D8646 /* RunModelUseCase.swift */; };
+		5F5BBDC829E6FEDB003D8646 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDC729E6FEDB003D8646 /* Prediction.swift */; };
+		5F5BBDCA29E70581003D8646 /* StopModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDC929E70581003D8646 /* StopModelUseCase.swift */; };
+		5F5BBDCC29E70C66003D8646 /* LoadModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDCB29E70C66003D8646 /* LoadModelUseCase.swift */; };
 		5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */; };
 		5FB1A4ED29E40E7C00A2220A /* GetTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */; };
 		5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */; };
@@ -135,6 +150,21 @@
 		5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPrinterMiddleware.swift; sourceTree = "<group>"; };
 		5F3C923029DDC53B00BA5A2D /* TrainingDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDataRepository.swift; sourceTree = "<group>"; };
 		5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecord.swift; sourceTree = "<group>"; };
+		5F5BBDAA29E6AA03003D8646 /* VerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyViewModel.swift; sourceTree = "<group>"; };
+		5F5BBDAC29E6AA61003D8646 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		5F5BBDAE29E6AB39003D8646 /* ObserverForVerify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForVerify.swift; sourceTree = "<group>"; };
+		5F5BBDB029E6AB45003D8646 /* ObserverForVerifyEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForVerifyEventResponder.swift; sourceTree = "<group>"; };
+		5F5BBDB229E6AB89003D8646 /* VerifyActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyActions.swift; sourceTree = "<group>"; };
+		5F5BBDB329E6AB89003D8646 /* VerifyReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyReducer.swift; sourceTree = "<group>"; };
+		5F5BBDB429E6AB89003D8646 /* VerifyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyState.swift; sourceTree = "<group>"; };
+		5F5BBDB929E6B5F8003D8646 /* ImportModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportModelUseCase.swift; sourceTree = "<group>"; };
+		5F5BBDBB29E6B654003D8646 /* SaveModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveModelUseCase.swift; sourceTree = "<group>"; };
+		5F5BBDBD29E6B9C6003D8646 /* CancelImportingModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelImportingModelUseCase.swift; sourceTree = "<group>"; };
+		5F5BBDBF29E6C07B003D8646 /* ModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRepository.swift; sourceTree = "<group>"; };
+		5F5BBDC129E6EC7B003D8646 /* RunModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModelUseCase.swift; sourceTree = "<group>"; };
+		5F5BBDC729E6FEDB003D8646 /* Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
+		5F5BBDC929E70581003D8646 /* StopModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModelUseCase.swift; sourceTree = "<group>"; };
+		5F5BBDCB29E70C66003D8646 /* LoadModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadModelUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
@@ -274,6 +304,7 @@
 				5F3C91F929DD571900BA5A2D /* UseCase.swift */,
 				5FE726CF29E0207F008AF5E0 /* Labels */,
 				5FB1A4E729E40E7C00A2220A /* TrainingRecords */,
+				5F5BBDB829E6B5C4003D8646 /* Verify */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -293,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3C923029DDC53B00BA5A2D /* TrainingDataRepository.swift */,
+				5F5BBDBF29E6C07B003D8646 /* ModelRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -303,6 +335,8 @@
 				5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */,
 				5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */,
 				5FB1A4F929E43BC000A2220A /* DeviceMotion.swift */,
+				5F5BBDAC29E6AA61003D8646 /* Model.swift */,
+				5F5BBDC729E6FEDB003D8646 /* Prediction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -390,6 +424,9 @@
 			isa = PBXGroup;
 			children = (
 				5F3C91DD29DC5B1B00BA5A2D /* VerifyView.swift */,
+				5F5BBDAA29E6AA03003D8646 /* VerifyViewModel.swift */,
+				5F5BBDAE29E6AB39003D8646 /* ObserverForVerify.swift */,
+				5F5BBDB029E6AB45003D8646 /* ObserverForVerifyEventResponder.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -449,6 +486,9 @@
 		5F3C920629DD689B00BA5A2D /* Verify */ = {
 			isa = PBXGroup;
 			children = (
+				5F5BBDB229E6AB89003D8646 /* VerifyActions.swift */,
+				5F5BBDB329E6AB89003D8646 /* VerifyReducer.swift */,
+				5F5BBDB429E6AB89003D8646 /* VerifyState.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -483,6 +523,19 @@
 				5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */,
 			);
 			path = Redux;
+			sourceTree = "<group>";
+		};
+		5F5BBDB829E6B5C4003D8646 /* Verify */ = {
+			isa = PBXGroup;
+			children = (
+				5F5BBDB929E6B5F8003D8646 /* ImportModelUseCase.swift */,
+				5F5BBDBD29E6B9C6003D8646 /* CancelImportingModelUseCase.swift */,
+				5F5BBDBB29E6B654003D8646 /* SaveModelUseCase.swift */,
+				5F5BBDC129E6EC7B003D8646 /* RunModelUseCase.swift */,
+				5F5BBDC929E70581003D8646 /* StopModelUseCase.swift */,
+				5F5BBDCB29E70C66003D8646 /* LoadModelUseCase.swift */,
+			);
+			path = Verify;
 			sourceTree = "<group>";
 		};
 		5FB1A4E729E40E7C00A2220A /* TrainingRecords */ = {
@@ -664,24 +717,30 @@
 				5F3C922B29DDC4D700BA5A2D /* Observer.swift in Sources */,
 				5F3C921C29DD689B00BA5A2D /* TabBarReducer.swift in Sources */,
 				5F3C921729DD689B00BA5A2D /* LabelsActions.swift in Sources */,
+				5F5BBDBA29E6B5F8003D8646 /* ImportModelUseCase.swift in Sources */,
 				5FE726E229E0207F008AF5E0 /* EditLabelsUseCase.swift in Sources */,
 				5FE726E729E023C6008AF5E0 /* InputLabelNameUseCase.swift in Sources */,
+				5F5BBDC029E6C07B003D8646 /* ModelRepository.swift in Sources */,
 				5F3C923129DDC53B00BA5A2D /* TrainingDataRepository.swift in Sources */,
 				5FB1A50329E4877D00A2220A /* Archiver.swift in Sources */,
 				5FE726DC29E0207F008AF5E0 /* ExportTrainingDataUseCase.swift in Sources */,
 				5FE726C429DECFFF008AF5E0 /* TrainingRecordsReducer.swift in Sources */,
 				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
+				5F5BBDCA29E70581003D8646 /* StopModelUseCase.swift in Sources */,
 				5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */,
 				5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */,
 				5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */,
 				5FB1A4FA29E43BC000A2220A /* DeviceMotion.swift in Sources */,
 				5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */,
+				5F5BBDAB29E6AA03003D8646 /* VerifyViewModel.swift in Sources */,
 				5FE726B829DEC2A3008AF5E0 /* TrainingRecordsState.swift in Sources */,
 				5FE726E929E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift in Sources */,
 				5F3C91EA29DD44C300BA5A2D /* ObserverForLabels.swift in Sources */,
 				5F3C91FA29DD571900BA5A2D /* UseCase.swift in Sources */,
+				5F5BBDC829E6FEDB003D8646 /* Prediction.swift in Sources */,
 				5F3C923329DDD52A00BA5A2D /* TrainingRecord.swift in Sources */,
 				5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */,
+				5F5BBDAD29E6AA61003D8646 /* Model.swift in Sources */,
 				5FE726DB29E0207F008AF5E0 /* CancelEditingLabelsUseCase.swift in Sources */,
 				5F3C91DA29DC5B0B00BA5A2D /* LabelsView.swift in Sources */,
 				5F3C921929DD689B00BA5A2D /* LabelsState.swift in Sources */,
@@ -694,7 +753,10 @@
 				5FE726ED29E074DA008AF5E0 /* AlertDetails.swift in Sources */,
 				5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */,
 				5F3C922229DDBB5500BA5A2D /* PersistentStore.swift in Sources */,
+				5F5BBDAF29E6AB39003D8646 /* ObserverForVerify.swift in Sources */,
 				5FB1A4F529E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift in Sources */,
+				5F5BBDB529E6AB89003D8646 /* VerifyActions.swift in Sources */,
+				5F5BBDBC29E6B654003D8646 /* SaveModelUseCase.swift in Sources */,
 				5F3C91F629DD4EE800BA5A2D /* ScopedState.swift in Sources */,
 				5FB1A4EF29E40E7C00A2220A /* BackToLabelsUseCase.swift in Sources */,
 				5F3C91DC29DC5B1200BA5A2D /* SettingsView.swift in Sources */,
@@ -703,15 +765,20 @@
 				5F3C922F29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift in Sources */,
 				5FE726DD29E0207F008AF5E0 /* AddLabelUseCase.swift in Sources */,
 				5FE726C029DEC322008AF5E0 /* TrainingRecordsActions.swift in Sources */,
+				5F5BBDB129E6AB45003D8646 /* ObserverForVerifyEventResponder.swift in Sources */,
+				5F5BBDC229E6EC7B003D8646 /* RunModelUseCase.swift in Sources */,
 				5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */,
 				5F3C91E429DC60DF00BA5A2D /* DIContainer.swift in Sources */,
 				5F3C921A29DD689B00BA5A2D /* LabelsReducer.swift in Sources */,
+				5F5BBDCC29E70C66003D8646 /* LoadModelUseCase.swift in Sources */,
+				5F5BBDB729E6AB89003D8646 /* VerifyState.swift in Sources */,
 				5F3C91E229DC5F7000BA5A2D /* TrainingLabel.swift in Sources */,
 				5F3C91D829DC5ABC00BA5A2D /* TabBarView.swift in Sources */,
 				5F3C921329DD689B00BA5A2D /* AppState.swift in Sources */,
 				5F3C922429DDBBCD00BA5A2D /* DiskManager.swift in Sources */,
 				5F3C91C529DC2F3400BA5A2D /* ActivityClassifierApp.swift in Sources */,
 				5F3C921D29DD689B00BA5A2D /* AppGetters.swift in Sources */,
+				5F5BBDB629E6AB89003D8646 /* VerifyReducer.swift in Sources */,
 				5FB1A4FC29E44DA500A2220A /* URL+Ext.swift in Sources */,
 				5FB1A4F829E41E3500A2220A /* MotionManager.swift in Sources */,
 				5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */,
@@ -722,6 +789,7 @@
 				5FE726EB29E0731D008AF5E0 /* CloseLabelsErrorUseCase.swift in Sources */,
 				5F3C91E629DC64B600BA5A2D /* LabelsViewModel.swift in Sources */,
 				5F3C921B29DD689B00BA5A2D /* TabBarGetters.swift in Sources */,
+				5F5BBDBE29E6B9C6003D8646 /* CancelImportingModelUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

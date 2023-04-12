@@ -7,8 +7,9 @@
 
 import Foundation
 import CoreMotion
+import CoreML
 
-struct DeviceMotion: Codable {
+class DeviceMotion: Codable {
   var timestamp: TimeInterval
   
   var rotationX: Double
@@ -41,9 +42,7 @@ struct DeviceMotion: Codable {
   var userAccelerationX: Double
   var userAccelerationY: Double
   var userAccelerationZ: Double
-}
-
-extension DeviceMotion {
+  
   init(_ data: CMDeviceMotion) {
     self.timestamp = data.timestamp
     
@@ -77,5 +76,24 @@ extension DeviceMotion {
     self.userAccelerationX = data.userAcceleration.x
     self.userAccelerationY = data.userAcceleration.y
     self.userAccelerationZ = data.userAcceleration.z
+  }
+}
+
+extension DeviceMotion: MLFeatureProvider {
+  var featureNames: Set<String> {
+    Set(Mirror(reflecting: self)
+      .children
+      .compactMap { $0.label })
+      .filter { $0.compare("timestamp") != .orderedSame }
+  }
+  
+  func featureValue(for featureName: String) -> MLFeatureValue? {
+    let value = Mirror(reflecting: self)
+      .children
+      .first { $0.label?.compare(featureName) == .orderedSame }
+      .map { $0.value }
+    
+    guard let value = value as? Double else { return nil }
+    return MLFeatureValue(double: value)
   }
 }

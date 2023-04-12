@@ -29,6 +29,7 @@ extension DiskManager: PersistentStore {
     if type(of: item).canHaveChildren {
       try fileManager.createDirectory(atPath: url.path(), withIntermediateDirectories: true)
     } else {
+      try fileManager.createDirectory(atPath: url.deletingLastPathComponent().path(), withIntermediateDirectories: true)
       fileManager.createFile(atPath: url.path(), contents: item.content)
     }
   }
@@ -42,7 +43,8 @@ extension DiskManager: PersistentStore {
           let contents = try fileManager.contentsOfDirectory(atPath: path)
           numOfChildren = contents.count
         }
-        return T(name: name, numOfChildren: numOfChildren)
+        let url = folderURL.appending(path: name, directoryHint: T.canHaveChildren ? .isDirectory : .notDirectory)
+        return T(name: name, numOfChildren: numOfChildren, url: url)
       }
   }
   

@@ -63,7 +63,7 @@ extension Reducers {
       state.viewState.isAddingNewLabel = true
     case _ as LabelsActions.CancelInputtingLabelName:
       state.viewState.isAddingNewLabel = false
-    case _ as LabelsActions.CloseLabelsErrorUseCase:
+    case _ as LabelsActions.CloseLabelsError:
       state.errorsToPresent.removeFirst()
     default:
       break

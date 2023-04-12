@@ -1,16 +1,16 @@
 //
-//  File.swift
+//  Model.swift
 //  ActivityClassifier
 //
-//  Created by Sergei Kvasov on 5.04.23.
+//  Created by Sergei Kvasov on 12.04.23.
 //
 
 import Foundation
 
-struct TrainingRecord: Equatable, Storable {
+struct Model: Equatable, Storable {
   var name: String
   var numOfChildren: Int
-  var content: Data?
+  var content: Data? = nil
   var url: URL?
   
   static var canHaveChildren = false

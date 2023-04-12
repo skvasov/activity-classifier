@@ -12,6 +12,7 @@ extension Reducers {
     var state = state ?? TabBarState()
     
     state.labelsState = labelsReducer(action: action, state: state.labelsState)
+    state.verifyState = verifyReducer(action: action, state: state.verifyState)
     
     return state
   }

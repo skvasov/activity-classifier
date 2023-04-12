@@ -17,7 +17,6 @@ protocol TrainingDataRepository {
   func getAllTrainingRecords(for label: TrainingLabel) async throws -> [TrainingRecord]
   func removeTrainingRecords(_ records: [TrainingRecord], for label: TrainingLabel) async throws
   func getDeviceMotion(for duration: TimeInterval, with frequency: Double) async throws ->  [DeviceMotion]
-  func exportTrainingData() async throws -> Data
 }
 
 class RealTrainingDataRepository {
@@ -63,9 +62,5 @@ extension RealTrainingDataRepository: TrainingDataRepository {
   func getDeviceMotion(for duration: TimeInterval, with frequency: Double) async throws ->  [DeviceMotion] {
     let motionManager = motionManagerFactory()
     return try await motionManager.getDeviceMotion(for: duration, with: frequency)
-  }
-  
-  func exportTrainingData() async throws -> Data {
-    Data()
   }
 }

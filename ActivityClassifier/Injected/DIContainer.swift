@@ -26,6 +26,12 @@ typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
 
+typealias ImportModelUseCaseFactory = () -> UseCase
+typealias CancelImportingModelUseCaseFactory = () -> UseCase
+typealias SaveModelUseCaseFactory = (Result<URL, Error>) -> UseCase
+typealias RunModelUseCaseFactory = (Model) -> UseCase
+typealias StopModelUseCaseFactory = () -> UseCase
+typealias LoadModelUseCaseFactory = () -> UseCase
 
 class DIContainer: ObservableObject {
   private let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
@@ -45,6 +51,12 @@ class DIContainer: ObservableObject {
       labelsStore: labelsStore,
       recordsStoreFactory: recordsStoreFactory,
       motionManagerFactory: motionManagerFactory)
+  }()
+  private let modelRepository: ModelRepository = {
+    let folderURL = URL.modelsDirectory
+    let modelStore = DiskManager<Model>(folderURL: folderURL)
+    return RealModelRepository(
+      modelStore: modelStore)
   }()
   
   private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
@@ -161,7 +173,37 @@ class DIContainer: ObservableObject {
   }
   
   func makeVerifyView() -> some View {
-    VerifyView()
+    let verifyState = stateStore.publisher { $0.select(self.tabBarGetters.getVerifyState) }
+    let observerForVerify = ObserverForVerify(verifyState: verifyState)
+    let importModelUseCaseFactory = {
+      ImportModelUseCaseUseCase(actionDispatcher: self.stateStore)
+    }
+    let cancelImportingModelUseCaseFactory = {
+      CancelImportingModelUseCase(actionDispatcher: self.stateStore)
+    }
+    let saveModelUseCaseFactory: SaveModelUseCaseFactory = { importResult in
+      SaveModelUseCase(actionDispatcher: self.stateStore, importResult: importResult, modelRepository: self.modelRepository)
+    }
+    let runModelUseCaseFactory: RunModelUseCaseFactory = { model in
+      RunModelUseCase(actionDispatcher: self.stateStore, model: model, modelRepository: self.modelRepository)
+    }
+    let stopModelUseCaseFactory = {
+      StopModelUseCase(actionDispatcher: self.stateStore, modelRepository: self.modelRepository)
+    }
+    let loadModelUseCaseFactory = {
+      LoadModelUseCase(actionDispatcher: self.stateStore, modelRepository: self.modelRepository)
+    }
+    let model = VerifyViewModel(
+      observerForVerify: observerForVerify,
+      importModelUseCaseFactory: importModelUseCaseFactory,
+      cancelImportingModelUseCaseFactory: cancelImportingModelUseCaseFactory,
+      saveModelUseCaseFactory: saveModelUseCaseFactory,
+      runModelUseCaseFactory: runModelUseCaseFactory,
+      stopModelUseCaseFactory: stopModelUseCaseFactory,
+      loadModelUseCaseFactory: loadModelUseCaseFactory
+    )
+    observerForVerify.eventResponder = model
+    return VerifyView(model: model)
   }
   
   func makeSettingsView() -> some View {

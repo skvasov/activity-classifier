@@ -15,4 +15,8 @@ extension URL {
   static var trainingDataArchive: URL {
     documentsDirectory.appending(path: "archive").appendingPathExtension("zip")
   }
+  
+  static var modelsDirectory: URL {
+    documentsDirectory.appending(path: "models")
+  }
 }

@@ -23,4 +23,14 @@ struct TabBarGetters {
       return .outOfScope
     }
   }
+  
+  func getVerifyState(_ appState: AppState) -> ScopedState<VerifyState> {
+    let tabBarState = getTabBarState(appState)
+    switch tabBarState {
+    case .inScope(let tabBarState):
+      return .inScope(tabBarState.verifyState)
+    case .outOfScope:
+      return .outOfScope
+    }
+  }
 }

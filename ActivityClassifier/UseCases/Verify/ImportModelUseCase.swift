@@ -1,13 +1,13 @@
 //
-//  CloseLabelsErrorUseCase.swift
+//  ImportModelUseCase.swift
 //  ActivityClassifier
 //
-//  Created by Sergei Kvasov on 7.04.23.
+//  Created by Sergei Kvasov on 12.04.23.
 //
 
 import Foundation
 
-class CloseLabelsErrorUseCase: UseCase {
+class ImportModelUseCaseUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
   
   init(actionDispatcher: ActionDispatcher) {
@@ -15,6 +15,8 @@ class CloseLabelsErrorUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.CloseLabelsError())
+    Task {
+      actionDispatcher.dispatch(VerifyActions.ImportModel())
+    }
   }
 }
