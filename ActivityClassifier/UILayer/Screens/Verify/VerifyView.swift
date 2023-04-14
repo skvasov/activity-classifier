@@ -83,6 +83,6 @@ struct VerifyView: View {
 
 struct VerifyView_Previews: PreviewProvider {
   static var previews: some View {
-    DIContainer().makeVerifyView()
+    AppDependencyContainer().makeVerifyView()
   }
 }

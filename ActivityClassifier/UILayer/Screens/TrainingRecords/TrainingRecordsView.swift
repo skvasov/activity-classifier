@@ -104,10 +104,9 @@ struct TrainingRecordsView: View {
 
 struct TrainingRecords_Previews: PreviewProvider {
   static var previews: some View {
-    let contrainer = DIContainer()
     let label = TrainingLabel(name: "Wing", numOfChildren: 30)
-    let trainingRecordsView = contrainer.makeTrainingRecordsView(label: label)
-    return trainingRecordsView
-      .environmentObject(contrainer)
+    let appContrainer = AppDependencyContainer()
+    let labelsContainer = LabelsDependencyContainer(appContainer: appContrainer)
+    return labelsContainer.makeTrainingRecordsView(label: label)
   }
 }

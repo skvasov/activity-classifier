@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct ActivityClassifierApp: App {
+  let contrainer = AppDependencyContainer()
+  
   var body: some Scene {
     WindowGroup {
-      let contrainer = DIContainer()
       contrainer.makeTabBarView()
-        .environmentObject(contrainer)
     }
   }
 }

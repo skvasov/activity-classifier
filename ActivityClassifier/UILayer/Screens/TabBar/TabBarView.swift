@@ -8,29 +8,21 @@
 import SwiftUI
 
 struct TabBarView: View {
-  @EnvironmentObject var contaier: DIContainer
+  private let tabsFactory: TabsFactory
+  
+  init(tabsFactory: @escaping TabsFactory) {
+    self.tabsFactory = tabsFactory
+  }
   
   var body: some View {
     TabView() {
-      contaier.makeLabelsView()
-        .tabItem {
-          Label("Labels", systemImage: "list.bullet")
-        }
-      contaier.makeVerifyView()
-        .tabItem {
-          Label("Verify", systemImage: "hands.sparkles")
-        }
-      contaier.makeSettingsView()
-        .tabItem {
-          Label("Settings", systemImage: "gearshape.2")
-        }
+      tabsFactory()
     }
   }
 }
 
 struct TabBarView_Previews: PreviewProvider {
   static var previews: some View {
-    TabBarView()
-      .environmentObject(DIContainer())
+    AppDependencyContainer().makeTabBarView()
   }
 }

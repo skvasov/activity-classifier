@@ -1,5 +1,5 @@
 //
-//  DIContainer.swift
+//  AppDependencyContainer.swift
 //  ActivityClassifier
 //
 //  Created by Sergei Kvasov on 4.04.23.
@@ -10,6 +10,9 @@ import SwiftUI
 import ReSwift
 import Combine
 
+typealias TabsFactory = () -> AnyView
+typealias TrainingRecordsViewFactory = (TrainingLabel) -> AnyView
+
 typealias AddLabelUseCaseFactory = (String) -> UseCase
 typealias RemoveLabelsUseCaseFactory = ([TrainingLabel]) -> UseCase
 typealias EditLabelsUseCaseFactory = () -> UseCase
@@ -19,12 +22,6 @@ typealias CancelInputtingLabelNameUseCaseFactory = () -> UseCase
 typealias GoToTrainingRecordsUseCaseFactory = (TrainingLabel) -> UseCase
 typealias CloseLabelsErrorUseCaseFactory = () -> UseCase
 typealias TrainingDataRepositoryFactory = (URL) -> TrainingDataRepository
-
-typealias AddTrainingRecordUseCaseFactory = () -> UseCase
-typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
-typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
-typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
-typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
 
 typealias ImportModelUseCaseFactory = () -> UseCase
 typealias CancelImportingModelUseCaseFactory = () -> UseCase
@@ -38,12 +35,11 @@ typealias SaveSettingsUseCaseFactory = (Settings) -> UseCase
 typealias CloseSettingsErrorUseCaseFactory = () -> UseCase
 
 
-class DIContainer: ObservableObject {
-  private let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
-  private let appGetters = AppGetters()
-  private let tabBarGetters: TabBarGetters
-  private let labelsGetters: LabelsGetters
-  private let trainingDataRepository: TrainingDataRepository = {
+class AppDependencyContainer {
+  let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
+  let appGetters = AppGetters()
+  let tabBarGetters: TabBarGetters
+  let trainingDataRepository: TrainingDataRepository = {
     let folderURL = URL.trainingDataDirectory
     let labelsStore = DiskManager<TrainingLabel>(folderURL: folderURL)
     let recordsStoreFactory: RecordsStoreFactory = { (storable: Storable) in
@@ -57,27 +53,43 @@ class DIContainer: ObservableObject {
       recordsStoreFactory: recordsStoreFactory,
       motionManagerFactory: motionManagerFactory)
   }()
-  private let modelRepository: ModelRepository = {
+  let modelRepository: ModelRepository = {
     let folderURL = URL.modelsDirectory
     let modelStore = DiskManager<Model>(folderURL: folderURL)
     return RealModelRepository(
       modelStore: modelStore,
       motionManager: RealMotionManager.shared)
   }()
-  private let settingsRepository: SettingsRepository = {
+  let settingsRepository: SettingsRepository = {
     let settingsStore = UserDefaultsManager<Settings>()
     return RealSettingsRepository(settingsStore: settingsStore)
   }()
   
-  private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
-  
   init() {
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
-    self.labelsGetters = LabelsGetters(getLabelsState: tabBarGetters.getLabelsState)
   }
   
   func makeTabBarView() -> some View {
-    TabBarView()
+    let tabsFactory: TabsFactory = {
+      AnyView(self.makeTabs())
+    }
+    return TabBarView(tabsFactory: tabsFactory)
+  }
+  
+  @ViewBuilder
+  func makeTabs() -> some View {
+    makeLabelsView()
+      .tabItem {
+        Label("Labels", systemImage: "list.bullet")
+      }
+    makeVerifyView()
+      .tabItem {
+        Label("Verify", systemImage: "hands.sparkles")
+      }
+    makeSettingsView()
+      .tabItem {
+        Label("Settings", systemImage: "gearshape.2")
+      }
   }
   
   func makeLabelsView() -> some View {
@@ -132,56 +144,12 @@ class DIContainer: ObservableObject {
       archiver: Archiver(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive)
     )
     observerForLabels.eventResponder = model
-    return LabelsView(model: model)
-  }
-  
-  func makeTrainingRecordsView(label: TrainingLabel) -> some View {
-    let trainingRecordsState = stateStore.publisher { $0.select(self.labelsGetters.getTrainingRecordsState) }
-    let observerForLabels = ObserverForTrainingRecords(trainingRecordsState: trainingRecordsState)
-    let getTrainingRecordsUseCase = GetTrainingRecordsUseCase(
-      actionDispatcher: stateStore,
-      label: label,
-      trainingDataRepository: trainingDataRepository)
-    let addTrainingRecordUseCaseFactory = {
-      AddTrainingRecordUseCase(
-        actionDispatcher: self.stateStore,
-        label: label,
-        trainingDataRepository: self.trainingDataRepository,
-        settingsRepository: self.settingsRepository
-      )
+    
+    let trainingRecordsViewFactory: TrainingRecordsViewFactory = { label in
+      let labelsDependencyContainer = LabelsDependencyContainer(appContainer: self)
+      return AnyView(labelsDependencyContainer.makeTrainingRecordsView(label: label))
     }
-    let removeTrainingRecordsUseCaseFactory = { trainingRecords in
-      RemoveTrainingRecordsUseCase(
-        actionDispatcher: self.stateStore,
-        label: label,
-        trainingRecords: trainingRecords,
-        trainingDataRepository: self.trainingDataRepository)
-    }
-    let backToLabelsUseCase = BackToLabelsUseCase(actionDispatcher: stateStore)
-    let editTrainingRecordsUseCaseFactory = {
-      EditTrainingRecordsUseCase(actionDispatcher: self.stateStore)
-    }
-    let cancelEditingTrainingRecordsUseCaseFactory = {
-      CancelEditingTrainingRecordsUseCase(actionDispatcher: self.stateStore)
-    }
-    let closeTrainingRecordsErrorUseCaseFactory = {
-      CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
-    }
-    let model = trainingRecordsModels[label] ?? TrainingRecordsViewModel(
-      label: label,
-      observerForTrainingRecords: observerForLabels,
-      getTrainingRecordsUseCase: getTrainingRecordsUseCase,
-      addTrainingRecordUseCaseFactory: addTrainingRecordUseCaseFactory,
-      removeTrainingRecordsUseCaseFactory: removeTrainingRecordsUseCaseFactory,
-      backToLabelsUseCase: backToLabelsUseCase,
-      editTrainingRecordsUseCaseFactory: editTrainingRecordsUseCaseFactory,
-      cancelEditingTrainingRecordsUseCaseFactory: cancelEditingTrainingRecordsUseCaseFactory,
-      closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory
-    )
-    observerForLabels.eventResponder = model
-    trainingRecordsModels.removeAll()
-    trainingRecordsModels[label] = model
-    return TrainingRecordsView(model: model)
+    return LabelsView(model: model, trainingRecordsViewFactory: trainingRecordsViewFactory)
   }
   
   func makeVerifyView() -> some View {

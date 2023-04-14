@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct LabelsView: View {
-  @EnvironmentObject var container: DIContainer
   @ObservedObject var model: LabelsViewModel
+  let trainingRecordsViewFactory: TrainingRecordsViewFactory
   
-  init(model: LabelsViewModel) {
+  init(model: LabelsViewModel, trainingRecordsViewFactory: @escaping TrainingRecordsViewFactory) {
     self.model = model
+    self.trainingRecordsViewFactory = trainingRecordsViewFactory
   }
   
   var body: some View {
@@ -99,7 +100,7 @@ struct LabelsView: View {
       }
     }
     .navigationDestination(for: TrainingLabel.self, destination: { label in
-      container.makeTrainingRecordsView(label: label)
+      trainingRecordsViewFactory(label)
     })
   }
   
@@ -114,9 +115,6 @@ struct LabelsView: View {
 
 struct LabelsView_Previews: PreviewProvider {
   static var previews: some View {
-    let contrainer = DIContainer()
-    let labelsView = contrainer.makeLabelsView()
-    return labelsView
-      .environmentObject(contrainer)
+    AppDependencyContainer().makeLabelsView()
   }
 }
