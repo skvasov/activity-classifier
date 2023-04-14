@@ -11,8 +11,8 @@ import CoreMotion
 typealias MotionManagerFactory = () -> MotionManager
 
 protocol MotionManager {
-  func getDeviceMotion(for window: Int, with frequency: Double) async throws ->  [DeviceMotion]
-  func getDeviceMotion(for window: Int, with frequency: Double) throws -> AsyncStream<[DeviceMotion]>
+  func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion]
+  func getDeviceMotion(for window: Int, with frequency: Int) throws -> AsyncStream<[DeviceMotion]>
   func stopGettingDeviceMotion()
 }
 
@@ -24,9 +24,9 @@ class RealMotionManager: MotionManager {
   
   private init() { }
   
-  func getDeviceMotion(for window: Int, with frequency: Double) async throws ->  [DeviceMotion] {
+  func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion] {
     return try await withCheckedThrowingContinuation { continuation in
-      let interval = 1 / frequency
+      let interval = 1.0 / Double(frequency)
       let manager = CMMotionManager()
       manager.deviceMotionUpdateInterval = interval
       
@@ -51,12 +51,12 @@ class RealMotionManager: MotionManager {
     }
   }
   
-  func getDeviceMotion(for window: Int, with frequency: Double) throws -> AsyncStream<[DeviceMotion]> {
+  func getDeviceMotion(for window: Int, with frequency: Int) throws -> AsyncStream<[DeviceMotion]> {
     stopGettingDeviceMotion()
     
     // TODO: Propagate error from `startDeviceMotionUpdates`
     return AsyncStream { continuation in
-      let interval = 1 / frequency
+      let interval = 1 / Double(frequency)
       let manager = CMMotionManager()
       currentManager = manager
       manager.deviceMotionUpdateInterval = interval

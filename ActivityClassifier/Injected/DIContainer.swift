@@ -146,7 +146,9 @@ class DIContainer: ObservableObject {
       AddTrainingRecordUseCase(
         actionDispatcher: self.stateStore,
         label: label,
-        trainingDataRepository: self.trainingDataRepository)
+        trainingDataRepository: self.trainingDataRepository,
+        settingsRepository: self.settingsRepository
+      )
     }
     let removeTrainingRecordsUseCaseFactory = { trainingRecords in
       RemoveTrainingRecordsUseCase(

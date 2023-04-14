@@ -17,7 +17,7 @@ protocol ModelRepository {
   func save(_ model: Model) async throws
   func loadAll() async throws -> [Model]
   func removeAll() async throws
-  func run(_ model: Model, for window: Int, with frequency: Double) async throws -> AsyncStream<[DeviceMotion]>
+  func run(_ model: Model, for window: Int, with frequency: Int) async throws -> AsyncStream<[DeviceMotion]>
   func stop()
   func predict(_ deviceMotions: [DeviceMotion]) throws -> Prediction
 }
@@ -52,7 +52,7 @@ extension RealModelRepository: ModelRepository {
     try await modelStore.remove(models)
   }
   
-  func run(_ model: Model, for window: Int, with frequency: Double) async throws -> AsyncStream<[DeviceMotion]> {
+  func run(_ model: Model, for window: Int, with frequency: Int) async throws -> AsyncStream<[DeviceMotion]> {
     guard let url = model.url else { throw ModelRepositoryError.invalidModelFile }
     
     let compiledModelURL = try await MLModel.compileModel(at: url)
