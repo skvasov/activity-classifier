@@ -9,10 +9,12 @@ import SwiftUI
 
 struct LabelsView: View {
   @ObservedObject var model: LabelsViewModel
-  let trainingRecordsViewFactory: TrainingRecordsViewFactory
+  private let trainingDataSharingModel: TrainingDataSharingModel
+  private let trainingRecordsViewFactory: TrainingRecordsViewFactory
   
-  init(model: LabelsViewModel, trainingRecordsViewFactory: @escaping TrainingRecordsViewFactory) {
+  init(model: LabelsViewModel, trainingDataSharingModel: TrainingDataSharingModel, trainingRecordsViewFactory: @escaping TrainingRecordsViewFactory) {
     self.model = model
+    self.trainingDataSharingModel = trainingDataSharingModel
     self.trainingRecordsViewFactory = trainingRecordsViewFactory
   }
   
@@ -56,7 +58,7 @@ struct LabelsView: View {
                 Text("Remove all")
               }
             } else {
-              ShareLink(item: model.archiver, preview: SharePreview(Text("Traning data archive"))) {
+              ShareLink(item: trainingDataSharingModel, preview: SharePreview(Text("Traning data archive"))) {
                 Image(systemName: "square.and.arrow.up")
               }
             }

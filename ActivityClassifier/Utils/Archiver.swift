@@ -8,16 +8,16 @@
 import Foundation
 import CoreTransferable
 
-struct Archiver {
+protocol Archiver {
+  func archive() throws -> URL
+}
+
+struct RealArchiver: Archiver {
   let sourceFolderURL: URL
   let archivedFileURL: URL
- 
-  // TODO: Refactor
   
   // Source: https://gist.github.com/algal/2880f79061197cc54d918631f252cd75
-  func archive() throws {
-    // TODO: Try archiving in TrainingDataRepository
-    
+  func archive() throws -> URL {
     let fileManager = FileManager.default
     
     try fileManager.removeItem(at: archivedFileURL)
@@ -81,16 +81,6 @@ struct Archiver {
       }
     }
     if let error { throw error }
-  }
-}
-
-extension Archiver: Transferable {
-  static var transferRepresentation: some TransferRepresentation {
-    FileRepresentation(contentType: .zip) { zip in
-      try zip.archive()
-      return SentTransferredFile(zip.archivedFileURL)
-    } importing: { received in
-      return Self.init(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive)
-    }
+    return archivedFileURL
   }
 }

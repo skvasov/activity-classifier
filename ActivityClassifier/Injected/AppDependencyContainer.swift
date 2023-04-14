@@ -34,6 +34,9 @@ typealias LoadSettingsUseCaseFactory = () -> UseCase
 typealias SaveSettingsUseCaseFactory = (Settings) -> UseCase
 typealias CloseSettingsErrorUseCaseFactory = () -> UseCase
 
+typealias TrainingDataSharingCallback = (Result<URL, Error>) -> Void
+typealias ShareTrainingDataUseCaseFactory = (@escaping TrainingDataSharingCallback) -> UseCase
+
 
 class AppDependencyContainer {
   let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
@@ -51,7 +54,8 @@ class AppDependencyContainer {
     return RealTrainingDataRepository(
       labelsStore: labelsStore,
       recordsStoreFactory: recordsStoreFactory,
-      motionManagerFactory: motionManagerFactory)
+      motionManagerFactory: motionManagerFactory,
+      archiver: RealArchiver(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive))
   }()
   let modelRepository: ModelRepository = {
     let folderURL = URL.modelsDirectory
@@ -140,8 +144,7 @@ class AppDependencyContainer {
       cancelEditingLabelsUseCaseFactory: cancelEditingLabelsUseCaseFactory,
       inputLabelNameUseCaseFactory: inputLabelNameUseCaseFactory,
       cancelInputtingLabelNameUseCaseFactory: cancelInputtingLabelNameUseCaseFactory,
-      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory,
-      archiver: Archiver(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive)
+      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory
     )
     observerForLabels.eventResponder = model
     
@@ -149,7 +152,10 @@ class AppDependencyContainer {
       let labelsDependencyContainer = LabelsDependencyContainer(appContainer: self)
       return AnyView(labelsDependencyContainer.makeTrainingRecordsView(label: label))
     }
-    return LabelsView(model: model, trainingRecordsViewFactory: trainingRecordsViewFactory)
+    return LabelsView(
+      model: model,
+      trainingDataSharingModel: makeTrainingDataSharingModel(),
+      trainingRecordsViewFactory: trainingRecordsViewFactory)
   }
   
   func makeVerifyView() -> some View {
@@ -206,5 +212,13 @@ class AppDependencyContainer {
       closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory)
     observerForSettings.eventResponder = model
     return SettingsView(model: model)
+  }
+  
+  func makeTrainingDataSharingModel() -> TrainingDataSharingModel {
+    let shareTrainingDataUseCaseFactory: ShareTrainingDataUseCaseFactory = { callback in
+      ShareTrainingDataUseCase(trainingDataRepository: self.trainingDataRepository, sharingCallback: callback)
+    }
+    let model = TrainingDataSharingModel(shareTrainingDataUseCaseFactory: shareTrainingDataUseCaseFactory)
+    return model
   }
 }

@@ -17,17 +17,20 @@ protocol TrainingDataRepository {
   func getAllTrainingRecords(for label: TrainingLabel) async throws -> [TrainingRecord]
   func removeTrainingRecords(_ records: [TrainingRecord], for label: TrainingLabel) async throws
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion]
+  func exportTrainingData() async throws -> URL
 }
 
 class RealTrainingDataRepository {
   private let labelsStore: any PersistentStore<TrainingLabel>
   private let recordsStoreFactory: RecordsStoreFactory
   private let motionManagerFactory: MotionManagerFactory
+  private let archiver: Archiver
   
-  init(labelsStore: any PersistentStore<TrainingLabel>, recordsStoreFactory: @escaping RecordsStoreFactory, motionManagerFactory: @escaping MotionManagerFactory) {
+  init(labelsStore: any PersistentStore<TrainingLabel>, recordsStoreFactory: @escaping RecordsStoreFactory, motionManagerFactory: @escaping MotionManagerFactory, archiver: Archiver) {
     self.labelsStore = labelsStore
     self.recordsStoreFactory = recordsStoreFactory
     self.motionManagerFactory = motionManagerFactory
+    self.archiver = archiver
   }
 }
 
@@ -62,5 +65,9 @@ extension RealTrainingDataRepository: TrainingDataRepository {
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion] {
     let motionManager = motionManagerFactory()
     return try await motionManager.getDeviceMotion(for: window, with: frequency)
+  }
+  
+  func exportTrainingData() async throws -> URL {
+    return try archiver.archive()
   }
 }

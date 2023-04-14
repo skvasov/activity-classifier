@@ -74,6 +74,8 @@
 		5F7E090129E95244003453D5 /* ObserverForSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090029E95244003453D5 /* ObserverForSettings.swift */; };
 		5F7E090329E95250003453D5 /* ObserverForSettingsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090229E95250003453D5 /* ObserverForSettingsEventResponder.swift */; };
 		5F7E090729E99B62003453D5 /* LabelsDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090629E99B62003453D5 /* LabelsDependencyContainer.swift */; };
+		5F7E090C29E9A037003453D5 /* TrainingDataSharingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090B29E9A037003453D5 /* TrainingDataSharingModel.swift */; };
+		5F7E091329E9A321003453D5 /* ShareTrainingDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E091229E9A321003453D5 /* ShareTrainingDataUseCase.swift */; };
 		5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */; };
 		5FB1A4ED29E40E7C00A2220A /* GetTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */; };
 		5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */; };
@@ -191,6 +193,8 @@
 		5F7E090029E95244003453D5 /* ObserverForSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForSettings.swift; sourceTree = "<group>"; };
 		5F7E090229E95250003453D5 /* ObserverForSettingsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForSettingsEventResponder.swift; sourceTree = "<group>"; };
 		5F7E090629E99B62003453D5 /* LabelsDependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsDependencyContainer.swift; sourceTree = "<group>"; };
+		5F7E090B29E9A037003453D5 /* TrainingDataSharingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDataSharingModel.swift; sourceTree = "<group>"; };
+		5F7E091229E9A321003453D5 /* ShareTrainingDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTrainingDataUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
@@ -333,6 +337,7 @@
 				5F7E08F529E9438D003453D5 /* Settings */,
 				5FB1A4E729E40E7C00A2220A /* TrainingRecords */,
 				5F5BBDB829E6B5C4003D8646 /* Verify */,
+				5F7E091129E9A317003453D5 /* ShareTrainingData */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -416,6 +421,7 @@
 		5F3C91C329DC2F3400BA5A2D /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				5F7E090A29E9A037003453D5 /* TrainingDataSharing */,
 				5FE726EC29E074DA008AF5E0 /* AlertDetails.swift */,
 			);
 			path = Reusable;
@@ -583,6 +589,22 @@
 				5F7E08FE29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		5F7E090A29E9A037003453D5 /* TrainingDataSharing */ = {
+			isa = PBXGroup;
+			children = (
+				5F7E090B29E9A037003453D5 /* TrainingDataSharingModel.swift */,
+			);
+			path = TrainingDataSharing;
+			sourceTree = "<group>";
+		};
+		5F7E091129E9A317003453D5 /* ShareTrainingData */ = {
+			isa = PBXGroup;
+			children = (
+				5F7E091229E9A321003453D5 /* ShareTrainingDataUseCase.swift */,
+			);
+			path = ShareTrainingData;
 			sourceTree = "<group>";
 		};
 		5FB1A4E729E40E7C00A2220A /* TrainingRecords */ = {
@@ -775,6 +797,7 @@
 				5FE726C429DECFFF008AF5E0 /* TrainingRecordsReducer.swift in Sources */,
 				5F7E090729E99B62003453D5 /* LabelsDependencyContainer.swift in Sources */,
 				5F7E08FF29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift in Sources */,
+				5F7E091329E9A321003453D5 /* ShareTrainingDataUseCase.swift in Sources */,
 				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
 				5F5BBDCA29E70581003D8646 /* StopModelUseCase.swift in Sources */,
 				5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */,
@@ -826,6 +849,7 @@
 				5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */,
 				5F3C91E429DC60DF00BA5A2D /* AppDependencyContainer.swift in Sources */,
 				5F7E08F429E94093003453D5 /* SettingsReducer.swift in Sources */,
+				5F7E090C29E9A037003453D5 /* TrainingDataSharingModel.swift in Sources */,
 				5F3C921A29DD689B00BA5A2D /* LabelsReducer.swift in Sources */,
 				5F5BBDCC29E70C66003D8646 /* LoadModelUseCase.swift in Sources */,
 				5F5BBDB729E6AB89003D8646 /* VerifyState.swift in Sources */,
