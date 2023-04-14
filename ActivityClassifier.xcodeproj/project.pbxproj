@@ -73,7 +73,7 @@
 		5F7E08FF29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E08FE29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift */; };
 		5F7E090129E95244003453D5 /* ObserverForSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090029E95244003453D5 /* ObserverForSettings.swift */; };
 		5F7E090329E95250003453D5 /* ObserverForSettingsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090229E95250003453D5 /* ObserverForSettingsEventResponder.swift */; };
-		5F7E090529E997FF003453D5 /* LabelsDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090429E997FF003453D5 /* LabelsDependencyContainer.swift */; };
+		5F7E090729E99B62003453D5 /* LabelsDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E090629E99B62003453D5 /* LabelsDependencyContainer.swift */; };
 		5FB1A4EC29E40E7C00A2220A /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */; };
 		5FB1A4ED29E40E7C00A2220A /* GetTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */; };
 		5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */; };
@@ -190,7 +190,7 @@
 		5F7E08FE29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseSettingsErrorUseCase.swift; sourceTree = "<group>"; };
 		5F7E090029E95244003453D5 /* ObserverForSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForSettings.swift; sourceTree = "<group>"; };
 		5F7E090229E95250003453D5 /* ObserverForSettingsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForSettingsEventResponder.swift; sourceTree = "<group>"; };
-		5F7E090429E997FF003453D5 /* LabelsDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsDependencyContainer.swift; sourceTree = "<group>"; };
+		5F7E090629E99B62003453D5 /* LabelsDependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelsDependencyContainer.swift; sourceTree = "<group>"; };
 		5FB1A4E829E40E7C00A2220A /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4E929E40E7C00A2220A /* GetTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
 		5FB1A4EA29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveTrainingRecordsUseCase.swift; sourceTree = "<group>"; };
@@ -312,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				5F3C91E329DC60DF00BA5A2D /* AppDependencyContainer.swift */,
+				5F7E090629E99B62003453D5 /* LabelsDependencyContainer.swift */,
 			);
 			path = Injected;
 			sourceTree = "<group>";
@@ -434,7 +435,6 @@
 		5F3C91CF29DC31E700BA5A2D /* Labels */ = {
 			isa = PBXGroup;
 			children = (
-				5F7E090429E997FF003453D5 /* LabelsDependencyContainer.swift */,
 				5F3C91D929DC5B0B00BA5A2D /* LabelsView.swift */,
 				5F3C91E529DC64B600BA5A2D /* LabelsViewModel.swift */,
 				5F3C91E929DD44C300BA5A2D /* ObserverForLabels.swift */,
@@ -773,7 +773,7 @@
 				5FB1A50329E4877D00A2220A /* Archiver.swift in Sources */,
 				5FE726DC29E0207F008AF5E0 /* ExportTrainingDataUseCase.swift in Sources */,
 				5FE726C429DECFFF008AF5E0 /* TrainingRecordsReducer.swift in Sources */,
-				5F7E090529E997FF003453D5 /* LabelsDependencyContainer.swift in Sources */,
+				5F7E090729E99B62003453D5 /* LabelsDependencyContainer.swift in Sources */,
 				5F7E08FF29E94FDB003453D5 /* CloseSettingsErrorUseCase.swift in Sources */,
 				5F3C921829DD689B00BA5A2D /* LabelsGetters.swift in Sources */,
 				5F5BBDCA29E70581003D8646 /* StopModelUseCase.swift in Sources */,
