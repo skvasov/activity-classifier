@@ -10,7 +10,6 @@ import SwiftUI
 struct LabelsView: View {
   @EnvironmentObject var container: DIContainer
   @ObservedObject var model: LabelsViewModel
-  @State private var newLabelName: String = ""
   
   init(model: LabelsViewModel) {
     self.model = model
@@ -67,8 +66,10 @@ struct LabelsView: View {
         model.onAppear()
       }
       .alert(model.presentedAlert.title, isPresented: $model.isPresentingAlert, actions: {
-        model.presentedAlert.body
-      })
+        model.presentedAlert.actions
+      }) {
+        model.presentedAlert.messageView
+      }
     }
   }
   

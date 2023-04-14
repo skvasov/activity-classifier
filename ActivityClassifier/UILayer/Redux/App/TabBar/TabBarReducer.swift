@@ -13,6 +13,7 @@ extension Reducers {
     
     state.labelsState = labelsReducer(action: action, state: state.labelsState)
     state.verifyState = verifyReducer(action: action, state: state.verifyState)
+    state.settingsState = settingsReducer(action: action, state: state.settingsState)
     
     return state
   }

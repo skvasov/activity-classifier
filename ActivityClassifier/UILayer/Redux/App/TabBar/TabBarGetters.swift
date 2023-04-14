@@ -33,4 +33,14 @@ struct TabBarGetters {
       return .outOfScope
     }
   }
+  
+  func getSettingsState(_ appState: AppState) -> ScopedState<SettingsState> {
+    let tabBarState = getTabBarState(appState)
+    switch tabBarState {
+    case .inScope(let tabBarState):
+      return .inScope(tabBarState.settingsState)
+    case .outOfScope:
+      return .outOfScope
+    }
+  }
 }

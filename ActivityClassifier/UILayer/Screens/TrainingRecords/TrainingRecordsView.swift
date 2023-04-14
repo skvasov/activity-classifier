@@ -25,7 +25,7 @@ struct TrainingRecordsView: View {
         makeContentView()
       }
     }
-    .navigationTitle(model.title)
+    .navigationTitle("\(model.title) (\(model.trainingRecords.count))")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
@@ -50,7 +50,9 @@ struct TrainingRecordsView: View {
       model.onAppear()
     }
     .alert(model.presentedAlert.title, isPresented: $model.isPresentingAlert, actions: {
-      model.presentedAlert.body
+      model.presentedAlert.actions
+    }, message: {
+      model.presentedAlert.messageView
     })
     .disabled(model.isAddingNewRecord)
   }

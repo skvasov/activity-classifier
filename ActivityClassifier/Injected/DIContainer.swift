@@ -33,6 +33,11 @@ typealias RunModelUseCaseFactory = (Model) -> UseCase
 typealias StopModelUseCaseFactory = () -> UseCase
 typealias LoadModelUseCaseFactory = () -> UseCase
 
+typealias LoadSettingsUseCaseFactory = () -> UseCase
+typealias SaveSettingsUseCaseFactory = (Settings) -> UseCase
+typealias CloseSettingsErrorUseCaseFactory = () -> UseCase
+
+
 class DIContainer: ObservableObject {
   private let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
   private let appGetters = AppGetters()
@@ -58,6 +63,10 @@ class DIContainer: ObservableObject {
     return RealModelRepository(
       modelStore: modelStore,
       motionManager: RealMotionManager.shared)
+  }()
+  private let settingsRepository: SettingsRepository = {
+    let settingsStore = UserDefaultsManager<Settings>()
+    return RealSettingsRepository(settingsStore: settingsStore)
   }()
   
   private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
@@ -208,6 +217,24 @@ class DIContainer: ObservableObject {
   }
   
   func makeSettingsView() -> some View {
-    SettingsView()
+    let settingsState = stateStore.publisher { $0.select(self.tabBarGetters.getSettingsState) }
+    let observerForSettings = ObserverForSettings(settingsState: settingsState)
+    let loadSettingsUseCase = LoadSettingsUseCase(actionDispatcher: stateStore, settingsRepository: settingsRepository)
+    let saveSettingsUseCaseFactory: SaveSettingsUseCaseFactory = { settings in
+      SaveSettingsUseCase(
+        actionDispatcher: self.stateStore,
+        settings: settings,
+        settingsRepository: self.settingsRepository)
+    }
+    let closeLabelsErrorUseCaseFactory: CloseLabelsErrorUseCaseFactory = {
+      CloseSettingsErrorUseCase(actionDispatcher: self.stateStore)
+    }
+    let model = SettingsViewModel(
+      observerForSettings: observerForSettings,
+      loadSettingsUseCase: loadSettingsUseCase,
+      saveSettingsUseCaseFactory: saveSettingsUseCaseFactory,
+      closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory)
+    observerForSettings.eventResponder = model
+    return SettingsView(model: model)
   }
 }

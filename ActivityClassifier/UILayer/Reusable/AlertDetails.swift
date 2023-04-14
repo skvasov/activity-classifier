@@ -20,15 +20,12 @@ struct AlertDetails {
   }
   
   let title: String
-  let messages: [String]
+  let message: String?
   let textFields: [TextField]
   let buttons: [Button]
   
   @ViewBuilder
-  var body: some View {
-    ForEach(Array(messages.enumerated()), id: \.offset) { _, message in
-      Text(message)
-    }
+  var actions: some View {
     ForEach(Array(textFields.enumerated()), id: \.offset) { _, textField in
       SwiftUI.TextField(textField.placeholder, text: textField.text)
     }
@@ -36,19 +33,24 @@ struct AlertDetails {
       SwiftUI.Button(button.title, role: button.isCancel ? .cancel : nil, action: button.action)
     }
   }
+  
+  @ViewBuilder
+  var messageView: some View {
+    Text(message ?? "")
+  }
 }
 
 extension AlertDetails {
   init() {
     self.title = ""
-    self.messages = []
+    self.message = nil
     self.textFields = []
     self.buttons = []
   }
   
   init(error: ErrorMessage, completion: @escaping () -> Void) {
     self.title = "Error"
-    self.messages = [error.message]
+    self.message = error.message
     self.textFields = []
     self.buttons = [
       AlertDetails.Button(title: "OK", isCancel: true, action: {

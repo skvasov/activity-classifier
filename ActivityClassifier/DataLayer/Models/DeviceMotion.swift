@@ -189,7 +189,7 @@ class DeviceMotionFeatureProvider: MLFeatureProvider {
   
   init(_ motions: [DeviceMotion], stateIn: MLMultiArray?) throws {
     self.motions = motions
-    // TODO: what is 400 ???
+    // TODO: what is 400 ??? https://developer.apple.com/documentation/coreml/making_predictions_with_a_sequence_of_inputs
     self.stateIn = try (stateIn ?? MLMultiArray(Array(repeating: 0.0, count: 400)))
   }
   
