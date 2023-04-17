@@ -7,6 +7,17 @@
 
 import Foundation
 
+enum AddLabelUseCaseError: Error, LocalizedError {
+  case invalidName
+  
+  var errorDescription: String? {
+    switch self {
+    case .invalidName:
+        return "Invalid name. Alphanumericals only"
+    }
+  }
+}
+
 class AddLabelUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
   private let labelName: String
@@ -22,6 +33,7 @@ class AddLabelUseCase: UseCase {
     Task {
       actionDispatcher.dispatch(LabelsActions.AddLabel())
       do {
+        guard labelName.isAlphanumeric else { throw AddLabelUseCaseError.invalidName }
         let label = TrainingLabel(name: labelName, numOfChildren: 0)
         try await trainingDataRepository.addLabel(label)
         actionDispatcher.dispatch(LabelsActions.AddedLabel(label: label))

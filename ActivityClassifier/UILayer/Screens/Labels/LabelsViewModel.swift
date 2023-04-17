@@ -134,7 +134,7 @@ extension LabelsViewModel: ObserverForLabelsEventResponder {
     
     return AlertDetails(
       title: "Input label name",
-      message: nil,
+      message: "Alphanumericals only",
       textFields: [AlertDetails.TextField(placeholder: "Label name", text: nameBinding)],
       buttons: [
         AlertDetails.Button(title: "Cancel", isCancel: true, action: { [weak self] in
