@@ -51,7 +51,7 @@ struct VerifyView: View {
   func makeContentView() -> some View {
     ZStack {
       VStack {
-        Text("\(model.prediction?.topLabel ?? "") : \(String(model.prediction?.topProbability ?? 0.0))")
+        Text("\(model.prediction?.topLabel ?? "-") \(String(format: "%.0f%%", (model.prediction?.topProbability ?? 0.0) * 100))")
         makeRunButton()
       }
       VStack {
@@ -63,7 +63,7 @@ struct VerifyView: View {
   
   func makeEmptyStateView() -> some View {
     VStack {
-      Text("Tap Import button to add an ML model")
+      Text("Tap 'Import' button to add an ML model")
     }
   }
   
@@ -76,8 +76,6 @@ struct VerifyView: View {
       model.isRunning ? model.stop() : model.run()
     }
     .buttonStyle(BorderedProminentButtonStyle())
-//    .background(model.isRunning ? Color.red : Color.primary)
-    
   }
 }
 

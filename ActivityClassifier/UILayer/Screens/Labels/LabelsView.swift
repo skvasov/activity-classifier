@@ -107,7 +107,7 @@ struct LabelsView: View {
   }
   
   func makeEmptyStateView() -> some View {
-    Text("Tap + to add new labels")
+    Text("Tap '+' to add a new label")
   }
   
   func makeLoadingView() -> some View {
