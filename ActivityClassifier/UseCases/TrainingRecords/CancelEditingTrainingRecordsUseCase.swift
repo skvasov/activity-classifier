@@ -15,6 +15,6 @@ class CancelEditingTrainingRecordsUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(TrainingRecordsActions.CancelEditingTrainingRecords())
+    actionDispatcher.dispatchOnMain(TrainingRecordsActions.CancelEditingTrainingRecords())
   }
 }

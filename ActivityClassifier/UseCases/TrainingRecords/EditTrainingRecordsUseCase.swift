@@ -15,6 +15,6 @@ class EditTrainingRecordsUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(TrainingRecordsActions.EditTrainingRecords())
+    actionDispatcher.dispatchOnMain(TrainingRecordsActions.EditTrainingRecords())
   }
 }

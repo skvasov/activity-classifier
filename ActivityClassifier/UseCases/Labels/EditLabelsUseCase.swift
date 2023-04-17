@@ -15,6 +15,6 @@ class EditLabelsUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.EditLabels())
+    actionDispatcher.dispatchOnMain(LabelsActions.EditLabels())
   }
 }

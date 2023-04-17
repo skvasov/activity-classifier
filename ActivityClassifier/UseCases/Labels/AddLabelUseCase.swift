@@ -34,19 +34,19 @@ class AddLabelUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.AddLabel())
+      actionDispatcher.dispatchOnMain(LabelsActions.AddLabel())
       do {
         guard labelName.isAlphanumeric else { throw AddLabelUseCaseError.invalidName }
         let label = TrainingLabel(name: labelName, numOfChildren: 0)
         try await trainingDataRepository.addLabel(label)
-        actionDispatcher.dispatch(LabelsActions.AddedLabel(label: label))
+        actionDispatcher.dispatchOnMain(LabelsActions.AddedLabel(label: label))
       } catch let error as PersistentStoreError where error == .alreadyExists {
         let errorMessage = ErrorMessage(error: AddLabelUseCaseError.alreadyExists)
-        actionDispatcher.dispatch(LabelsActions.AddingLabelFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(LabelsActions.AddingLabelFailed(error: errorMessage))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(LabelsActions.AddingLabelFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(LabelsActions.AddingLabelFailed(error: errorMessage))
       }
     }
   }

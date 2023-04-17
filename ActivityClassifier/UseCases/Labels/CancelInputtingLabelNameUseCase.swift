@@ -15,6 +15,6 @@ class CancelInputtingLabelNameUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.CancelInputtingLabelName())
+    actionDispatcher.dispatchOnMain(LabelsActions.CancelInputtingLabelName())
   }
 }

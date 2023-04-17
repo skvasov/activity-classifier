@@ -15,6 +15,6 @@ class CloseLabelsErrorUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.CloseLabelsError())
+    actionDispatcher.dispatchOnMain(LabelsActions.CloseLabelsError())
   }
 }

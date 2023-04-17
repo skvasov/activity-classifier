@@ -15,6 +15,6 @@ class CancelEditingLabelsUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.CancelEditingLabels())
+    actionDispatcher.dispatchOnMain(LabelsActions.CancelEditingLabels())
   }
 }

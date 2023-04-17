@@ -12,21 +12,23 @@ class AddTrainingRecordUseCase: UseCase {
   private let label: TrainingLabel
   private let trainingDataRepository: TrainingDataRepository
   private let settingsRepository: SettingsRepository
+  private let feedbackRepository: FeedbackRepository
   
-  init(actionDispatcher: ActionDispatcher, label: TrainingLabel, trainingDataRepository: TrainingDataRepository, settingsRepository: SettingsRepository) {
+  init(actionDispatcher: ActionDispatcher, label: TrainingLabel, trainingDataRepository: TrainingDataRepository, settingsRepository: SettingsRepository, feedbackRepository: FeedbackRepository) {
     self.actionDispatcher = actionDispatcher
     self.label = label
     self.trainingDataRepository = trainingDataRepository
     self.settingsRepository = settingsRepository
+    self.feedbackRepository = feedbackRepository
   }
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.AddTrainingRecord())
+      actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddTrainingRecord())
       do {
         let settings = try await settingsRepository.load() ?? .default
 
-        try await Task.sleep(for: .seconds(settings.delay))
+        await feedbackRepository.generateFeedback(for: settings.delay)
         
         let motions = try await trainingDataRepository.getDeviceMotion(for: settings.predictionWindow, with: settings.frequency)
         let data = try JSONEncoder().encode(motions)
@@ -37,11 +39,11 @@ class AddTrainingRecordUseCase: UseCase {
         
         let trainingRecord = TrainingRecord(name: name, numOfChildren: 0, content: data)
         try await trainingDataRepository.addTrainingRecord(trainingRecord, for: label)
-        actionDispatcher.dispatch(TrainingRecordsActions.AddedTrainingRecord(trainingRecord: trainingRecord))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddedTrainingRecord(trainingRecord: trainingRecord))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(TrainingRecordsActions.AddingTrainingRecordFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddingTrainingRecordFailed(error: errorMessage))
       }
     }
   }

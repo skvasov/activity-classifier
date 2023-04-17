@@ -10,8 +10,15 @@ import ReSwift
 
 public protocol ActionDispatcher {
 
-  func dispatch(_ action: Action)
+  func dispatchOnMain(_ action: Action)
 }
 
 extension Store: ActionDispatcher {
+  public func dispatchOnMain(_ action: Action) {
+    Task {
+      await MainActor.run {
+        dispatch(action)
+      }
+    }
+  }
 }

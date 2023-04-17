@@ -16,7 +16,7 @@ class CancelImportingModelUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(VerifyActions.CancelImportingModel())
+      actionDispatcher.dispatchOnMain(VerifyActions.CancelImportingModel())
     }
   }
 }

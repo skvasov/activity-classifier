@@ -15,6 +15,6 @@ class InputLabelNameUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.InputLabelName())
+    actionDispatcher.dispatchOnMain(LabelsActions.InputLabelName())
   }
 }

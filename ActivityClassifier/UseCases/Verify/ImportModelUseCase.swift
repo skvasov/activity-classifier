@@ -16,7 +16,7 @@ class ImportModelUseCaseUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(VerifyActions.ImportModel())
+      actionDispatcher.dispatchOnMain(VerifyActions.ImportModel())
     }
   }
 }

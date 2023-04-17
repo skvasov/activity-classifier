@@ -20,14 +20,14 @@ class GetTrainingRecordsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.GetTrainingRecords())
+      actionDispatcher.dispatchOnMain(TrainingRecordsActions.GetTrainingRecords())
       do {
         let trainingRecords = try await trainingDataRepository.getAllTrainingRecords(for: label)
-        actionDispatcher.dispatch(TrainingRecordsActions.GotTrainingRecords(trainingRecords: trainingRecords))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.GotTrainingRecords(trainingRecords: trainingRecords))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(TrainingRecordsActions.GettingTrainingRecordsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.GettingTrainingRecordsFailed(error: errorMessage))
       }
     }
   }

@@ -15,6 +15,6 @@ class CloseTrainingRecordsErrorUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(TrainingRecordsActions.CloseTrainingRecordsErrorUseCase())
+    actionDispatcher.dispatchOnMain(TrainingRecordsActions.CloseTrainingRecordsErrorUseCase())
   }
 }

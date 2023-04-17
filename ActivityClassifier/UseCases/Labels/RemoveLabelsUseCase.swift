@@ -20,14 +20,14 @@ class RemoveLabelsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.RemoveLabels())
+      actionDispatcher.dispatchOnMain(LabelsActions.RemoveLabels())
       do {
         try await trainingDataRepository.removeLabels(labels)
-        actionDispatcher.dispatch(LabelsActions.RemovedLabels(removedLabels: labels))
+        actionDispatcher.dispatchOnMain(LabelsActions.RemovedLabels(removedLabels: labels))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(LabelsActions.RemovingLabelsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(LabelsActions.RemovingLabelsFailed(error: errorMessage))
       }
     }
   }

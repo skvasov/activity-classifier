@@ -22,7 +22,7 @@ class SaveModelUseCase: UseCase {
     Task {
       // TODO: Check for bg thread?
       await MainActor.run {
-        actionDispatcher.dispatch(VerifyActions.SaveModel())
+        actionDispatcher.dispatchOnMain(VerifyActions.SaveModel())
       }
       switch importResult {
       case .success(let url):
@@ -42,7 +42,7 @@ class SaveModelUseCase: UseCase {
           try await modelRepository.save(model)
           let firstModel = try await modelRepository.loadAll().first
           
-          actionDispatcher.dispatch(VerifyActions.SavedModel(model: firstModel))
+          actionDispatcher.dispatchOnMain(VerifyActions.SavedModel(model: firstModel))
         } catch {
           dispatch(error: error)
         }
@@ -54,6 +54,6 @@ class SaveModelUseCase: UseCase {
   
   private func dispatch(error: Error) {
     let errorMessage = ErrorMessage(error: error)
-    actionDispatcher.dispatch(VerifyActions.SavingModelFailed(error: errorMessage))
+    actionDispatcher.dispatchOnMain(VerifyActions.SavingModelFailed(error: errorMessage))
   }
 }

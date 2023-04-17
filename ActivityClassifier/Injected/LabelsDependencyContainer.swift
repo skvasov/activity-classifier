@@ -20,6 +20,9 @@ class LabelsDependencyContainer {
   let labelsGetters: LabelsGetters
   let trainingDataRepository: TrainingDataRepository
   let settingsRepository: SettingsRepository
+  let feedbackRepository: FeedbackRepository = {
+    RealFeedbackRepository()
+  }()
   
   private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
   
@@ -42,7 +45,8 @@ class LabelsDependencyContainer {
         actionDispatcher: self.stateStore,
         label: label,
         trainingDataRepository: self.trainingDataRepository,
-        settingsRepository: self.settingsRepository
+        settingsRepository: self.settingsRepository,
+        feedbackRepository: self.feedbackRepository
       )
     }
     let removeTrainingRecordsUseCaseFactory = { trainingRecords in

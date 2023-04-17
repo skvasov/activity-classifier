@@ -18,7 +18,7 @@ class GoToTrainingRecordsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.GoToTrainingRecords(label: label))
+      actionDispatcher.dispatchOnMain(LabelsActions.GoToTrainingRecords(label: label))
     }
   }
 }

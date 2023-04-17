@@ -22,14 +22,14 @@ class RemoveTrainingRecordsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(TrainingRecordsActions.RemoveTrainingRecords())
+      actionDispatcher.dispatchOnMain(TrainingRecordsActions.RemoveTrainingRecords())
       do {
         try await trainingDataRepository.removeTrainingRecords(trainingRecords, for: label)
-        actionDispatcher.dispatch(TrainingRecordsActions.RemovedTrainingRecords(removedTrainingRecords: trainingRecords))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.RemovedTrainingRecords(removedTrainingRecords: trainingRecords))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(TrainingRecordsActions.RemovingTrainingRecordsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(TrainingRecordsActions.RemovingTrainingRecordsFailed(error: errorMessage))
       }
     }
   }

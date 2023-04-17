@@ -18,14 +18,14 @@ class LoadModelUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(VerifyActions.LoadModel())
+      actionDispatcher.dispatchOnMain(VerifyActions.LoadModel())
       do {
         let model = try await modelRepository.loadAll().first
-        actionDispatcher.dispatch(VerifyActions.LoadedModel(model: model))
+        actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(VerifyActions.LoadingModelFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(VerifyActions.LoadingModelFailed(error: errorMessage))
       }
     }
   }

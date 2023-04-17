@@ -18,14 +18,14 @@ class LoadSettingsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(SettingsActions.LoadSettings())
+      actionDispatcher.dispatchOnMain(SettingsActions.LoadSettings())
       do {
         let settings = try await settingsRepository.load()
-        actionDispatcher.dispatch(SettingsActions.LoadedSettings(settings: settings))
+        actionDispatcher.dispatchOnMain(SettingsActions.LoadedSettings(settings: settings))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(SettingsActions.LoadingSettingsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(SettingsActions.LoadingSettingsFailed(error: errorMessage))
       }
     }
   }

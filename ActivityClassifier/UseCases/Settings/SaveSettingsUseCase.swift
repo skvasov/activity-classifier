@@ -38,19 +38,19 @@ class SaveSettingsUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(SettingsActions.SaveSettings())
+      actionDispatcher.dispatchOnMain(SettingsActions.SaveSettings())
       do {
         try validateSettings()
         try await settingsRepository.save(settings)
-        actionDispatcher.dispatch(SettingsActions.SavedSettings(settings: settings))
+        actionDispatcher.dispatchOnMain(SettingsActions.SavedSettings(settings: settings))
       }
       catch _ as SaveSettingsUseCaseError {
         let errorMessage = ErrorMessage(message: "Invalid settings")
-        actionDispatcher.dispatch(SettingsActions.SavingSettingsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(SettingsActions.SavingSettingsFailed(error: errorMessage))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatch(SettingsActions.SavingSettingsFailed(error: errorMessage))
+        actionDispatcher.dispatchOnMain(SettingsActions.SavingSettingsFailed(error: errorMessage))
       }
     }
   }

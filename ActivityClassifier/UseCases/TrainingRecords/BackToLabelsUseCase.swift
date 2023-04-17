@@ -15,6 +15,6 @@ class BackToLabelsUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(LabelsActions.BackToLabels())
+    actionDispatcher.dispatchOnMain(LabelsActions.BackToLabels())
   }
 }

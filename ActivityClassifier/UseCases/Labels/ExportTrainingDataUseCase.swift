@@ -18,7 +18,7 @@ class ExportTrainingDataUseCase: UseCase {
   
   func execute() {
     Task {
-      actionDispatcher.dispatch(LabelsActions.ExportTrainingData())
+      actionDispatcher.dispatchOnMain(LabelsActions.ExportTrainingData())
       //let data = try await trainingDataRepository.exportTrainingData()
       //actionDispatcher.dispatch(LabelsActions.ExportedTrainingData(data: data))
     }

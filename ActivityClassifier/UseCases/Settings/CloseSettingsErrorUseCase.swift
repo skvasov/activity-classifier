@@ -15,6 +15,6 @@ class CloseSettingsErrorUseCase: UseCase {
   }
   
   func execute() {
-    actionDispatcher.dispatch(SettingsActions.CloseSettingsError())
+    actionDispatcher.dispatchOnMain(SettingsActions.CloseSettingsError())
   }
 }
