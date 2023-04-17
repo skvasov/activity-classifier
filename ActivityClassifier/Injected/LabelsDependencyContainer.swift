@@ -24,7 +24,7 @@ class LabelsDependencyContainer {
     RealFeedbackRepository()
   }()
   
-  private var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
+  private static var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
   
   init(appContainer: AppDependencyContainer) {
     self.stateStore = appContainer.stateStore
@@ -67,7 +67,7 @@ class LabelsDependencyContainer {
       CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
     }
     // REFACTOR: because of SwiftUI bug NavigationStack creates child views many times
-    let model = trainingRecordsModels[label] ?? TrainingRecordsViewModel(
+    let model = Self.trainingRecordsModels[label] ?? TrainingRecordsViewModel(
       label: label,
       observerForTrainingRecords: observerForLabels,
       getTrainingRecordsUseCase: getTrainingRecordsUseCase,
@@ -79,8 +79,8 @@ class LabelsDependencyContainer {
       closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory
     )
     observerForLabels.eventResponder = model
-    trainingRecordsModels.removeAll()
-    trainingRecordsModels[label] = model
+    Self.trainingRecordsModels.removeAll()
+    Self.trainingRecordsModels[label] = model
     return TrainingRecordsView(model: model)
   }
 }
