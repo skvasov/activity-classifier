@@ -99,7 +99,6 @@ extension TrainingRecordsViewModel: ObserverForTrainingRecordsEventResponder {
     isLoading = state.viewState.isLoading
     isEditing = state.viewState.isEditing
     isAddingNewRecord = state.viewState.isAddingNewRecord
-    print("isAddingNewRecord : \(state.viewState.isAddingNewRecord)")
     if let error = state.errorsToPresent.first {
       isPresentingAlert = true
       presentedAlert = .init(error: error, completion: finishPresentingError)
