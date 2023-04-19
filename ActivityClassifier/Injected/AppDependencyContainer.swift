@@ -68,9 +68,18 @@ class AppDependencyContainer {
     let settingsStore = UserDefaultsManager<Settings>()
     return RealSettingsRepository(settingsStore: settingsStore)
   }()
+  let watchConnectivityManager: any WatchConnectvityManager<WatchContext>
+  let watchAppRepository: WatchAppRepository
   
   init() {
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
+    self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext>()
+    self.watchAppRepository = RealWatchAppRepository(connectivityManager: watchConnectivityManager)
+  }
+  
+  func makeAppModel() -> ActivityClassifierAppModel {
+    let startWatchAppUseCase = StartWatchAppUseCase(watchAppRepository: watchAppRepository)
+    return ActivityClassifierAppModel(startWatchAppUseCase: startWatchAppUseCase)
   }
   
   func makeTabBarView() -> some View {

@@ -9,11 +9,22 @@ import SwiftUI
 
 @main
 struct ActivityClassifierApp: App {
-  let contrainer = AppDependencyContainer()
+  let contrainer: AppDependencyContainer
+  let model: ActivityClassifierAppModel
+  
+  init() {
+    self.contrainer = AppDependencyContainer()
+    self.model = self.contrainer.makeAppModel()
+  }
   
   var body: some Scene {
     WindowGroup {
-      contrainer.makeTabBarView()
+      Group {
+        contrainer.makeTabBarView()
+      }
+      .onAppear {
+        model.onAppear()
+      }
     }
   }
 }

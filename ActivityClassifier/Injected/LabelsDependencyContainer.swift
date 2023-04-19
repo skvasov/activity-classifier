@@ -14,6 +14,7 @@ typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
 typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
+typealias UpdateWatchContextUseCaseFactory = (TrainingLabel?) -> UseCase
 
 class LabelsDependencyContainer {
   let stateStore: Store<AppState>
@@ -23,6 +24,7 @@ class LabelsDependencyContainer {
   let feedbackRepository: FeedbackRepository = {
     RealFeedbackRepository()
   }()
+  let watchAppRepository: WatchAppRepository
   
   private static var trainingRecordsModels: [TrainingLabel: TrainingRecordsViewModel] = [:]
   
@@ -31,6 +33,7 @@ class LabelsDependencyContainer {
     self.labelsGetters = LabelsGetters(getLabelsState: appContainer.tabBarGetters.getLabelsState)
     self.trainingDataRepository = appContainer.trainingDataRepository
     self.settingsRepository = appContainer.settingsRepository
+    self.watchAppRepository = appContainer.watchAppRepository
   }
   
   func makeTrainingRecordsView(label: TrainingLabel) -> some View {
@@ -66,6 +69,9 @@ class LabelsDependencyContainer {
     let closeTrainingRecordsErrorUseCaseFactory = {
       CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
     }
+    let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = { label in
+      UpdateWatchContextUseCase(watchAppRepository: self.watchAppRepository, label: label)
+    }
     // REFACTOR: because of SwiftUI bug NavigationStack creates child views many times
     let model = Self.trainingRecordsModels[label] ?? TrainingRecordsViewModel(
       label: label,
@@ -76,7 +82,8 @@ class LabelsDependencyContainer {
       backToLabelsUseCase: backToLabelsUseCase,
       editTrainingRecordsUseCaseFactory: editTrainingRecordsUseCaseFactory,
       cancelEditingTrainingRecordsUseCaseFactory: cancelEditingTrainingRecordsUseCaseFactory,
-      closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory
+      closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory,
+      updateWatchContextUseCaseFactory: updateWatchContextUseCaseFactory
     )
     observerForLabels.eventResponder = model
     Self.trainingRecordsModels.removeAll()

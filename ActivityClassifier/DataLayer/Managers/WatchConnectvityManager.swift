@@ -17,8 +17,11 @@ private typealias ActivationContinuation = CheckedContinuation<WCSessionActivati
 
 protocol WatchConnectvityManager<Context> {
   associatedtype Context: DictionaryCodable
-
+  
+#if os(iOS)
   func startWatchApp() async throws
+#endif
+  func activateSession() async throws
   func updateAppContext(_ context: Context) async throws
   func getAppContext() throws -> Context
 }
@@ -26,17 +29,18 @@ protocol WatchConnectvityManager<Context> {
 class RealWatchConnectvityManager<T: DictionaryCodable>: NSObject, WCSessionDelegate {
   private var activationContinuations: [ActivationContinuation] = []
   
-  private override init() {
+  override init() {
     super.init()
     WCSession.default.delegate = self
   }
   
-  private func activateSession() async throws {
+  func activateSession() async throws {
     if WCSession.default.activationState == .activated {
-      guard WCSession.default.isReachable else { throw WatchConnectvityManagerError.deviceNotReachable }
+      //guard WCSession.default.isReachable else { throw WatchConnectvityManagerError.deviceNotReachable }
     } else {
       let activationState = try await withCheckedThrowingContinuation { (continuation: ActivationContinuation) in
         self.activationContinuations.append(continuation)
+        WCSession.default.activate()
       }
       
       switch activationState {
@@ -58,18 +62,29 @@ class RealWatchConnectvityManager<T: DictionaryCodable>: NSObject, WCSessionDele
     }
   }
   
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    print(applicationContext)
+  }
+  
+#if os(iOS)
   func sessionDidBecomeInactive(_ session: WCSession) {
+    
   }
   
   func sessionDidDeactivate(_ session: WCSession) {
+    
   }
+#endif
 }
 
 extension RealWatchConnectvityManager: WatchConnectvityManager {
   
+#if os(iOS)
   func startWatchApp() async throws {
+    // TODO: Fix Asked to start a workout, but WKExtensionDelegate <SwiftUI.ExtensionDelegate: 0x600001d1d0c0> doesn't implement handleWorkoutConfiguration:
     try await HKHealthStore().startWatchApp(toHandle: HKWorkoutConfiguration())
   }
+#endif
   
   func updateAppContext(_ context: T) async throws {
     try await activateSession()

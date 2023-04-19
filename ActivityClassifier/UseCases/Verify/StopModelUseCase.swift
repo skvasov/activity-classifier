@@ -19,14 +19,8 @@ class StopModelUseCase: UseCase {
   func execute() {
     Task {
       actionDispatcher.dispatchOnMain(VerifyActions.StopModel())
-      do {
-        try await modelRepository.stop()
-        actionDispatcher.dispatchOnMain(VerifyActions.DidStopModel())
-      }
-      catch {
-        let errorMessage = ErrorMessage(error: error)
-        actionDispatcher.dispatchOnMain(VerifyActions.StoppingModelFailed(error: errorMessage))
-      }
+      modelRepository.stop()
+      actionDispatcher.dispatchOnMain(VerifyActions.DidStopModel())
     }
   }
 }

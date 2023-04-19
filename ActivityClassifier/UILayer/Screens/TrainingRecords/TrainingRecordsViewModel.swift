@@ -26,6 +26,7 @@ class TrainingRecordsViewModel: ObservableObject {
   private let editTrainingRecordsUseCaseFactory: EditTrainingRecordsUseCaseFactory
   private let cancelEditingTrainingRecordsUseCaseFactory: CancelEditingTrainingRecordsUseCaseFactory
   private let closeTrainingRecordsErrorUseCaseFactory: CloseTrainingRecordsErrorUseCaseFactory
+  private let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory
   
   init(
     label: TrainingLabel,
@@ -36,7 +37,8 @@ class TrainingRecordsViewModel: ObservableObject {
     backToLabelsUseCase: UseCase,
     editTrainingRecordsUseCaseFactory: @escaping EditTrainingRecordsUseCaseFactory,
     cancelEditingTrainingRecordsUseCaseFactory: @escaping CancelEditingTrainingRecordsUseCaseFactory,
-    closeTrainingRecordsErrorUseCaseFactory: @escaping CloseTrainingRecordsErrorUseCaseFactory
+    closeTrainingRecordsErrorUseCaseFactory: @escaping CloseTrainingRecordsErrorUseCaseFactory,
+    updateWatchContextUseCaseFactory: @escaping UpdateWatchContextUseCaseFactory
   ) {
     self.label = label
     self.observerForTrainingRecords = observerForTrainingRecords
@@ -47,11 +49,15 @@ class TrainingRecordsViewModel: ObservableObject {
     self.editTrainingRecordsUseCaseFactory = editTrainingRecordsUseCaseFactory
     self.cancelEditingTrainingRecordsUseCaseFactory = cancelEditingTrainingRecordsUseCaseFactory
     self.closeTrainingRecordsErrorUseCaseFactory = closeTrainingRecordsErrorUseCaseFactory
+    self.updateWatchContextUseCaseFactory = updateWatchContextUseCaseFactory
   }
   
   func onAppear() {
     observerForTrainingRecords.startObserving()
     getTrainingRecordsUseCase.execute()
+    
+    let useCase = updateWatchContextUseCaseFactory(label)
+    useCase.execute()
   }
   
   func add() {
