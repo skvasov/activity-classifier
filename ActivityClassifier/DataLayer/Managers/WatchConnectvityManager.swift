@@ -16,18 +16,25 @@ enum WatchConnectvityManagerError: Error {
 private typealias ActivationContinuation = CheckedContinuation<WCSessionActivationState, Error>
 
 protocol WatchConnectvityManager<Context> {
-  associatedtype Context: DictionaryCodable
+  associatedtype Context: Codable
   
 #if os(iOS)
   func startWatchApp() async throws
 #endif
   func activateSession() async throws
   func updateAppContext(_ context: Context) async throws
-  func getAppContext() throws -> Context
+  func getAppContext() throws -> Context?
 }
 
-class RealWatchConnectvityManager<T: DictionaryCodable>: NSObject, WCSessionDelegate {
+class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
+  private enum Keys: String {
+    case context
+  }
+  
   private var activationContinuations: [ActivationContinuation] = []
+  private var encoder = JSONEncoder()
+  private var decoder = JSONDecoder()
+  
   
   override init() {
     super.init()
@@ -63,7 +70,7 @@ class RealWatchConnectvityManager<T: DictionaryCodable>: NSObject, WCSessionDele
   }
   
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    print(applicationContext)
+    print(try? convert(from: applicationContext))
   }
   
 #if os(iOS)
@@ -75,6 +82,13 @@ class RealWatchConnectvityManager<T: DictionaryCodable>: NSObject, WCSessionDele
     
   }
 #endif
+  
+  private func convert(from context: [String: Any]) throws -> T? {
+    guard
+      let data = context[Keys.context.rawValue] as? Data
+    else { return nil }
+    return try decoder.decode(T.self, from: data)
+  }
 }
 
 extension RealWatchConnectvityManager: WatchConnectvityManager {
@@ -88,16 +102,11 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   
   func updateAppContext(_ context: T) async throws {
     try await activateSession()
-    try WCSession.default.updateApplicationContext(context.dictionary)
+    let data = try encoder.encode(context)
+    try WCSession.default.updateApplicationContext([Keys.context.rawValue: data])
   }
   
-  func getAppContext() throws -> T {
-    try T(WCSession.default.receivedApplicationContext)
+  func getAppContext() throws -> T? {
+    return try convert(from: WCSession.default.receivedApplicationContext)
   }
 }
-
-protocol DictionaryCodable {
-  var dictionary: [String: Any] { get }
-  init(_ dictionary: [String: Any]) throws
-}
-

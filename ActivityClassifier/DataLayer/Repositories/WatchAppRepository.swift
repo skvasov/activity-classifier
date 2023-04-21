@@ -10,7 +10,7 @@ import Foundation
 protocol WatchAppRepository {
   func startWatchApp() async throws
   func updateAppContext(_ context: WatchContext) async throws
-  func getAppContext() throws -> WatchContext
+  func getAppContext() throws -> WatchContext?
 }
 
 class RealWatchAppRepository {
@@ -30,7 +30,7 @@ extension RealWatchAppRepository: WatchAppRepository {
     try await connectivityManager.updateAppContext(context)
   }
   
-  func getAppContext() throws -> WatchContext {
+  func getAppContext() throws -> WatchContext? {
     try connectivityManager.getAppContext()
   }
 }
