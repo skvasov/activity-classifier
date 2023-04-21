@@ -10,10 +10,27 @@
 		5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECBA29F2FE44001D683B /* WatchAppApp.swift */; };
 		5F01ECC229F2FEA6001D683B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F01ECC129F2FEA6001D683B /* Assets.xcassets */; };
 		5F01ECC429F2FEDE001D683B /* WatchApp-Watch-App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F01ECC329F2FEDE001D683B /* WatchApp-Watch-App-Info.plist */; };
-		5F01ECC829F30206001D683B /* RecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECC729F30206001D683B /* RecordsViewModel.swift */; };
+		5F01ECC829F30206001D683B /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECC729F30206001D683B /* RecordViewModel.swift */; };
 		5F01ECCA29F30218001D683B /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECC929F30218001D683B /* RecordView.swift */; };
 		5F01ECCC29F30235001D683B /* WatchAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECCB29F30235001D683B /* WatchAppModel.swift */; };
 		5F01ECCE29F30296001D683B /* WatchAppDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECCD29F30296001D683B /* WatchAppDependencyContainer.swift */; };
+		5F01ECD129F30578001D683B /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F01ECD029F30578001D683B /* ReSwift */; };
+		5F01ECD629F30615001D683B /* ScopedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F529DD4EE800BA5A2D /* ScopedState.swift */; };
+		5F01ECD829F3062A001D683B /* WatchAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECD729F3062A001D683B /* WatchAppState.swift */; };
+		5F01ECDA29F3064C001D683B /* WatchAppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECD929F3064C001D683B /* WatchAppReducer.swift */; };
+		5F01ECDC29F30659001D683B /* WatchAppGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECDB29F30659001D683B /* WatchAppGetters.swift */; };
+		5F01ECDE29F30669001D683B /* WatchAppActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECDD29F30669001D683B /* WatchAppActions.swift */; };
+		5F01ECE029F3072A001D683B /* ActionPrinterMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922A29DDC4D700BA5A2D /* ActionPrinterMiddleware.swift */; };
+		5F01ECE229F307D2001D683B /* ObserverForRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECE129F307D2001D683B /* ObserverForRecordView.swift */; };
+		5F01ECE429F307E2001D683B /* ObserverForRecordViewEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECE329F307E2001D683B /* ObserverForRecordViewEventResponder.swift */; };
+		5F01ECE529F307EF001D683B /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922529DDC4D700BA5A2D /* Observer.swift */; };
+		5F01ECE729F30832001D683B /* RecordState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECE629F30832001D683B /* RecordState.swift */; };
+		5F01ECE929F30841001D683B /* RecordActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECE829F30841001D683B /* RecordActions.swift */; };
+		5F01ECEB29F30888001D683B /* RecordReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECEA29F30888001D683B /* RecordReducer.swift */; };
+		5F01ECEC29F3098E001D683B /* StorePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922929DDC4D700BA5A2D /* StorePublisher.swift */; };
+		5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */; };
+		5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F929DD571900BA5A2D /* UseCase.swift */; };
+		5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */; };
 		5F3C918C29DC28FF00BA5A2D /* ActivityClassifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C918B29DC28FF00BA5A2D /* ActivityClassifierTests.swift */; };
 		5F3C919629DC28FF00BA5A2D /* ActivityClassifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919529DC28FF00BA5A2D /* ActivityClassifierUITests.swift */; };
 		5F3C919829DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919729DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift */; };
@@ -163,10 +180,21 @@
 		5F01ECBA29F2FE44001D683B /* WatchAppApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchAppApp.swift; sourceTree = "<group>"; };
 		5F01ECC129F2FEA6001D683B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F01ECC329F2FEDE001D683B /* WatchApp-Watch-App-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WatchApp-Watch-App-Info.plist"; sourceTree = "<group>"; };
-		5F01ECC729F30206001D683B /* RecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewModel.swift; sourceTree = "<group>"; };
+		5F01ECC729F30206001D683B /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		5F01ECC929F30218001D683B /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		5F01ECCB29F30235001D683B /* WatchAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppModel.swift; sourceTree = "<group>"; };
 		5F01ECCD29F30296001D683B /* WatchAppDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppDependencyContainer.swift; sourceTree = "<group>"; };
+		5F01ECD729F3062A001D683B /* WatchAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppState.swift; sourceTree = "<group>"; };
+		5F01ECD929F3064C001D683B /* WatchAppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppReducer.swift; sourceTree = "<group>"; };
+		5F01ECDB29F30659001D683B /* WatchAppGetters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppGetters.swift; sourceTree = "<group>"; };
+		5F01ECDD29F30669001D683B /* WatchAppActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppActions.swift; sourceTree = "<group>"; };
+		5F01ECE129F307D2001D683B /* ObserverForRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForRecordView.swift; sourceTree = "<group>"; };
+		5F01ECE329F307E2001D683B /* ObserverForRecordViewEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForRecordViewEventResponder.swift; sourceTree = "<group>"; };
+		5F01ECE629F30832001D683B /* RecordState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordState.swift; sourceTree = "<group>"; };
+		5F01ECE829F30841001D683B /* RecordActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordActions.swift; sourceTree = "<group>"; };
+		5F01ECEA29F30888001D683B /* RecordReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordReducer.swift; sourceTree = "<group>"; };
+		5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrainingLabelUseCase.swift; sourceTree = "<group>"; };
+		5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionAppRepository.swift; sourceTree = "<group>"; };
 		5F3C917729DC28FE00BA5A2D /* ActivityClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F3C918729DC28FF00BA5A2D /* ActivityClassifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityClassifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F3C918B29DC28FF00BA5A2D /* ActivityClassifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityClassifierTests.swift; sourceTree = "<group>"; };
@@ -311,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F01ECD129F30578001D683B /* ReSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +379,7 @@
 		5F01ECB629F2FE44001D683B /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -357,6 +387,7 @@
 		5F01ECB729F2FE44001D683B /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -376,6 +407,7 @@
 				5F01ECBA29F2FE44001D683B /* WatchAppApp.swift */,
 				5F01ECCB29F30235001D683B /* WatchAppModel.swift */,
 				5F01ECBB29F2FE44001D683B /* Screens */,
+				5F01ECD229F305FC001D683B /* Redux */,
 			);
 			path = UILayer;
 			sourceTree = "<group>";
@@ -393,12 +425,59 @@
 			isa = PBXGroup;
 			children = (
 				5F01ECC929F30218001D683B /* RecordView.swift */,
-				5F01ECC729F30206001D683B /* RecordsViewModel.swift */,
+				5F01ECC729F30206001D683B /* RecordViewModel.swift */,
+				5F01ECE129F307D2001D683B /* ObserverForRecordView.swift */,
+				5F01ECE329F307E2001D683B /* ObserverForRecordViewEventResponder.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
 		};
 		5F01ECBD29F2FE44001D683B /* Verify */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Verify;
+			sourceTree = "<group>";
+		};
+		5F01ECCF29F30578001D683B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F01ECD229F305FC001D683B /* Redux */ = {
+			isa = PBXGroup;
+			children = (
+				5F01ECD329F305FC001D683B /* App */,
+			);
+			path = Redux;
+			sourceTree = "<group>";
+		};
+		5F01ECD329F305FC001D683B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5F01ECD729F3062A001D683B /* WatchAppState.swift */,
+				5F01ECD929F3064C001D683B /* WatchAppReducer.swift */,
+				5F01ECDB29F30659001D683B /* WatchAppGetters.swift */,
+				5F01ECDD29F30669001D683B /* WatchAppActions.swift */,
+				5F01ECD429F305FC001D683B /* Record */,
+				5F01ECD529F305FC001D683B /* Verify */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5F01ECD429F305FC001D683B /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				5F01ECE629F30832001D683B /* RecordState.swift */,
+				5F01ECE829F30841001D683B /* RecordActions.swift */,
+				5F01ECEA29F30888001D683B /* RecordReducer.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		5F01ECD529F305FC001D683B /* Verify */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -415,6 +494,7 @@
 				5FD41CB529F03821003B5717 /* WatchApp Watch AppTests */,
 				5FD41CBF29F03821003B5717 /* WatchApp Watch AppUITests */,
 				5F3C917829DC28FE00BA5A2D /* Products */,
+				5F01ECCF29F30578001D683B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -923,6 +1003,9 @@
 			dependencies = (
 			);
 			name = "WatchApp Watch App";
+			packageProductDependencies = (
+				5F01ECD029F30578001D683B /* ReSwift */,
+			);
 			productName = "WatchApp Watch App";
 			productReference = 5FD41CA329F03821003B5717 /* WatchApp Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -1201,15 +1284,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F01ECE729F30832001D683B /* RecordState.swift in Sources */,
 				5F01ECCE29F30296001D683B /* WatchAppDependencyContainer.swift in Sources */,
+				5F01ECE529F307EF001D683B /* Observer.swift in Sources */,
+				5F01ECE429F307E2001D683B /* ObserverForRecordViewEventResponder.swift in Sources */,
 				5FD41CDA29F04E16003B5717 /* TrainingLabel.swift in Sources */,
 				5FD41CD929F04E07003B5717 /* WatchContext.swift in Sources */,
+				5F01ECD629F30615001D683B /* ScopedState.swift in Sources */,
 				5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */,
 				5F01ECCA29F30218001D683B /* RecordView.swift in Sources */,
-				5F01ECC829F30206001D683B /* RecordsViewModel.swift in Sources */,
+				5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */,
+				5F01ECC829F30206001D683B /* RecordViewModel.swift in Sources */,
+				5F01ECE929F30841001D683B /* RecordActions.swift in Sources */,
+				5F01ECDC29F30659001D683B /* WatchAppGetters.swift in Sources */,
 				5FD41CDD29F04E46003B5717 /* Storable.swift in Sources */,
+				5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */,
+				5F01ECDE29F30669001D683B /* WatchAppActions.swift in Sources */,
+				5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */,
+				5F01ECD829F3062A001D683B /* WatchAppState.swift in Sources */,
 				5FD41CD829F04DBA003B5717 /* WatchConnectvityManager.swift in Sources */,
+				5F01ECEC29F3098E001D683B /* StorePublisher.swift in Sources */,
+				5F01ECDA29F3064C001D683B /* WatchAppReducer.swift in Sources */,
+				5F01ECEB29F30888001D683B /* RecordReducer.swift in Sources */,
 				5F01ECCC29F30235001D683B /* WatchAppModel.swift in Sources */,
+				5F01ECE029F3072A001D683B /* ActionPrinterMiddleware.swift in Sources */,
+				5F01ECE229F307D2001D683B /* ObserverForRecordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1743,6 +1842,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5F01ECD029F30578001D683B /* ReSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F3C91A429DC29AB00BA5A2D /* XCRemoteSwiftPackageReference "ReSwift" */;
+			productName = ReSwift;
+		};
 		5F3C91A529DC29AB00BA5A2D /* ReSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5F3C91A429DC29AB00BA5A2D /* XCRemoteSwiftPackageReference "ReSwift" */;

@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct RecordView: View {
-  let model: RecordsViewModel
+  let model: RecordViewModel
   
-  init(model: RecordsViewModel) {
+  init(model: RecordViewModel) {
     self.model = model
   }
   
   var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    Text("Record!")
+      .onAppear {
+        model.onAppear()
+      }
   }
 }
 

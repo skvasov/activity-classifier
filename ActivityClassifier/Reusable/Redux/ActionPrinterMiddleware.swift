@@ -8,6 +8,7 @@
 import Foundation
 import ReSwift
 
+#if os(iOS)
 let printActionMiddleware: Middleware<AppState> = { dispatch, getState in
   return { next in
     return { action in
@@ -21,3 +22,21 @@ let printActionMiddleware: Middleware<AppState> = { dispatch, getState in
     }
   }
 }
+#endif
+
+
+#if os(watchOS)
+let printActionMiddleware: Middleware<WatchAppState> = { dispatch, getState in
+  return { next in
+    return { action in
+      print("\(action), Action dispatched")
+      next(action)
+      let stateString = String(describing: getState())
+        .replacingOccurrences(of: "Optional", with: "")
+        .replacingOccurrences(of: "ActivityClassifier.", with: "")
+      print("new state: \n\(stateString)")
+      return
+    }
+  }
+}
+#endif

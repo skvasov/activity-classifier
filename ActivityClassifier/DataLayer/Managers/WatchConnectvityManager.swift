@@ -23,7 +23,7 @@ protocol WatchConnectvityManager<Context> {
 #endif
   func activateSession() async throws
   func updateAppContext(_ context: Context) async throws
-  func getAppContext() throws -> Context?
+  func getAppContext() async throws -> Context?
 }
 
 class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
@@ -106,7 +106,8 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
     try WCSession.default.updateApplicationContext([Keys.context.rawValue: data])
   }
   
-  func getAppContext() throws -> T? {
+  func getAppContext() async throws -> T? {
+    try await activateSession()
     return try convert(from: WCSession.default.receivedApplicationContext)
   }
 }
