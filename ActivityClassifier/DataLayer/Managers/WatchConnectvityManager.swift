@@ -11,9 +11,11 @@ import HealthKit
 
 enum WatchConnectvityManagerError: Error {
   case deviceNotReachable
+  case fileTransferCanceled
 }
 
 private typealias ActivationContinuation = CheckedContinuation<WCSessionActivationState, Error>
+private typealias FileTransferContinuation = CheckedContinuation<Void, Error>
 
 protocol WatchConnectvityManager<Context> {
   associatedtype Context: Codable
@@ -24,6 +26,7 @@ protocol WatchConnectvityManager<Context> {
   func activateSession() async throws
   func updateAppContext(_ context: Context) async throws
   func getAppContext() async throws -> Context?
+  func transferFile(_ fileURL: URL) async throws
 }
 
 class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
@@ -32,6 +35,7 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   }
   
   private var activationContinuations: [ActivationContinuation] = []
+  private var fileTranferContinuations: [URL: FileTransferContinuation] = [:]
   private var encoder = JSONEncoder()
   private var decoder = JSONDecoder()
   
@@ -43,6 +47,7 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   
   func activateSession() async throws {
     if WCSession.default.activationState == .activated {
+      // TODO: check it out
       //guard WCSession.default.isReachable else { throw WatchConnectvityManagerError.deviceNotReachable }
     } else {
       let activationState = try await withCheckedThrowingContinuation { (continuation: ActivationContinuation) in
@@ -65,6 +70,18 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
         continuation.resume(throwing: error)
       } else {
         continuation.resume(returning: activationState)
+      }
+    }
+  }
+  
+  func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+    if let continuation = fileTranferContinuations[fileTransfer.file.fileURL] {
+      if let error {
+        continuation.resume(throwing: error)
+      } else if fileTransfer.progress.isCancelled {
+        continuation.resume(throwing: WatchConnectvityManagerError.fileTransferCanceled)
+      } else {
+        continuation.resume(returning: ())
       }
     }
   }
@@ -95,7 +112,6 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   
 #if os(iOS)
   func startWatchApp() async throws {
-    // TODO: Fix Asked to start a workout, but WKExtensionDelegate <SwiftUI.ExtensionDelegate: 0x600001d1d0c0> doesn't implement handleWorkoutConfiguration:
     try await HKHealthStore().startWatchApp(toHandle: HKWorkoutConfiguration())
   }
 #endif
@@ -107,7 +123,23 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   }
   
   func getAppContext() async throws -> T? {
+    print("+")
     try await activateSession()
+    print(WCSession.default.receivedApplicationContext)
     return try convert(from: WCSession.default.receivedApplicationContext)
+  }
+  
+  func transferFile(_ fileURL: URL) async throws {
+    let outstandingFileTransfers = WCSession.default.outstandingFileTransfers
+    for transfer in outstandingFileTransfers {
+      if transfer.file.fileURL == fileURL {
+        fileTranferContinuations[fileURL] = nil
+        transfer.cancel()
+      }
+    }
+    try await withCheckedThrowingContinuation { (continuation: FileTransferContinuation) in
+      self.fileTranferContinuations[fileURL] = continuation
+      WCSession.default.transferFile(fileURL, metadata: nil)
+    }
   }
 }

@@ -10,7 +10,7 @@ import HealthKit
 
 @main
 struct WatchApp_Watch_AppApp: App {
-  @WKExtensionDelegateAdaptor(ExtensionDelegate.self) var delegate
+  @WKApplicationDelegateAdaptor(ExtensionDelegate.self) var delegate
   let contrainer: WatchAppDependencyContainer
   let model: WatchAppModel
   
@@ -21,12 +21,14 @@ struct WatchApp_Watch_AppApp: App {
   
   var body: some Scene {
     WindowGroup {
-      contrainer.makeRecordView()
+      TabView {
+        contrainer.makeRecordView()
+      }
     }
   }
 }
 
-class ExtensionDelegate: NSObject, ObservableObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, ObservableObject, WKApplicationDelegate {
   func handle(_ workoutConfiguration: HKWorkoutConfiguration) {
   }
 }

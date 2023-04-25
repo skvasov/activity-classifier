@@ -143,6 +143,20 @@
 		5FE726E929E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726E829E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift */; };
 		5FE726EB29E0731D008AF5E0 /* CloseLabelsErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726EA29E0731D008AF5E0 /* CloseLabelsErrorUseCase.swift */; };
 		5FE726ED29E074DA008AF5E0 /* AlertDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726EC29E074DA008AF5E0 /* AlertDetails.swift */; };
+		5FFD790129F830ED0065B934 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922629DDC4D700BA5A2D /* ErrorMessage.swift */; };
+		5FFD790229F831280065B934 /* ActionDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922829DDC4D700BA5A2D /* ActionDispatcher.swift */; };
+		5FFD790429F846780065B934 /* AddTrainingRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD790329F846780065B934 /* AddTrainingRecordUseCase.swift */; };
+		5FFD790529F846AB0065B934 /* FeedbackRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB47AFC29ED58F600BAF5BB /* FeedbackRepository.swift */; };
+		5FFD790629F847A20065B934 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E08E929E93D6E003453D5 /* Settings.swift */; };
+		5FFD790729F847F70065B934 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F729E41E3500A2220A /* MotionManager.swift */; };
+		5FFD790829F849020065B934 /* TrainingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C923229DDD52A00BA5A2D /* TrainingRecord.swift */; };
+		5FFD790A29F853650065B934 /* TrainingDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD790929F853650065B934 /* TrainingDataRepository.swift */; };
+		5FFD790B29F8538F0065B934 /* DeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4F929E43BC000A2220A /* DeviceMotion.swift */; };
+		5FFD790C29F8560E0065B934 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922129DDBB5500BA5A2D /* PersistentStore.swift */; };
+		5FFD790D29F856120065B934 /* DiskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C922329DDBBCD00BA5A2D /* DiskManager.swift */; };
+		5FFD790E29F859990065B934 /* URL+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A4FB29E44DA500A2220A /* URL+Ext.swift */; };
+		5FFD790F29F866CE0065B934 /* WatchApp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5FD41CA329F03821003B5717 /* WatchApp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5FFD791329F867630065B934 /* ActivityClassifier.app in Resources */ = {isa = PBXBuildFile; fileRef = 5F3C917729DC28FE00BA5A2D /* ActivityClassifier.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +324,8 @@
 		5FE726E829E023E2008AF5E0 /* CancelInputtingLabelNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelInputtingLabelNameUseCase.swift; sourceTree = "<group>"; };
 		5FE726EA29E0731D008AF5E0 /* CloseLabelsErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseLabelsErrorUseCase.swift; sourceTree = "<group>"; };
 		5FE726EC29E074DA008AF5E0 /* AlertDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetails.swift; sourceTree = "<group>"; };
+		5FFD790329F846780065B934 /* AddTrainingRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordUseCase.swift; sourceTree = "<group>"; };
+		5FFD790929F853650065B934 /* TrainingDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */,
+				5FFD790929F853650065B934 /* TrainingDataRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -388,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */,
+				5FFD790329F846780065B934 /* AddTrainingRecordUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1286,26 +1304,38 @@
 			files = (
 				5F01ECE729F30832001D683B /* RecordState.swift in Sources */,
 				5F01ECCE29F30296001D683B /* WatchAppDependencyContainer.swift in Sources */,
+				5FFD790229F831280065B934 /* ActionDispatcher.swift in Sources */,
 				5F01ECE529F307EF001D683B /* Observer.swift in Sources */,
 				5F01ECE429F307E2001D683B /* ObserverForRecordViewEventResponder.swift in Sources */,
 				5FD41CDA29F04E16003B5717 /* TrainingLabel.swift in Sources */,
 				5FD41CD929F04E07003B5717 /* WatchContext.swift in Sources */,
+				5FFD790729F847F70065B934 /* MotionManager.swift in Sources */,
+				5FFD790129F830ED0065B934 /* ErrorMessage.swift in Sources */,
 				5F01ECD629F30615001D683B /* ScopedState.swift in Sources */,
+				5FFD790829F849020065B934 /* TrainingRecord.swift in Sources */,
 				5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */,
 				5F01ECCA29F30218001D683B /* RecordView.swift in Sources */,
 				5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */,
+				5FFD790A29F853650065B934 /* TrainingDataRepository.swift in Sources */,
 				5F01ECC829F30206001D683B /* RecordViewModel.swift in Sources */,
 				5F01ECE929F30841001D683B /* RecordActions.swift in Sources */,
 				5F01ECDC29F30659001D683B /* WatchAppGetters.swift in Sources */,
+				5FFD790D29F856120065B934 /* DiskManager.swift in Sources */,
 				5FD41CDD29F04E46003B5717 /* Storable.swift in Sources */,
+				5FFD790E29F859990065B934 /* URL+Ext.swift in Sources */,
 				5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */,
 				5F01ECDE29F30669001D683B /* WatchAppActions.swift in Sources */,
+				5FFD790B29F8538F0065B934 /* DeviceMotion.swift in Sources */,
+				5FFD790429F846780065B934 /* AddTrainingRecordUseCase.swift in Sources */,
 				5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */,
 				5F01ECD829F3062A001D683B /* WatchAppState.swift in Sources */,
 				5FD41CD829F04DBA003B5717 /* WatchConnectvityManager.swift in Sources */,
+				5FFD790C29F8560E0065B934 /* PersistentStore.swift in Sources */,
 				5F01ECEC29F3098E001D683B /* StorePublisher.swift in Sources */,
 				5F01ECDA29F3064C001D683B /* WatchAppReducer.swift in Sources */,
+				5FFD790629F847A20065B934 /* Settings.swift in Sources */,
 				5F01ECEB29F30888001D683B /* RecordReducer.swift in Sources */,
+				5FFD790529F846AB0065B934 /* FeedbackRepository.swift in Sources */,
 				5F01ECCC29F30235001D683B /* WatchAppModel.swift in Sources */,
 				5F01ECE029F3072A001D683B /* ActionPrinterMiddleware.swift in Sources */,
 				5F01ECE229F307D2001D683B /* ObserverForRecordView.swift in Sources */,
@@ -1489,6 +1519,7 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = accelerometer;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sergeikvasov.ActivityClassifier.watchkitapp;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1525,6 +1556,7 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = accelerometer;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.sergeikvasov.ActivityClassifier.watchkitapp;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

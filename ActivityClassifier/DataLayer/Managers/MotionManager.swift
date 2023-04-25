@@ -26,6 +26,7 @@ class RealMotionManager: MotionManager {
   
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion] {
     return try await withCheckedThrowingContinuation { continuation in
+      var isStopped = false
       let interval = 1.0 / Double(frequency)
       let manager = CMMotionManager()
       manager.deviceMotionUpdateInterval = interval
@@ -34,13 +35,19 @@ class RealMotionManager: MotionManager {
       manager.startDeviceMotionUpdates(to: .main) { motion, error in
         guard error == nil else {
           manager.stopDeviceMotionUpdates()
-          continuation.resume(throwing: error!)
+          if !isStopped {
+            continuation.resume(throwing: error!)
+            isStopped = true
+          }
           return
         }
         
         guard motions.count < window else {
           manager.stopDeviceMotionUpdates()
-          continuation.resume(returning: motions.map(DeviceMotion.init))
+          if !isStopped {
+            continuation.resume(returning: motions.map(DeviceMotion.init))
+            isStopped = true
+          }
           return
         }
         

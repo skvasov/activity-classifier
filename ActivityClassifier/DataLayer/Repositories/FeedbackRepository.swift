@@ -31,9 +31,10 @@ extension RealFeedbackRepository: FeedbackRepository {
   func generateFeedback(for duration: Int) async {
     Task {
       for second in 0..<duration {
+        //TODO: generate feedback for apple watch
+#if os(iOS)
         let sound = second < duration - Self.stepInSec ? SystemSound.shortBeep : SystemSound.longBeep
         AudioServicesPlaySystemSound(sound.rawValue)
-#if os(iOS)
         if second == duration - Self.stepInSec {
           await hapticFeedbackGenerator.impactOccurred()
         }

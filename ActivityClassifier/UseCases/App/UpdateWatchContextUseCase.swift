@@ -20,7 +20,7 @@ class UpdateWatchContextUseCase: UseCase {
   func execute() {
     Task {
       do {
-        var context = try watchAppRepository.getAppContext() ?? WatchContext()
+        var context = try await watchAppRepository.getAppContext() ?? WatchContext()
         context.label = label
         try await watchAppRepository.updateAppContext(context)
       }

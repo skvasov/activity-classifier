@@ -8,17 +8,46 @@
 import SwiftUI
 
 struct RecordView: View {
-  let model: RecordViewModel
+  @ObservedObject var model: RecordViewModel
   
   init(model: RecordViewModel) {
     self.model = model
   }
   
   var body: some View {
-    Text("Record!")
-      .onAppear {
-        model.onAppear()
+    NavigationStack {
+      if model.isLoading {
+        makeLoadingView()
+      } else if let label = model.label {
+        makeContentView(label: label)
+      } else {
+        makeContentView(label: TrainingLabel(name: "Test", numOfChildren: 0))
       }
+    }
+    .onAppear {
+      model.onAppear()
+    }
+    .disabled(model.isAddingNewRecord)
+  }
+  
+  private func makeContentView(label: TrainingLabel) -> some View {
+    VStack {
+      Text("Tap Record to add a new record")
+        .multilineTextAlignment(.center)
+      Button(model.isAddingNewRecord ? "Recording..." : "Record") {
+        model.add()
+      }
+      .buttonStyle(BorderedProminentButtonStyle())
+    }
+    .navigationTitle("\(label.name) (\(label.numOfChildren))")
+  }
+  
+  private func makeEmptyStateView() -> some View {
+    Text("Add a new label on your iPhone and select it")
+  }
+  
+  private func makeLoadingView() -> some View {
+    ProgressView()
   }
 }
 

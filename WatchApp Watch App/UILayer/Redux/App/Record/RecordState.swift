@@ -8,11 +8,20 @@
 import Foundation
 
 struct RecordState: Equatable {
-  let label: TrainingLabel?
+  var label: TrainingLabel?
+  var viewState: RecordViewState
 }
 
 extension RecordState {
   init() {
     self.label = nil
+    self.viewState = RecordViewState()
   }
 }
+
+struct RecordViewState: Equatable {
+  var isLoading = false
+  var isAddingNewRecord = false
+}
+
+
