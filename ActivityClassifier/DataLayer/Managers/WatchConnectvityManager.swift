@@ -86,6 +86,10 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
     }
   }
   
+  func session(_ session: WCSession, didReceive file: WCSessionFile) {
+    print(file.fileURL)
+  }
+  
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
     print(try? convert(from: applicationContext))
   }
@@ -123,9 +127,7 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   }
   
   func getAppContext() async throws -> T? {
-    print("+")
     try await activateSession()
-    print(WCSession.default.receivedApplicationContext)
     return try convert(from: WCSession.default.receivedApplicationContext)
   }
   
