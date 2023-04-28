@@ -9,8 +9,10 @@ import Foundation
 
 struct WatchAppState: Equatable {
   var recordState: RecordState
+  var verifyState: VerifyState
   
   init() {
     recordState = RecordState()
+    verifyState = VerifyState()
   }
 }

@@ -44,7 +44,7 @@ class WatchAppDependencyContainer {
   }
   
   func makeRecordView() -> some View {
-    let recordState = stateStore.publisher { $0.select(self.watchAppGetters.geRecordState) }
+    let recordState = stateStore.publisher { $0.select(self.watchAppGetters.getRecordState) }
     let observerForRecord = ObserverForRecordView(
       recordState: recordState,
       watchContext: watchConnectivityManager.appContextPublisher()
@@ -64,5 +64,15 @@ class WatchAppDependencyContainer {
     )
     observerForRecord.eventResponder = model
     return RecordView(model: model)
+  }
+  
+  func makeVerifyView() -> some View {
+    let verifyState = stateStore.publisher { $0.select(self.watchAppGetters.getVerifyState) }
+    let observerForVerify = ObserverForVerifyView(
+      verifyState: verifyState)
+    let model = VerifyViewModel(
+      observerForVerify: observerForVerify)
+    observerForVerify.eventResponder = model
+    return VerifyView(model: model)
   }
 }

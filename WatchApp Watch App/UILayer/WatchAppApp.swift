@@ -23,6 +23,7 @@ struct WatchApp_Watch_AppApp: App {
     WindowGroup {
       TabView {
         contrainer.makeRecordView()
+        contrainer.makeVerifyView()
       }
     }
   }

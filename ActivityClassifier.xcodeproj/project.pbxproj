@@ -31,6 +31,16 @@
 		5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */; };
 		5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91F929DD571900BA5A2D /* UseCase.swift */; };
 		5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */; };
+		5F2FD35A29FC103B00C7643D /* ObserverForVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35629FC103B00C7643D /* ObserverForVerifyView.swift */; };
+		5F2FD35B29FC103B00C7643D /* VerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35729FC103B00C7643D /* VerifyViewModel.swift */; };
+		5F2FD35C29FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35829FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift */; };
+		5F2FD35D29FC103B00C7643D /* VerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35929FC103B00C7643D /* VerifyView.swift */; };
+		5F2FD35E29FC10EC00C7643D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDAC29E6AA61003D8646 /* Model.swift */; };
+		5F2FD35F29FC11D700C7643D /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDC729E6FEDB003D8646 /* Prediction.swift */; };
+		5F2FD36329FC12A800C7643D /* VerifyReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36029FC12A800C7643D /* VerifyReducer.swift */; };
+		5F2FD36429FC12A800C7643D /* VerifyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36129FC12A800C7643D /* VerifyState.swift */; };
+		5F2FD36529FC12A800C7643D /* VerifyActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36229FC12A800C7643D /* VerifyActions.swift */; };
+		5F2FD36729FC162500C7643D /* LoadModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36629FC162500C7643D /* LoadModelUseCase.swift */; };
 		5F3C918C29DC28FF00BA5A2D /* ActivityClassifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C918B29DC28FF00BA5A2D /* ActivityClassifierTests.swift */; };
 		5F3C919629DC28FF00BA5A2D /* ActivityClassifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919529DC28FF00BA5A2D /* ActivityClassifierUITests.swift */; };
 		5F3C919829DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919729DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift */; };
@@ -229,6 +239,14 @@
 		5F01ECEA29F30888001D683B /* RecordReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordReducer.swift; sourceTree = "<group>"; };
 		5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrainingLabelUseCase.swift; sourceTree = "<group>"; };
 		5F01ECF029F30C50001D683B /* CompanionAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionAppRepository.swift; sourceTree = "<group>"; };
+		5F2FD35629FC103B00C7643D /* ObserverForVerifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverForVerifyView.swift; sourceTree = "<group>"; };
+		5F2FD35729FC103B00C7643D /* VerifyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyViewModel.swift; sourceTree = "<group>"; };
+		5F2FD35829FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverForVerifyViewEventResponder.swift; sourceTree = "<group>"; };
+		5F2FD35929FC103B00C7643D /* VerifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyView.swift; sourceTree = "<group>"; };
+		5F2FD36029FC12A800C7643D /* VerifyReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyReducer.swift; sourceTree = "<group>"; };
+		5F2FD36129FC12A800C7643D /* VerifyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyState.swift; sourceTree = "<group>"; };
+		5F2FD36229FC12A800C7643D /* VerifyActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyActions.swift; sourceTree = "<group>"; };
+		5F2FD36629FC162500C7643D /* LoadModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadModelUseCase.swift; sourceTree = "<group>"; };
 		5F3C917729DC28FE00BA5A2D /* ActivityClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F3C918729DC28FF00BA5A2D /* ActivityClassifierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActivityClassifierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F3C918B29DC28FF00BA5A2D /* ActivityClassifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityClassifierTests.swift; sourceTree = "<group>"; };
@@ -426,6 +444,7 @@
 			children = (
 				5F01ECED29F30B9F001D683B /* GetTrainingLabelUseCase.swift */,
 				5FFD790329F846780065B934 /* AddTrainingRecordUseCase.swift */,
+				5F2FD36629FC162500C7643D /* LoadModelUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -473,6 +492,10 @@
 		5F01ECBD29F2FE44001D683B /* Verify */ = {
 			isa = PBXGroup;
 			children = (
+				5F2FD35929FC103B00C7643D /* VerifyView.swift */,
+				5F2FD35729FC103B00C7643D /* VerifyViewModel.swift */,
+				5F2FD35629FC103B00C7643D /* ObserverForVerifyView.swift */,
+				5F2FD35829FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -518,6 +541,9 @@
 		5F01ECD529F305FC001D683B /* Verify */ = {
 			isa = PBXGroup;
 			children = (
+				5F2FD36229FC12A800C7643D /* VerifyActions.swift */,
+				5F2FD36029FC12A800C7643D /* VerifyReducer.swift */,
+				5F2FD36129FC12A800C7643D /* VerifyState.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -1325,23 +1351,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F01ECE729F30832001D683B /* RecordState.swift in Sources */,
+				5F2FD35F29FC11D700C7643D /* Prediction.swift in Sources */,
 				5F01ECCE29F30296001D683B /* WatchAppDependencyContainer.swift in Sources */,
 				5FFD790229F831280065B934 /* ActionDispatcher.swift in Sources */,
 				5F01ECE529F307EF001D683B /* Observer.swift in Sources */,
+				5F2FD36329FC12A800C7643D /* VerifyReducer.swift in Sources */,
+				5F2FD36529FC12A800C7643D /* VerifyActions.swift in Sources */,
 				5F01ECE429F307E2001D683B /* ObserverForRecordViewEventResponder.swift in Sources */,
 				5FD41CDA29F04E16003B5717 /* TrainingLabel.swift in Sources */,
 				5FD41CD929F04E07003B5717 /* WatchContext.swift in Sources */,
+				5F2FD35C29FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift in Sources */,
+				5F2FD35B29FC103B00C7643D /* VerifyViewModel.swift in Sources */,
 				5FFD790729F847F70065B934 /* MotionManager.swift in Sources */,
 				5FFD790129F830ED0065B934 /* ErrorMessage.swift in Sources */,
 				5F01ECD629F30615001D683B /* ScopedState.swift in Sources */,
 				5FFD790829F849020065B934 /* TrainingRecord.swift in Sources */,
 				5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */,
+				5F2FD35D29FC103B00C7643D /* VerifyView.swift in Sources */,
 				5F01ECCA29F30218001D683B /* RecordView.swift in Sources */,
 				5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */,
 				5FFD790A29F853650065B934 /* TrainingDataRepository.swift in Sources */,
 				5F01ECC829F30206001D683B /* RecordViewModel.swift in Sources */,
 				5F01ECE929F30841001D683B /* RecordActions.swift in Sources */,
 				5F01ECDC29F30659001D683B /* WatchAppGetters.swift in Sources */,
+				5F2FD35E29FC10EC00C7643D /* Model.swift in Sources */,
+				5F2FD36429FC12A800C7643D /* VerifyState.swift in Sources */,
 				5FFD790D29F856120065B934 /* DiskManager.swift in Sources */,
 				5FD41CDD29F04E46003B5717 /* Storable.swift in Sources */,
 				5FFD790E29F859990065B934 /* URL+Ext.swift in Sources */,
@@ -1352,9 +1386,11 @@
 				5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */,
 				5F01ECD829F3062A001D683B /* WatchAppState.swift in Sources */,
 				5FD41CD829F04DBA003B5717 /* WatchConnectvityManager.swift in Sources */,
+				5F2FD36729FC162500C7643D /* LoadModelUseCase.swift in Sources */,
 				5FFD790C29F8560E0065B934 /* PersistentStore.swift in Sources */,
 				5F01ECEC29F3098E001D683B /* StorePublisher.swift in Sources */,
 				5F01ECDA29F3064C001D683B /* WatchAppReducer.swift in Sources */,
+				5F2FD35A29FC103B00C7643D /* ObserverForVerifyView.swift in Sources */,
 				5FFD790629F847A20065B934 /* Settings.swift in Sources */,
 				5F01ECEB29F30888001D683B /* RecordReducer.swift in Sources */,
 				5FFD790529F846AB0065B934 /* FeedbackRepository.swift in Sources */,

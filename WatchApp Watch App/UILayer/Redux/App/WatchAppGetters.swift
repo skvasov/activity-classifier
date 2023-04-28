@@ -8,7 +8,11 @@
 import Foundation
 
 struct WatchAppGetters {
-  func geRecordState(_ appState: WatchAppState) -> ScopedState<RecordState> {
+  func getRecordState(_ appState: WatchAppState) -> ScopedState<RecordState> {
     .inScope(appState.recordState)
+  }
+  
+  func getVerifyState(_ appState: WatchAppState) -> ScopedState<VerifyState> {
+    .inScope(appState.verifyState)
   }
 }
