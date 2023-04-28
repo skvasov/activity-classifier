@@ -10,6 +10,7 @@ import Combine
 
 class ObserverForRecordView: Observer {
   private let recordState: AnyPublisher<RecordState, Never>
+  private let watchContext: AnyPublisher<WatchContext, Never>
   private var subscriptions = Set<AnyCancellable>()
   private var isObserving: Bool { !subscriptions.isEmpty }
   
@@ -21,8 +22,9 @@ class ObserverForRecordView: Observer {
     }
   }
   
-  init(recordState: AnyPublisher<RecordState, Never>) {
+  init(recordState: AnyPublisher<RecordState, Never>, watchContext: AnyPublisher<WatchContext, Never>) {
     self.recordState = recordState
+    self.watchContext = watchContext
   }
   
   func startObserving() {
@@ -34,6 +36,13 @@ class ObserverForRecordView: Observer {
         self?.received(newState: state)
       }
       .store(in: &subscriptions)
+    
+    watchContext
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] context in
+        self?.received(newWatchContext: context)
+      }
+      .store(in: &subscriptions)
   }
   
   func stopObserving() {
@@ -42,5 +51,9 @@ class ObserverForRecordView: Observer {
   
   func received(newState state: RecordState) {
     eventResponder?.received(newState: state)
+  }
+  
+  func received(newWatchContext context: WatchContext) {
+    eventResponder?.received(newWatchContext: context)
   }
 }

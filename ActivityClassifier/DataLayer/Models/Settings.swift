@@ -8,6 +8,12 @@
 import Foundation
 
 struct Settings: Storable, Codable, Equatable {
+  enum Default {
+    static let frequency = 50
+    static let predictionWindow = 100
+    static let delay = 0
+  }
+  
   var name = "settings"
   var numOfChildren = 0
   var content: Data? = nil
@@ -31,3 +37,13 @@ extension Settings {
     self.delay = 0
   }
 }
+
+extension Settings {
+  static var `default`: Settings {
+    .init(
+      frequency: Settings.Default.frequency,
+      predictionWindow: Settings.Default.predictionWindow,
+      delay: Settings.Default.delay)
+  }
+}
+

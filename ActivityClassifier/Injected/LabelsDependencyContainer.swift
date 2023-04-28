@@ -70,7 +70,10 @@ class LabelsDependencyContainer {
       CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
     }
     let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = { label in
-      UpdateWatchContextUseCase(watchAppRepository: self.watchAppRepository, label: label)
+      UpdateWatchContextUseCase(
+        watchAppRepository: self.watchAppRepository,
+        settingsRepository: self.settingsRepository,
+        label: label)
     }
     // REFACTOR: because of SwiftUI bug NavigationStack creates child views many times
     let model = Self.trainingRecordsModels[label] ?? TrainingRecordsViewModel(

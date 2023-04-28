@@ -42,6 +42,10 @@ extension RecordViewModel: ObserverForRecordViewEventResponder {
     isLoading = state.viewState.isLoading
     isAddingNewRecord = state.viewState.isAddingNewRecord
   }
+  
+  func received(newWatchContext context: WatchContext) {
+    label = context.label
+  }
 }
 
 

@@ -21,7 +21,7 @@ struct RecordView: View {
       } else if let label = model.label {
         makeContentView(label: label)
       } else {
-        makeContentView(label: TrainingLabel(name: "Test", numOfChildren: 0))
+        makeEmptyStateView()
       }
     }
     .onAppear {

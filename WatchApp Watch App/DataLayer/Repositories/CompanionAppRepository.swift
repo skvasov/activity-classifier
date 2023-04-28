@@ -10,6 +10,7 @@ import Foundation
 protocol CompanionAppRepository {
   func getTrainingLabel() async throws -> TrainingLabel?
   func addTrainingRecord(_ trainingRecord: TrainingRecord) async throws
+  func getSettings() async throws -> Settings
 }
 
 class RealCompanionAppRepository: CompanionAppRepository {
@@ -27,6 +28,10 @@ class RealCompanionAppRepository: CompanionAppRepository {
     if let url = trainingRecord.url {
       try await self.watchConnectivityManager.transferFile(url)
     }
+  }
+  
+  func getSettings() async throws -> Settings {
+    try await watchConnectivityManager.getAppContext()?.settings ?? .default
   }
 }
 

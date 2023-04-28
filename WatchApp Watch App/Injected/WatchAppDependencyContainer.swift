@@ -45,7 +45,10 @@ class WatchAppDependencyContainer {
   
   func makeRecordView() -> some View {
     let recordState = stateStore.publisher { $0.select(self.watchAppGetters.geRecordState) }
-    let observerForRecord = ObserverForRecordView(recordState: recordState)
+    let observerForRecord = ObserverForRecordView(
+      recordState: recordState,
+      watchContext: watchConnectivityManager.appContextPublisher()
+    )
     let getTrainingLabelUseCase = GetTrainingLabelUseCase(
       actionDispatcher: stateStore,
       companionAppRepository: companionAppRepository)

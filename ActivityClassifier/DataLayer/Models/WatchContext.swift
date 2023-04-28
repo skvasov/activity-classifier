@@ -9,4 +9,5 @@ import Foundation
 
 struct WatchContext: Codable {
   var label: TrainingLabel?
+  var settings: Settings
 }

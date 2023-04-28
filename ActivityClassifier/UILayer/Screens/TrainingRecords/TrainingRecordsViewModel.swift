@@ -81,6 +81,9 @@ class TrainingRecordsViewModel: ObservableObject {
   }
   
   func goBack() {
+    // TODO: Find better place to update watch context?
+    let updateWatchContextUseCase = updateWatchContextUseCaseFactory(nil)
+    updateWatchContextUseCase.execute()
     backToLabelsUseCase.execute()
   }
   

@@ -26,7 +26,7 @@ class AddTrainingRecordUseCase: UseCase {
     Task {
       actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddTrainingRecord())
       do {
-        let settings = try await settingsRepository.load() ?? .default
+        let settings = try await settingsRepository.load()
 
         await feedbackRepository.generateFeedback(for: settings.delay)
         

@@ -9,4 +9,5 @@ import Foundation
 
 protocol ObserverForRecordViewEventResponder: AnyObject {
   func received(newState state: RecordState)
+  func received(newWatchContext context: WatchContext)
 }

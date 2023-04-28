@@ -8,6 +8,7 @@
 import Foundation
 import WatchConnectivity
 import HealthKit
+import Combine
 
 enum WatchConnectvityManagerError: Error {
   case deviceNotReachable
@@ -27,6 +28,8 @@ protocol WatchConnectvityManager<Context> {
   func updateAppContext(_ context: Context) async throws
   func getAppContext() async throws -> Context?
   func transferFile(_ fileURL: URL) async throws
+  func appContextPublisher() -> AnyPublisher<Context, Never>
+  func fileTransferPublisher() -> AnyPublisher<URL, Never>
 }
 
 class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
@@ -38,6 +41,8 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   private var fileTranferContinuations: [URL: FileTransferContinuation] = [:]
   private var encoder = JSONEncoder()
   private var decoder = JSONDecoder()
+  private let appContextSubject = PassthroughSubject<Context, Never>()
+  private let fileTransferSubject = PassthroughSubject<URL, Never>()
   
   
   override init() {
@@ -87,11 +92,13 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   }
   
   func session(_ session: WCSession, didReceive file: WCSessionFile) {
-    print(file.fileURL)
+    fileTransferSubject.send(file.fileURL)
   }
   
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    print(try? convert(from: applicationContext))
+    if let newContext = try? convert(from: applicationContext) {
+      appContextSubject.send(newContext)
+    }
   }
   
 #if os(iOS)
@@ -143,5 +150,15 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
       self.fileTranferContinuations[fileURL] = continuation
       WCSession.default.transferFile(fileURL, metadata: nil)
     }
+  }
+  
+  func appContextPublisher() -> AnyPublisher<T, Never> {
+    appContextSubject
+      .eraseToAnyPublisher()
+  }
+  
+  func fileTransferPublisher() -> AnyPublisher<URL, Never> {
+    fileTransferSubject
+      .eraseToAnyPublisher()
   }
 }

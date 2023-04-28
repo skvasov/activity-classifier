@@ -24,8 +24,7 @@ class AddTrainingRecordUseCase: UseCase {
     Task {
       actionDispatcher.dispatchOnMain(RecordActions.AddTrainingRecord())
       do {
-        let settings = Settings(frequency: 5, predictionWindow: 10, delay: 1)
-
+        let settings = try await companionAppRepository.getSettings()
         await feedbackRepository.generateFeedback(for: settings.delay)
         
         let motions = try await self.trainingDataRepository.getDeviceMotion(for: settings.predictionWindow, with: settings.frequency)

@@ -15,15 +15,12 @@ class SaveSettingsUseCase: UseCase {
   enum Boundaries {
     static let minFrequency = 1
     static let maxFrequency = 100
-    static let defaultFrequency = 50
     
     static let minPredictionWindow = 1
     static let maxPredictionWindow = 1000
-    static let defaultPredictionWindow = 100
     
     static let minDelay = 0
     static let maxDelay = 10
-    static let defaultDelay = 0
   }
   
   private let actionDispatcher: ActionDispatcher
@@ -67,14 +64,5 @@ class SaveSettingsUseCase: UseCase {
     else {
       throw SaveSettingsUseCaseError.invalidSettings
     }
-  }
-}
-
-extension Settings {
-  static var `default`: Settings {
-    .init(
-      frequency: SaveSettingsUseCase.Boundaries.defaultFrequency,
-      predictionWindow: SaveSettingsUseCase.Boundaries.defaultPredictionWindow,
-      delay: SaveSettingsUseCase.Boundaries.defaultDelay)
   }
 }

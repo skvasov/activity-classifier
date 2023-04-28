@@ -9,7 +9,7 @@ import Foundation
 
 protocol SettingsRepository {
   func save(_ settings: Settings) async throws
-  func load() async throws -> Settings?
+  func load() async throws -> Settings
 }
 
 class RealSettingsRepository {
@@ -27,7 +27,7 @@ extension RealSettingsRepository: SettingsRepository {
     try await settingsStore.save(settings)
   }
   
-  func load() async throws -> Settings? {
-    try await settingsStore.loadAll().first
+  func load() async throws -> Settings {
+    try await settingsStore.loadAll().first ?? .default
   }
 }
