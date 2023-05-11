@@ -13,5 +13,5 @@ struct Model: Equatable, Storable {
   var content: Data? = nil
   var url: URL?
   
-  static var canHaveChildren = false
+  static var canHaveChildren = true
 }

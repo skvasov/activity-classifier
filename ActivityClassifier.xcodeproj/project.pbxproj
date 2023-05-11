@@ -41,6 +41,7 @@
 		5F2FD36429FC12A800C7643D /* VerifyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36129FC12A800C7643D /* VerifyState.swift */; };
 		5F2FD36529FC12A800C7643D /* VerifyActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36229FC12A800C7643D /* VerifyActions.swift */; };
 		5F2FD36729FC162500C7643D /* LoadModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD36629FC162500C7643D /* LoadModelUseCase.swift */; };
+		5F2FD3682A00464400C7643D /* ModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDBF29E6C07B003D8646 /* ModelRepository.swift */; };
 		5F3C918C29DC28FF00BA5A2D /* ActivityClassifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C918B29DC28FF00BA5A2D /* ActivityClassifierTests.swift */; };
 		5F3C919629DC28FF00BA5A2D /* ActivityClassifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919529DC28FF00BA5A2D /* ActivityClassifierUITests.swift */; };
 		5F3C919829DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C919729DC28FF00BA5A2D /* ActivityClassifierUITestsLaunchTests.swift */; };
@@ -1367,6 +1368,7 @@
 				5F01ECD629F30615001D683B /* ScopedState.swift in Sources */,
 				5FFD790829F849020065B934 /* TrainingRecord.swift in Sources */,
 				5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */,
+				5F2FD3682A00464400C7643D /* ModelRepository.swift in Sources */,
 				5F2FD35D29FC103B00C7643D /* VerifyView.swift in Sources */,
 				5F01ECCA29F30218001D683B /* RecordView.swift in Sources */,
 				5F01ECEF29F30BBD001D683B /* UseCase.swift in Sources */,
@@ -1575,7 +1577,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActivityClassifier/Info.plist;
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "To import MLModel files";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Collect motion data to identify and classify activities";
+				INFOPLIST_KEY_OSBundleUsageDescription = "To import MLModel files";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1612,7 +1619,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ActivityClassifier/Info.plist;
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "To import MLModel files";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "To import MLModel files";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Collect motion data to identify and classify activities";
+				INFOPLIST_KEY_OSBundleUsageDescription = "To import MLModel files";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

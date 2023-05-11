@@ -20,7 +20,7 @@ class LoadModelUseCase: UseCase {
     Task {
       actionDispatcher.dispatchOnMain(VerifyActions.LoadModel())
       do {
-        let model = try await modelRepository.loadAll().first
+        let model = try await modelRepository.load()
         actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
       }
       catch {

@@ -9,19 +9,19 @@ import Foundation
 
 class LoadModelUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
-  private let companionAppRepository: CompanionAppRepository
+  private let modelRepository: ModelRepository
   
-  init(actionDispatcher: ActionDispatcher, companionAppRepository: CompanionAppRepository) {
+  init(actionDispatcher: ActionDispatcher, modelRepository: ModelRepository) {
     self.actionDispatcher = actionDispatcher
-    self.companionAppRepository = companionAppRepository
+    self.modelRepository = modelRepository
   }
   
   func execute() {
     Task {
       actionDispatcher.dispatchOnMain(VerifyActions.LoadModel())
       do {
-        //let model = try await modelRepository.loadAll().first
-        //actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
+        let model = try await modelRepository.load()
+        actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
       }
       catch {
         let errorMessage = ErrorMessage(error: error)

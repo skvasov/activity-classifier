@@ -18,6 +18,10 @@ protocol Storable: Codable {
 }
 
 extension Storable {
+  init(url: URL) {
+    self = Self(name: url.lastPathComponent, numOfChildren: 0, content: nil, url: url)
+  }
+  
   init(name: String, numOfChildren: Int, url: URL) {
     self = Self(name: name, numOfChildren: numOfChildren, content: nil, url: url)
   }

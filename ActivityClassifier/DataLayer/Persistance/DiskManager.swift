@@ -21,16 +21,28 @@ extension DiskManager: PersistentStore {
     let url = folderURL.appending(path: item.name)
     let path = url.path()
     
+    if !fileManager.fileExists(atPath: folderURL.path()) {
+      try fileManager.createDirectory(atPath: folderURL.path(), withIntermediateDirectories: true)
+    }
+    
     guard
       fileManager.fileExists(atPath: path, isDirectory: nil) == false
     else {
       throw PersistentStoreError.alreadyExists
     }
-    if type(of: item).canHaveChildren {
-      try fileManager.createDirectory(atPath: url.path(), withIntermediateDirectories: true)
+    if T.canHaveChildren {
+      if let sourceURL = item.url {
+        try fileManager.copyItem(at: sourceURL, to: url)
+      } else {
+        try fileManager.createDirectory(atPath: url.path(), withIntermediateDirectories: true)
+      }
     } else {
       try fileManager.createDirectory(atPath: url.deletingLastPathComponent().path(), withIntermediateDirectories: true)
-      fileManager.createFile(atPath: url.path(), contents: item.content)
+      if let sourceURL = item.url {
+        try fileManager.copyItem(at: sourceURL, to: url)
+      } else {
+        fileManager.createFile(atPath: url.path(), contents: item.content)
+      }
     }
   }
   

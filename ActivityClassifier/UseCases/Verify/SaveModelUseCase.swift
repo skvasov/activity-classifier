@@ -25,24 +25,18 @@ class SaveModelUseCase: UseCase {
         actionDispatcher.dispatchOnMain(VerifyActions.SaveModel())
       }
       switch importResult {
-      case .success(let url):
-        do {
-          try await modelRepository.removeAll()
-        } catch let error as NSError where error.code == 260 {
-          // Do nothing, models folder doesn't exist
-        } catch {
-          dispatch(error: error)
-        }
-        
+      case .success(var url):
         do {
           _ = url.startAccessingSecurityScopedResource()
-          let data = try Data(contentsOf: url)
-          url.stopAccessingSecurityScopedResource()
-          let model = Model(name: url.lastPathComponent, numOfChildren: 0, content: data)
-          try await modelRepository.save(model)
-          let firstModel = try await modelRepository.loadAll().first
           
-          actionDispatcher.dispatchOnMain(VerifyActions.SavedModel(model: firstModel))
+          let modelToSave = Model(url: url)
+          try await modelRepository.save(modelToSave)
+          
+          url.stopAccessingSecurityScopedResource()
+          url.removeAllCachedResourceValues()
+          
+          let model = try await modelRepository.load()
+          actionDispatcher.dispatchOnMain(VerifyActions.SavedModel(model: model))
         } catch {
           dispatch(error: error)
         }
