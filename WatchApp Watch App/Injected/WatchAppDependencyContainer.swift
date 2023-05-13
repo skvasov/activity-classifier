@@ -11,7 +11,7 @@ import ReSwift
 
 class WatchAppDependencyContainer {
   let watchAppGetters = WatchAppGetters()
-  let watchConnectivityManager: any WatchConnectvityManager<WatchContext>
+  let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
   let companionAppRepository: CompanionAppRepository
   let feedbackRepository: FeedbackRepository = {
     RealFeedbackRepository()
@@ -29,9 +29,16 @@ class WatchAppDependencyContainer {
       motionManagerFactory: motionManagerFactory,
       recordsStoreFactory: recordsStoreFactory)
   }()
+  let modelRepository: ModelRepository = {
+    let folderURL = URL.modelsDirectory
+    let modelStore = DiskManager<Model>(folderURL: folderURL)
+    return RealModelRepository(
+      modelStore: modelStore,
+      motionManager: RealMotionManager.shared)
+  }()  
   
   init() {
-    self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext>()
+    self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
     self.companionAppRepository = RealCompanionAppRepository(watchConnectivityManager: watchConnectivityManager)
     
     
@@ -40,7 +47,16 @@ class WatchAppDependencyContainer {
   let stateStore: Store = Store<WatchAppState>(reducer: Reducers.appReducer, state: WatchAppState(), middleware: [printActionMiddleware])
   
   func makeWatchAppModel() -> WatchAppModel {
-    WatchAppModel()
+    let observerForWatchApp = ObserverForWatchApp(latestModelFile: companionAppRepository.latestModelFilePublisher())
+    let getLatestModelUseCase = GetLatestModelUseCase(
+      actionDispatcher: stateStore,
+      modelRepository: modelRepository,
+      companionAppRepository: companionAppRepository)
+    let model = WatchAppModel(
+      observerForWatchApp: observerForWatchApp,
+      getLatestModelUseCase: getLatestModelUseCase)
+    observerForWatchApp.eventResponder = model
+    return model
   }
   
   func makeRecordView() -> some View {
@@ -70,8 +86,14 @@ class WatchAppDependencyContainer {
     let verifyState = stateStore.publisher { $0.select(self.watchAppGetters.getVerifyState) }
     let observerForVerify = ObserverForVerifyView(
       verifyState: verifyState)
+    let getLatestModelUseCase = GetLatestModelUseCase(
+      actionDispatcher: stateStore,
+      modelRepository: modelRepository,
+      companionAppRepository: companionAppRepository)
     let model = VerifyViewModel(
-      observerForVerify: observerForVerify)
+      observerForVerify: observerForVerify,
+      getLatestModelUseCase: getLatestModelUseCase
+    )
     observerForVerify.eventResponder = model
     return VerifyView(model: model)
   }

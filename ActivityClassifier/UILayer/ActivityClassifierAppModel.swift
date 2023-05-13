@@ -8,13 +8,28 @@
 import Foundation
 
 class ActivityClassifierAppModel {
-  private let startWatchAppUseCase: StartWatchAppUseCase
+  private let observerForActivityClassifierApp: Observer
+  private let startWatchAppUseCase: UseCase
+  private let sendModelUseCase: UseCase
   
-  init(startWatchAppUseCase: StartWatchAppUseCase) {
+  init(observerForActivityClassifierApp: Observer, startWatchAppUseCase: UseCase, sendModelUseCase: UseCase) {
+    self.observerForActivityClassifierApp = observerForActivityClassifierApp
     self.startWatchAppUseCase = startWatchAppUseCase
+    self.sendModelUseCase = sendModelUseCase
   }
   
   func onAppear() {
+    observerForActivityClassifierApp.startObserving()
     startWatchAppUseCase.execute()
+  }
+  
+  deinit {
+    observerForActivityClassifierApp.stopObserving()
+  }
+}
+
+extension ActivityClassifierAppModel: ObserverForActivityClassifierAppEventResponder {
+  func receivedLatestModelRequest() {
+    sendModelUseCase.execute()
   }
 }

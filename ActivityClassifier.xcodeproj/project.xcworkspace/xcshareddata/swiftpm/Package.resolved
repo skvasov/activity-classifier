@@ -8,6 +8,15 @@
         "revision" : "cb5c3c02f652420ef413dea41e13ac5a76b6c0fd",
         "version" : "6.1.1"
       }
+    },
+    {
+      "identity" : "zip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/Zip",
+      "state" : {
+        "revision" : "67fa55813b9e7b3b9acee9c0ae501def28746d76",
+        "version" : "2.1.2"
+      }
     }
   ],
   "version" : 2

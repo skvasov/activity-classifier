@@ -14,13 +14,16 @@ class VerifyViewModel: ObservableObject {
   @Published var prediction: Prediction?
   
   private let observerForVerify: Observer
+  private let getLatestModelUseCase: UseCase
   
-  init(observerForVerify: Observer) {
+  init(observerForVerify: Observer, getLatestModelUseCase: UseCase) {
     self.observerForVerify = observerForVerify
+    self.getLatestModelUseCase = getLatestModelUseCase
   }
   
   func onAppear() {
     observerForVerify.startObserving()
+    getLatestModelUseCase.execute()
   }
   
   func run() {

@@ -25,6 +25,9 @@ struct WatchApp_Watch_AppApp: App {
         contrainer.makeRecordView()
         contrainer.makeVerifyView()
       }
+      .onAppear {
+        model.onAppear()
+      }
     }
   }
 }

@@ -18,8 +18,9 @@ enum WatchConnectvityManagerError: Error {
 private typealias ActivationContinuation = CheckedContinuation<WCSessionActivationState, Error>
 private typealias FileTransferContinuation = CheckedContinuation<Void, Error>
 
-protocol WatchConnectvityManager<Context> {
+protocol WatchConnectvityManager<Context, Message> {
   associatedtype Context: Codable
+  associatedtype Message: Codable
   
 #if os(iOS)
   func startWatchApp() async throws
@@ -28,11 +29,14 @@ protocol WatchConnectvityManager<Context> {
   func updateAppContext(_ context: Context) async throws
   func getAppContext() async throws -> Context?
   func transferFile(_ fileURL: URL) async throws
+  func sendMessage(_ message: Message) async throws
+  
   func appContextPublisher() -> AnyPublisher<Context, Never>
   func fileTransferPublisher() -> AnyPublisher<URL, Never>
+  func messagePublisher() -> AnyPublisher<Message, Never>
 }
 
-class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
+class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDelegate {
   private enum Keys: String {
     case context
   }
@@ -41,8 +45,9 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   private var fileTranferContinuations: [URL: FileTransferContinuation] = [:]
   private var encoder = JSONEncoder()
   private var decoder = JSONDecoder()
-  private let appContextSubject = PassthroughSubject<Context, Never>()
+  private let appContextSubject = PassthroughSubject<C, Never>()
   private let fileTransferSubject = PassthroughSubject<URL, Never>()
+  private let messagePublisherSubject = PassthroughSubject<M, Never>()
   
   
   override init() {
@@ -101,6 +106,17 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
     }
   }
   
+  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+    do {
+      let message = try decoder.decode(M.self, from: messageData)
+      messagePublisherSubject.send(message)
+      replyHandler(Data())
+    }
+    catch {
+      replyHandler(Data())
+    }
+  }
+  
 #if os(iOS)
   func sessionDidBecomeInactive(_ session: WCSession) {
     
@@ -111,11 +127,11 @@ class RealWatchConnectvityManager<T: Codable>: NSObject, WCSessionDelegate {
   }
 #endif
   
-  private func convert(from context: [String: Any]) throws -> T? {
+  private func convert(from context: [String: Any]) throws -> C? {
     guard
       let data = context[Keys.context.rawValue] as? Data
     else { return nil }
-    return try decoder.decode(T.self, from: data)
+    return try decoder.decode(C.self, from: data)
   }
 }
 
@@ -127,13 +143,13 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   }
 #endif
   
-  func updateAppContext(_ context: T) async throws {
+  func updateAppContext(_ context: C) async throws {
     try await activateSession()
     let data = try encoder.encode(context)
     try WCSession.default.updateApplicationContext([Keys.context.rawValue: data])
   }
   
-  func getAppContext() async throws -> T? {
+  func getAppContext() async throws -> C? {
     try await activateSession()
     return try convert(from: WCSession.default.receivedApplicationContext)
   }
@@ -152,13 +168,28 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
     }
   }
   
-  func appContextPublisher() -> AnyPublisher<T, Never> {
+  func sendMessage(_ message: M) async throws {
+    try await activateSession()
+    let data = try encoder.encode(message)
+    return try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) in
+      WCSession.default.sendMessageData(data) { _ in
+        continuation.resume(returning: ())
+      }
+    })
+  }
+  
+  func appContextPublisher() -> AnyPublisher<C, Never> {
     appContextSubject
       .eraseToAnyPublisher()
   }
   
   func fileTransferPublisher() -> AnyPublisher<URL, Never> {
     fileTransferSubject
+      .eraseToAnyPublisher()
+  }
+  
+  func messagePublisher() -> AnyPublisher<M, Never> {
+    messagePublisherSubject
       .eraseToAnyPublisher()
   }
 }

@@ -19,4 +19,8 @@ extension URL {
   static var modelsDirectory: URL {
     documentsDirectory.appending(path: "models")
   }
+  
+  static var modelArchive: URL {
+    temporaryDirectory.appending(path: "model").appendingPathExtension("zip")
+  }
 }

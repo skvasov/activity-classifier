@@ -68,18 +68,28 @@ class AppDependencyContainer {
     let settingsStore = UserDefaultsManager<Settings>()
     return RealSettingsRepository(settingsStore: settingsStore)
   }()
-  let watchConnectivityManager: any WatchConnectvityManager<WatchContext>
+  let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
   let watchAppRepository: WatchAppRepository
   
   init() {
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
-    self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext>()
+    self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
     self.watchAppRepository = RealWatchAppRepository(connectivityManager: watchConnectivityManager)
   }
   
   func makeAppModel() -> ActivityClassifierAppModel {
+    let observerForActivityClassifierApp = ObserverForActivityClassifierApp(
+      latestModelRequest: watchAppRepository.latestModelRequestPublisher())
     let startWatchAppUseCase = StartWatchAppUseCase(watchAppRepository: watchAppRepository)
-    return ActivityClassifierAppModel(startWatchAppUseCase: startWatchAppUseCase)
+    let sendModelUseCase = SendModelUseCase(
+      modelRepository: modelRepository,
+      watchAppRepository: watchAppRepository)
+    let model = ActivityClassifierAppModel(
+      observerForActivityClassifierApp: observerForActivityClassifierApp,
+      startWatchAppUseCase: startWatchAppUseCase,
+      sendModelUseCase: sendModelUseCase)
+    observerForActivityClassifierApp.eventResponder = model
+    return model
   }
   
   func makeTabBarView() -> some View {
@@ -180,7 +190,12 @@ class AppDependencyContainer {
       SaveModelUseCase(actionDispatcher: self.stateStore, importResult: importResult, modelRepository: self.modelRepository)
     }
     let runModelUseCaseFactory: RunModelUseCaseFactory = { model in
-      RunModelUseCase(actionDispatcher: self.stateStore, model: model, modelRepository: self.modelRepository)
+      RunModelUseCase(
+        actionDispatcher: self.stateStore,
+        model: model,
+        modelRepository: self.modelRepository,
+        settingsRepository: self.settingsRepository
+      )
     }
     let stopModelUseCaseFactory = {
       StopModelUseCase(actionDispatcher: self.stateStore, modelRepository: self.modelRepository)

@@ -6,18 +6,30 @@
 //
 
 import Foundation
+import Combine
 
 protocol CompanionAppRepository {
   func getTrainingLabel() async throws -> TrainingLabel?
   func addTrainingRecord(_ trainingRecord: TrainingRecord) async throws
   func getSettings() async throws -> Settings
+  func requestLatestModel() async throws
+  
+  func latestModelFilePublisher() -> AnyPublisher<URL, Never>
 }
 
 class RealCompanionAppRepository: CompanionAppRepository {
-  private let watchConnectivityManager: any WatchConnectvityManager<WatchContext>
+  private let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
+  private var subscriptions = Set<AnyCancellable>()
+  private let latestModelFileSubject = PassthroughSubject<URL, Never>()
   
-  init(watchConnectivityManager: any WatchConnectvityManager<WatchContext>) {
+  init(watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>) {
     self.watchConnectivityManager = watchConnectivityManager
+    
+    watchConnectivityManager.fileTransferPublisher()
+      .sink { [weak self] url in
+        self?.latestModelFileSubject.send(url)
+      }
+      .store(in: &subscriptions)
   }
   
   func getTrainingLabel() async throws -> TrainingLabel? {
@@ -32,6 +44,16 @@ class RealCompanionAppRepository: CompanionAppRepository {
   
   func getSettings() async throws -> Settings {
     try await watchConnectivityManager.getAppContext()?.settings ?? .default
+  }
+  
+  func requestLatestModel() async throws {
+    try await watchConnectivityManager.activateSession()
+    try await watchConnectivityManager.sendMessage(WatchMessage(type: .latestModelRequest))
+  }
+  
+  func latestModelFilePublisher() -> AnyPublisher<URL, Never> {
+    latestModelFileSubject
+      .eraseToAnyPublisher()
   }
 }
 

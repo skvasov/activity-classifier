@@ -85,7 +85,7 @@ class VerifyViewModel: ObservableObject {
   }
   
   func finishPresentingError() {
-    
+    // TODO: Implement
   }
   
   deinit {
