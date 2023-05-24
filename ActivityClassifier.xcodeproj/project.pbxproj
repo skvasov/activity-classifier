@@ -38,6 +38,9 @@
 		5F0F7CE92A10063A00D12F02 /* SendModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F7CE82A10063A00D12F02 /* SendModelUseCase.swift */; };
 		5F0F7CEB2A10085C00D12F02 /* ObserverForWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F7CEA2A10085C00D12F02 /* ObserverForWatchApp.swift */; };
 		5F0F7CED2A10087000D12F02 /* ObserverForWatchAppEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0F7CEC2A10087000D12F02 /* ObserverForWatchAppEventResponder.swift */; };
+		5F18F6FE2A1E189100730483 /* StopModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BBDC929E70581003D8646 /* StopModelUseCase.swift */; };
+		5F2858822A1DFE4400031F85 /* SaveModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2858812A1DFE4400031F85 /* SaveModelUseCase.swift */; };
+		5F2858842A1E00EB00031F85 /* RunModelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2858832A1E00EB00031F85 /* RunModelUseCase.swift */; };
 		5F2FD35A29FC103B00C7643D /* ObserverForVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35629FC103B00C7643D /* ObserverForVerifyView.swift */; };
 		5F2FD35B29FC103B00C7643D /* VerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35729FC103B00C7643D /* VerifyViewModel.swift */; };
 		5F2FD35C29FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FD35829FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift */; };
@@ -256,6 +259,8 @@
 		5F0F7CE82A10063A00D12F02 /* SendModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendModelUseCase.swift; sourceTree = "<group>"; };
 		5F0F7CEA2A10085C00D12F02 /* ObserverForWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForWatchApp.swift; sourceTree = "<group>"; };
 		5F0F7CEC2A10087000D12F02 /* ObserverForWatchAppEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForWatchAppEventResponder.swift; sourceTree = "<group>"; };
+		5F2858812A1DFE4400031F85 /* SaveModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveModelUseCase.swift; sourceTree = "<group>"; };
+		5F2858832A1E00EB00031F85 /* RunModelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModelUseCase.swift; sourceTree = "<group>"; };
 		5F2FD35629FC103B00C7643D /* ObserverForVerifyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverForVerifyView.swift; sourceTree = "<group>"; };
 		5F2FD35729FC103B00C7643D /* VerifyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyViewModel.swift; sourceTree = "<group>"; };
 		5F2FD35829FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverForVerifyViewEventResponder.swift; sourceTree = "<group>"; };
@@ -466,6 +471,8 @@
 				5FFD790329F846780065B934 /* AddTrainingRecordUseCase.swift */,
 				5F2FD36629FC162500C7643D /* LoadModelUseCase.swift */,
 				5FF3CDF22A0D0A1B001CE6CA /* GetLatestModelUseCase.swift */,
+				5F2858812A1DFE4400031F85 /* SaveModelUseCase.swift */,
+				5F2858832A1E00EB00031F85 /* RunModelUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1418,10 +1425,12 @@
 				5FFD790E29F859990065B934 /* URL+Ext.swift in Sources */,
 				5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */,
 				5F01ECDE29F30669001D683B /* WatchAppActions.swift in Sources */,
+				5F18F6FE2A1E189100730483 /* StopModelUseCase.swift in Sources */,
 				5FFD790B29F8538F0065B934 /* DeviceMotion.swift in Sources */,
 				5FFD790429F846780065B934 /* AddTrainingRecordUseCase.swift in Sources */,
 				5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */,
 				5F01ECD829F3062A001D683B /* WatchAppState.swift in Sources */,
+				5F2858822A1DFE4400031F85 /* SaveModelUseCase.swift in Sources */,
 				5FD41CD829F04DBA003B5717 /* WatchConnectvityManager.swift in Sources */,
 				5F2FD36729FC162500C7643D /* LoadModelUseCase.swift in Sources */,
 				5FFD790C29F8560E0065B934 /* PersistentStore.swift in Sources */,
@@ -1434,6 +1443,7 @@
 				5F01ECCC29F30235001D683B /* WatchAppModel.swift in Sources */,
 				5F01ECE029F3072A001D683B /* ActionPrinterMiddleware.swift in Sources */,
 				5FF3CDF32A0D0A1B001CE6CA /* GetLatestModelUseCase.swift in Sources */,
+				5F2858842A1E00EB00031F85 /* RunModelUseCase.swift in Sources */,
 				5F01ECE229F307D2001D683B /* ObserverForRecordView.swift in Sources */,
 				5F0F7CEB2A10085C00D12F02 /* ObserverForWatchApp.swift in Sources */,
 			);

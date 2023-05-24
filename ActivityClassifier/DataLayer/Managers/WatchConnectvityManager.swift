@@ -162,6 +162,7 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
         transfer.cancel()
       }
     }
+    try await activateSession()
     try await withCheckedThrowingContinuation { (continuation: FileTransferContinuation) in
       self.fileTranferContinuations[fileURL] = continuation
       WCSession.default.transferFile(fileURL, metadata: nil)

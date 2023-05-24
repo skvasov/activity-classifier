@@ -14,24 +14,30 @@ class VerifyViewModel: ObservableObject {
   @Published var prediction: Prediction?
   
   private let observerForVerify: Observer
-  private let getLatestModelUseCase: UseCase
+  private let loadModelUseCase: UseCase
+  private let runModelUseCaseFactory: RunModelUseCaseFactory
+  private let stopModelUseCase: UseCase
   
-  init(observerForVerify: Observer, getLatestModelUseCase: UseCase) {
+  init(observerForVerify: Observer, loadModelUseCase: UseCase, runModelUseCaseFactory: @escaping RunModelUseCaseFactory, stopModelUseCase: UseCase) {
     self.observerForVerify = observerForVerify
-    self.getLatestModelUseCase = getLatestModelUseCase
+    self.loadModelUseCase = loadModelUseCase
+    self.runModelUseCaseFactory = runModelUseCaseFactory
+    self.stopModelUseCase = stopModelUseCase
   }
   
   func onAppear() {
     observerForVerify.startObserving()
-    getLatestModelUseCase.execute()
+    loadModelUseCase.execute()
   }
   
   func run() {
-    
+    guard let model = model else { return }
+    let useCase = runModelUseCaseFactory(model)
+    useCase.execute()
   }
   
   func stop() {
-    
+    stopModelUseCase.execute()
   }
   
   deinit {
@@ -45,6 +51,10 @@ extension VerifyViewModel: ObserverForVerifyViewEventResponder {
     prediction = state.prediction
     isLoading = state.viewState.isLoading
     isRunning = state.viewState.isRunning
+  }
+  
+  func received(newModel model: Model) {
+    loadModelUseCase.execute()
   }
 }
 

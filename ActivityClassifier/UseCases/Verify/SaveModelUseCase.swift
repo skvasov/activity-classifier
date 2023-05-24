@@ -11,11 +11,13 @@ class SaveModelUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
   private let importResult: Result<URL, Error>
   private let modelRepository: ModelRepository
+  private let watchAppRepository: WatchAppRepository
   
-  init(actionDispatcher: ActionDispatcher, importResult: Result<URL, Error>, modelRepository: ModelRepository) {
+  init(actionDispatcher: ActionDispatcher, importResult: Result<URL, Error>, modelRepository: ModelRepository, watchAppRepository: WatchAppRepository) {
     self.actionDispatcher = actionDispatcher
     self.importResult = importResult
     self.modelRepository = modelRepository
+    self.watchAppRepository = watchAppRepository
   }
   
   func execute() {
@@ -36,6 +38,11 @@ class SaveModelUseCase: UseCase {
           url.removeAllCachedResourceValues()
           
           let model = try await modelRepository.load()
+          
+          if let model {
+            try await watchAppRepository.sendModel(model)
+          }
+          
           actionDispatcher.dispatchOnMain(VerifyActions.SavedModel(model: model))
         } catch {
           dispatch(error: error)

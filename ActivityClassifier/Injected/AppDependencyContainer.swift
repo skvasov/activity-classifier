@@ -187,7 +187,11 @@ class AppDependencyContainer {
       CancelImportingModelUseCase(actionDispatcher: self.stateStore)
     }
     let saveModelUseCaseFactory: SaveModelUseCaseFactory = { importResult in
-      SaveModelUseCase(actionDispatcher: self.stateStore, importResult: importResult, modelRepository: self.modelRepository)
+      SaveModelUseCase(
+        actionDispatcher: self.stateStore,
+        importResult: importResult,
+        modelRepository: self.modelRepository,
+        watchAppRepository: self.watchAppRepository)
     }
     let runModelUseCaseFactory: RunModelUseCaseFactory = { model in
       RunModelUseCase(

@@ -15,6 +15,7 @@ extension Reducers {
     var state = state ?? WatchAppState()
     
     state.recordState = recordReducer(action: action, state: state.recordState)
+    state.verifyState = verifyReducer(action: action, state: state.verifyState)
     
     return state
   }

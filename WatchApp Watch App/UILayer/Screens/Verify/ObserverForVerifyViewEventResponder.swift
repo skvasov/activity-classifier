@@ -9,4 +9,5 @@ import Foundation
 
 protocol ObserverForVerifyViewEventResponder: AnyObject {
   func received(newState state: VerifyState)
+  func received(newModel model: Model)
 }

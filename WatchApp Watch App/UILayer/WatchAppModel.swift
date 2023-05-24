@@ -10,11 +10,13 @@ import Foundation
 class WatchAppModel {
   private let observerForWatchApp: Observer
   private let getLatestModelUseCase: UseCase
+  private let saveModelUseCaseFactory: SaveModelUseCaseFactory
   
   
-  init(observerForWatchApp: Observer, getLatestModelUseCase: UseCase) {
+  init(observerForWatchApp: Observer, getLatestModelUseCase: UseCase, saveModelUseCaseFactory: @escaping SaveModelUseCaseFactory) {
     self.observerForWatchApp = observerForWatchApp
     self.getLatestModelUseCase = getLatestModelUseCase
+    self.saveModelUseCaseFactory = saveModelUseCaseFactory
   }
   
   func onAppear() {
@@ -29,6 +31,7 @@ class WatchAppModel {
 
 extension WatchAppModel: ObserverForWatchAppEventResponder {
   func received(newLatestModelFileURL url: URL) {
-    
+    let useCase = saveModelUseCaseFactory(url)
+    useCase.execute()
   }
 }

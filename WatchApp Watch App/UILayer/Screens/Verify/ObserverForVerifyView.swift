@@ -10,6 +10,7 @@ import Combine
 
 class ObserverForVerifyView: Observer {
   private let verifyState: AnyPublisher<VerifyState, Never>
+  private let latestModel: AnyPublisher<Model, Never>
   private var subscriptions = Set<AnyCancellable>()
   private var isObserving: Bool { !subscriptions.isEmpty }
   
@@ -21,8 +22,9 @@ class ObserverForVerifyView: Observer {
     }
   }
   
-  init(verifyState: AnyPublisher<VerifyState, Never>) {
+  init(verifyState: AnyPublisher<VerifyState, Never>, latestModel: AnyPublisher<Model, Never>) {
     self.verifyState = verifyState
+    self.latestModel = latestModel
   }
   
   func startObserving() {
@@ -35,6 +37,12 @@ class ObserverForVerifyView: Observer {
       }
       .store(in: &subscriptions)
 
+    latestModel
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] model in
+        self?.received(newModel: model)
+      }
+      .store(in: &subscriptions)
   }
   
   func stopObserving() {
@@ -43,5 +51,9 @@ class ObserverForVerifyView: Observer {
   
   func received(newState state: VerifyState) {
     eventResponder?.received(newState: state)
+  }
+  
+  func received(newModel model: Model) {
+    eventResponder?.received(newModel: model)
   }
 }

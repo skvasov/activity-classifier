@@ -21,6 +21,7 @@ class LoadModelUseCase: UseCase {
       actionDispatcher.dispatchOnMain(VerifyActions.LoadModel())
       do {
         let model = try await modelRepository.load()
+        dump(model)
         actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
       }
       catch {

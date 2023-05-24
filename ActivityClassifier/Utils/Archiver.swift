@@ -8,6 +8,7 @@
 import Foundation
 import CoreTransferable
 
+// TODO: Remove
 protocol Archiver {
   func archive() throws -> URL
 }

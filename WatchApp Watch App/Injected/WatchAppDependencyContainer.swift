@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 import ReSwift
 
+typealias SaveModelUseCaseFactory = (URL) -> UseCase
+typealias RunModelUseCaseFactory = (Model) -> UseCase
+
 class WatchAppDependencyContainer {
   let watchAppGetters = WatchAppGetters()
   let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
@@ -52,9 +55,16 @@ class WatchAppDependencyContainer {
       actionDispatcher: stateStore,
       modelRepository: modelRepository,
       companionAppRepository: companionAppRepository)
+    let saveModelUseCaseFactory: SaveModelUseCaseFactory = { url in
+      SaveModelUseCase(actionDispatcher: self.stateStore,
+                       url: url,
+                       modelRepository: self.modelRepository)
+    }
     let model = WatchAppModel(
       observerForWatchApp: observerForWatchApp,
-      getLatestModelUseCase: getLatestModelUseCase)
+      getLatestModelUseCase: getLatestModelUseCase,
+      saveModelUseCaseFactory: saveModelUseCaseFactory
+    )
     observerForWatchApp.eventResponder = model
     return model
   }
@@ -85,14 +95,23 @@ class WatchAppDependencyContainer {
   func makeVerifyView() -> some View {
     let verifyState = stateStore.publisher { $0.select(self.watchAppGetters.getVerifyState) }
     let observerForVerify = ObserverForVerifyView(
-      verifyState: verifyState)
-    let getLatestModelUseCase = GetLatestModelUseCase(
-      actionDispatcher: stateStore,
-      modelRepository: modelRepository,
-      companionAppRepository: companionAppRepository)
+      verifyState: verifyState,
+      latestModel: modelRepository.latestModelPublisher()
+    )
+    let loadModelUseCase = LoadModelUseCase(actionDispatcher: stateStore, modelRepository: modelRepository)
+    let runModelUseCaseFactory: RunModelUseCaseFactory = { model in
+      RunModelUseCase(
+        actionDispatcher: self.stateStore,
+        model: model,
+        modelRepository: self.modelRepository,
+        companionAppRepository: self.companionAppRepository)
+    }
+    let stopModelUseCase = StopModelUseCase(actionDispatcher: stateStore, modelRepository: modelRepository)
     let model = VerifyViewModel(
       observerForVerify: observerForVerify,
-      getLatestModelUseCase: getLatestModelUseCase
+      loadModelUseCase: loadModelUseCase,
+      runModelUseCaseFactory: runModelUseCaseFactory,
+      stopModelUseCase: stopModelUseCase
     )
     observerForVerify.eventResponder = model
     return VerifyView(model: model)
