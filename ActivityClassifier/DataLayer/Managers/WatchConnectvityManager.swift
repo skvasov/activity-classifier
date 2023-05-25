@@ -97,7 +97,11 @@ class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDe
   }
   
   func session(_ session: WCSession, didReceive file: WCSessionFile) {
-    fileTransferSubject.send(file.fileURL)
+    // TODO: Make a copy of file before it's removed by system. Delegate this work instead of using FileManager
+    let url = URL.modelArchive
+    try? FileManager.default.removeItem(at: url)
+    try? FileManager.default.copyItem(at: file.fileURL, to: url)
+    fileTransferSubject.send(url)
   }
   
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {

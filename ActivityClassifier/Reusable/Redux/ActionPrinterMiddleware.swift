@@ -29,7 +29,7 @@ let printActionMiddleware: Middleware<AppState> = { dispatch, getState in
 let printActionMiddleware: Middleware<WatchAppState> = { dispatch, getState in
   return { next in
     return { action in
-      print("\(action), Action dispatched")
+    print("\(action), Action dispatched")
       next(action)
       let stateString = String(describing: getState())
         .replacingOccurrences(of: "Optional", with: "")

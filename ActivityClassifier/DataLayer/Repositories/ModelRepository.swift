@@ -68,14 +68,15 @@ extension RealModelRepository: ModelRepository {
     
 #if os(watchOS)
     // TODO: Use Adapter pattern here?
-    func clean(urls: [URL]) throws {
-      try urls.forEach { try FileManager.default.removeItem(at: $0) }
+    func clean(urls: [URL]) {
+      urls.forEach { try? FileManager.default.removeItem(at: $0) }
     }
     
+    //TODO: Use facade for Zip
     let unarchivedFolderURL = try Zip.quickUnzipFile(url)
     guard var modelURL = try FileManager.default.contentsOfDirectory(at: unarchivedFolderURL, includingPropertiesForKeys: nil).first
     else {
-      try clean(urls: [url, unarchivedFolderURL])
+      clean(urls: [url, unarchivedFolderURL])
       return
     }
     
@@ -88,7 +89,7 @@ extension RealModelRepository: ModelRepository {
     model.name = modelURL.lastPathComponent
     model.url = modelURL
     try await modelStore.save(model)
-    try clean(urls: [url, unarchivedFolderURL, modelURL])
+    clean(urls: [url, unarchivedFolderURL, modelURL])
 #endif
     
     if let model = try await modelStore.loadAll().first {
