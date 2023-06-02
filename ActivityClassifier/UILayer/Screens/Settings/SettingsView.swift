@@ -34,7 +34,7 @@ struct SettingsView: View {
             model.decrementDelay()
           }
         } footer: {
-          Text(String(format: "Sensor data will be recorded for %.2f sec after the %d sec pause after tapping 'Record' button.", model.duration, model.settings.delay))
+          Text(String(format: "Once you tap 'Record' button on 'Labels' tab the app will make a pause of %d second(s), then it will record sensor data for %.2f second(s)", model.settings.delay, model.duration))
         }
       }
       .navigationTitle("Settings")

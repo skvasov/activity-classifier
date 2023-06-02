@@ -25,7 +25,7 @@ class RunModelUseCase: UseCase {
       actionDispatcher.dispatchOnMain(VerifyActions.RunModel())
       do {
         let settings = try await companionAppRepository.getSettings()
-        for try await motions in try await modelRepository.run(model, for: settings.predictionWindow, with: settings.frequency) {
+        for try await motions in try await modelRepository.run(model, with: settings.frequency) {
           let prediction = try modelRepository.predict(motions)
           actionDispatcher.dispatchOnMain(VerifyActions.GotPrediction(prediction: prediction))
         }

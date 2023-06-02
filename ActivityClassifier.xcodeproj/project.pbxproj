@@ -148,6 +148,8 @@
 		5FD41CDA29F04E16003B5717 /* TrainingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3C91E129DC5F7000BA5A2D /* TrainingLabel.swift */; };
 		5FD41CDC29F04E37003B5717 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CDB29F04E37003B5717 /* Storable.swift */; };
 		5FD41CDD29F04E46003B5717 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CDB29F04E37003B5717 /* Storable.swift */; };
+		5FDC24B22A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */; };
+		5FDC24B32A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */; };
 		5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */; };
 		5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */; };
 		5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */; };
@@ -368,6 +370,7 @@
 		5FD41CD429F046C9003B5717 /* ActivityClassifier.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ActivityClassifier.entitlements; sourceTree = "<group>"; };
 		5FD41CD629F04849003B5717 /* UpdateWatchContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWatchContextUseCase.swift; sourceTree = "<group>"; };
 		5FD41CDB29F04E37003B5717 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
+		5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLModel+Ext.swift"; sourceTree = "<group>"; };
 		5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsViewModel.swift; sourceTree = "<group>"; };
 		5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecords.swift; sourceTree = "<group>"; };
 		5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecordsEventResponder.swift; sourceTree = "<group>"; };
@@ -776,6 +779,7 @@
 				5FB47AFA29ED4A4D00BAF5BB /* String+Ext.swift */,
 				5FB1A4FB29E44DA500A2220A /* URL+Ext.swift */,
 				5F3C922629DDC4D700BA5A2D /* ErrorMessage.swift */,
+				5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */,
 				5F3C922529DDC4D700BA5A2D /* Observer.swift */,
 				5F3C922729DDC4D700BA5A2D /* Redux */,
 			);
@@ -1358,6 +1362,7 @@
 				5FB1A4FC29E44DA500A2220A /* URL+Ext.swift in Sources */,
 				5FB1A4F829E41E3500A2220A /* MotionManager.swift in Sources */,
 				5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */,
+				5FDC24B22A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */,
 				5FE726DE29E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */,
 				5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */,
 				5F3C922C29DDC4D700BA5A2D /* ErrorMessage.swift in Sources */,
@@ -1409,6 +1414,7 @@
 				5F01ECD629F30615001D683B /* ScopedState.swift in Sources */,
 				5FFD790829F849020065B934 /* TrainingRecord.swift in Sources */,
 				5F0F7CED2A10087000D12F02 /* ObserverForWatchAppEventResponder.swift in Sources */,
+				5FDC24B32A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */,
 				5F01ECBF29F2FE44001D683B /* WatchAppApp.swift in Sources */,
 				5F2FD3682A00464400C7643D /* ModelRepository.swift in Sources */,
 				5F2FD35D29FC103B00C7643D /* VerifyView.swift in Sources */,
