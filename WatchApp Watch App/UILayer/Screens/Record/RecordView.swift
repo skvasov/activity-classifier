@@ -44,6 +44,8 @@ struct RecordView: View {
   
   private func makeEmptyStateView() -> some View {
     Text("Add a new label on your iPhone and select it")
+      .multilineTextAlignment(.center)
+      .navigationTitle("")
   }
   
   private func makeLoadingView() -> some View {
