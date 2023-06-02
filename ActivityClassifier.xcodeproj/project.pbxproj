@@ -155,6 +155,7 @@
 		5FDC24B82A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B72A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift */; };
 		5FDC24BB2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */; };
 		5FDC24BC2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */; };
+		5FDC24BE2A2A2B5400F4FEE9 /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1A50229E4877D00A2220A /* Archiver.swift */; };
 		5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */; };
 		5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */; };
 		5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */; };
@@ -1465,6 +1466,7 @@
 				5F01ECCC29F30235001D683B /* WatchAppModel.swift in Sources */,
 				5F01ECE029F3072A001D683B /* ActionPrinterMiddleware.swift in Sources */,
 				5FF3CDF32A0D0A1B001CE6CA /* GetLatestModelUseCase.swift in Sources */,
+				5FDC24BE2A2A2B5400F4FEE9 /* Archiver.swift in Sources */,
 				5F2858842A1E00EB00031F85 /* RunModelUseCase.swift in Sources */,
 				5F01ECE229F307D2001D683B /* ObserverForRecordView.swift in Sources */,
 				5F0F7CEB2A10085C00D12F02 /* ObserverForWatchApp.swift in Sources */,

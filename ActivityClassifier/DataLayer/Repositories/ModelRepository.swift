@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreML
-import Zip
 import Combine
 
 enum ModelRepositoryError: Error {
@@ -31,10 +30,14 @@ class RealModelRepository {
   private var mlModel: MLModel?
   private var stateOut: MLMultiArray?
   private let latestModelSubject = PassthroughSubject<Model, Never>()
+  private let fileCacheManager: FileCacheManager
+  private let archiverFactory: ArchiverFactory
   
-  init(modelStore: any PersistentStore<Model>, motionManager: MotionManager) {
+  init(modelStore: any PersistentStore<Model>, motionManager: MotionManager, fileCacheManager: FileCacheManager, archiverFactory: @escaping ArchiverFactory) {
     self.modelStore = modelStore
     self.motionManager = motionManager
+    self.fileCacheManager = fileCacheManager
+    self.archiverFactory = archiverFactory
   }
   
   private func removeAll() async throws {
@@ -67,13 +70,14 @@ extension RealModelRepository: ModelRepository {
 #endif
     
 #if os(watchOS)
-    // TODO: Use Adapter pattern here?
     func clean(urls: [URL]) {
       urls.forEach { try? FileManager.default.removeItem(at: $0) }
     }
     
-    //TODO: Use facade for Zip
-    let unarchivedFolderURL = try Zip.quickUnzipFile(url)
+    let unarchivedFolderURL = try fileCacheManager.createTemporaryDirectory()
+    let archiver = archiverFactory(url, unarchivedFolderURL)
+    try await archiver.unarchive()
+    
     guard var modelURL = try FileManager.default.contentsOfDirectory(at: unarchivedFolderURL, includingPropertiesForKeys: nil).first
     else {
       clean(urls: [url, unarchivedFolderURL])

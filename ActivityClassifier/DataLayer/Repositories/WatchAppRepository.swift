@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Zip
 import Combine
 
 enum WatchAppRepositoryError: Error {
@@ -28,10 +27,12 @@ class RealWatchAppRepository {
   private var subscriptions = Set<AnyCancellable>()
   private let latestModelRequestSubject = PassthroughSubject<Void, Never>()
   private let trainingRecordFileSubject = PassthroughSubject<URL, Never>()
+  private let archiverFactory: ArchiverFactory
   
-  init(connectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>, fileCacheManager: FileCacheManager) {
+  init(connectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>, fileCacheManager: FileCacheManager, archiverFactory: @escaping ArchiverFactory) {
     self.connectivityManager = connectivityManager
     self.fileCacheManager = fileCacheManager
+    self.archiverFactory = archiverFactory
     
     self.connectivityManager.delegate = self
     
@@ -68,19 +69,11 @@ extension RealWatchAppRepository: WatchAppRepository {
   func sendModel(_ model: Model) async throws {
     guard let url = model.url else { throw WatchAppRepositoryError.invalidModelURL }
     let archiveDirectory = try fileCacheManager.createTemporaryDirectory()
-    let archiveFileURL = archiveDirectory.appending(path: "model.zip")
-    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-      do {
-        // TODO: Use Adapter pattern here?
-        try Zip.zipFiles(paths: [url], zipFilePath: archiveFileURL, password: nil) { progress in
-          if progress == 1 {
-            continuation.resume(returning: ())
-          }
-        }
-      } catch {
-        continuation.resume(throwing: error)
-      }
-    }
+    let archiveFileURL = archiveDirectory.appending(path: "model.zip") // TODO: not nice
+    
+    let archiver = archiverFactory(url, archiveFileURL)
+    try await archiver.archive()
+    
     try await connectivityManager.transferFile(archiveFileURL)
   }
   

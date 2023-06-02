@@ -12,6 +12,8 @@ import ReSwift
 typealias SaveModelUseCaseFactory = (URL) -> UseCase
 typealias RunModelUseCaseFactory = (Model) -> UseCase
 
+typealias ArchiverFactory = (URL, URL) -> Archiver
+
 class WatchAppDependencyContainer {
   let watchAppGetters = WatchAppGetters()
   let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
@@ -34,18 +36,24 @@ class WatchAppDependencyContainer {
       motionManagerFactory: motionManagerFactory,
       recordsStoreFactory: recordsStoreFactory)
   }()
-  let modelRepository: ModelRepository = {
-    let folderURL = URL.modelsDirectory
-    let modelStore = DiskManager<Model>(folderURL: folderURL)
-    return RealModelRepository(
-      modelStore: modelStore,
-      motionManager: RealMotionManager.shared)
-  }()  
+  let modelRepository: ModelRepository
   
   init() {
     self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
     self.fileCacheManager = RealFileCacheManager(fileCacheDirectory: URL.fileCacheDirectory)
     self.companionAppRepository = RealCompanionAppRepository(watchConnectivityManager: watchConnectivityManager, fileCacheManager: self.fileCacheManager)
+    
+    let folderURL = URL.modelsDirectory
+    let modelStore = DiskManager<Model>(folderURL: folderURL)
+    let archiverFactory: ArchiverFactory = { sourceURL, destinationURL in
+      RealArchiver(sourceURL: sourceURL, destinationURL: destinationURL)
+    }
+    self.modelRepository = RealModelRepository(
+      modelStore: modelStore,
+      motionManager: RealMotionManager.shared,
+      fileCacheManager: self.fileCacheManager,
+      archiverFactory: archiverFactory
+    )
   }
   
   let stateStore: Store = Store<WatchAppState>(reducer: Reducers.appReducer, state: WatchAppState(), middleware: [printActionMiddleware])

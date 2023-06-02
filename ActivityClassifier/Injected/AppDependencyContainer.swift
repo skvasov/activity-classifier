@@ -37,6 +37,7 @@ typealias CloseSettingsErrorUseCaseFactory = () -> UseCase
 typealias TrainingDataSharingCallback = (Result<URL, Error>) -> Void
 typealias ShareTrainingDataUseCaseFactory = (@escaping TrainingDataSharingCallback) -> UseCase
 
+typealias ArchiverFactory = (URL, URL) -> Archiver
 
 class AppDependencyContainer {
   let stateStore: Store = Store<AppState>(reducer: Reducers.appReducer, state: AppState(), middleware: [printActionMiddleware])
@@ -55,15 +56,9 @@ class AppDependencyContainer {
       labelsStore: labelsStore,
       recordsStoreFactory: recordsStoreFactory,
       motionManagerFactory: motionManagerFactory,
-      archiver: RealArchiver(sourceFolderURL: .trainingDataDirectory, archivedFileURL: .trainingDataArchive))
+      archiver: RealArchiver(sourceURL: .trainingDataDirectory, destinationURL: .trainingDataArchive))
   }()
-  let modelRepository: ModelRepository = {
-    let folderURL = URL.modelsDirectory
-    let modelStore = DiskManager<Model>(folderURL: folderURL)
-    return RealModelRepository(
-      modelStore: modelStore,
-      motionManager: RealMotionManager.shared)
-  }()
+  let modelRepository: ModelRepository
   let settingsRepository: SettingsRepository = {
     let settingsStore = UserDefaultsManager<Settings>()
     return RealSettingsRepository(settingsStore: settingsStore)
@@ -76,7 +71,26 @@ class AppDependencyContainer {
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
     self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
     self.fileCacheManager = RealFileCacheManager(fileCacheDirectory: URL.fileCacheDirectory)
-    self.watchAppRepository = RealWatchAppRepository(connectivityManager: watchConnectivityManager, fileCacheManager: fileCacheManager)
+    
+    let archiverFactory: ArchiverFactory = { sourceURL, destinationURL in
+      RealArchiver(sourceURL: sourceURL, destinationURL: destinationURL)
+    }
+    
+    self.watchAppRepository = RealWatchAppRepository(
+      connectivityManager: watchConnectivityManager,
+      fileCacheManager: fileCacheManager,
+      archiverFactory: archiverFactory
+    )
+    
+    let folderURL = URL.modelsDirectory
+    let modelStore = DiskManager<Model>(folderURL: folderURL)
+    
+    self.modelRepository = RealModelRepository(
+      modelStore: modelStore,
+      motionManager: RealMotionManager.shared,
+      fileCacheManager: self.fileCacheManager,
+      archiverFactory: archiverFactory
+    )
   }
   
   func makeAppModel() -> ActivityClassifierAppModel {

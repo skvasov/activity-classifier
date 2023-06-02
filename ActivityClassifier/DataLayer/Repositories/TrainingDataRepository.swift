@@ -68,6 +68,7 @@ extension RealTrainingDataRepository: TrainingDataRepository {
   }
   
   func exportTrainingData() async throws -> URL {
-    return try archiver.archive()
+    try await archiver.archive()
+    return archiver.destinationURL
   }
 }
