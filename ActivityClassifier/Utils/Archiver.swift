@@ -21,7 +21,7 @@ struct RealArchiver: Archiver {
   func archive() throws -> URL {
     let fileManager = FileManager.default
     
-    try fileManager.removeItem(at: archivedFileURL)
+    try? fileManager.removeItem(at: archivedFileURL)
     
     let srcDir: URL
     let srcDirIsTemporary: Bool
