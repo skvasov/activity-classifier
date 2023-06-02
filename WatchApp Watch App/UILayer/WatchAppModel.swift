@@ -11,16 +11,25 @@ class WatchAppModel {
   private let observerForWatchApp: Observer
   private let getLatestModelUseCase: UseCase
   private let saveModelUseCaseFactory: SaveModelUseCaseFactory
+  private let clearCacheUseCase: UseCase
+  private var isAppeared = false
   
   
-  init(observerForWatchApp: Observer, getLatestModelUseCase: UseCase, saveModelUseCaseFactory: @escaping SaveModelUseCaseFactory) {
+  init(observerForWatchApp: Observer, getLatestModelUseCase: UseCase, saveModelUseCaseFactory: @escaping SaveModelUseCaseFactory, clearCacheUseCase: UseCase) {
     self.observerForWatchApp = observerForWatchApp
     self.getLatestModelUseCase = getLatestModelUseCase
     self.saveModelUseCaseFactory = saveModelUseCaseFactory
+    self.clearCacheUseCase = clearCacheUseCase
   }
   
   func onAppear() {
     observerForWatchApp.startObserving()
+    
+    if !isAppeared {
+      self.isAppeared = true
+      clearCacheUseCase.execute()
+    }
+    
     getLatestModelUseCase.execute()
   }
   

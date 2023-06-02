@@ -15,6 +15,7 @@ typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
 typealias UpdateWatchContextUseCaseFactory = (TrainingLabel?) -> UseCase
+typealias AddTrainingRecordFromFileUseCaseFactory = (URL) -> UseCase
 
 class LabelsDependencyContainer {
   let stateStore: Store<AppState>
@@ -38,7 +39,9 @@ class LabelsDependencyContainer {
   
   func makeTrainingRecordsView(label: TrainingLabel) -> some View {
     let trainingRecordsState = stateStore.publisher { $0.select(self.labelsGetters.getTrainingRecordsState) }
-    let observerForLabels = ObserverForTrainingRecords(trainingRecordsState: trainingRecordsState)
+    let observerForLabels = ObserverForTrainingRecords(
+      trainingRecordsState: trainingRecordsState,
+      trainingRecordFile: watchAppRepository.trainingRecordFilePublisher())
     let getTrainingRecordsUseCase = GetTrainingRecordsUseCase(
       actionDispatcher: stateStore,
       label: label,
@@ -75,6 +78,14 @@ class LabelsDependencyContainer {
         settingsRepository: self.settingsRepository,
         label: label)
     }
+    let addTrainingRecordFromFileUseCaseFactory = { fileURL in
+      AddTrainingRecordFromFileUseCase(
+        actionDispatcher: self.stateStore,
+        label: label,
+        trainingDataRepository: self.trainingDataRepository,
+        trainingRecordFile: fileURL
+      )
+    }
     // REFACTOR: because of SwiftUI bug NavigationStack creates child views many times
     let model = Self.trainingRecordsModels[label] ?? TrainingRecordsViewModel(
       label: label,
@@ -86,7 +97,8 @@ class LabelsDependencyContainer {
       editTrainingRecordsUseCaseFactory: editTrainingRecordsUseCaseFactory,
       cancelEditingTrainingRecordsUseCaseFactory: cancelEditingTrainingRecordsUseCaseFactory,
       closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory,
-      updateWatchContextUseCaseFactory: updateWatchContextUseCaseFactory
+      updateWatchContextUseCaseFactory: updateWatchContextUseCaseFactory,
+      addTrainingRecordFromFileUseCaseFactory: addTrainingRecordFromFileUseCaseFactory
     )
     observerForLabels.eventResponder = model
     Self.trainingRecordsModels.removeAll()

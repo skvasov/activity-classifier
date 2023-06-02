@@ -19,11 +19,15 @@ protocol CompanionAppRepository {
 
 class RealCompanionAppRepository: CompanionAppRepository {
   private let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
+  private let fileCacheManager: FileCacheManager
   private var subscriptions = Set<AnyCancellable>()
   private let latestModelFileSubject = PassthroughSubject<URL, Never>()
   
-  init(watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>) {
+  init(watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>, fileCacheManager: FileCacheManager) {
     self.watchConnectivityManager = watchConnectivityManager
+    self.fileCacheManager = fileCacheManager
+    
+    self.watchConnectivityManager.delegate = self
     
     watchConnectivityManager.fileTransferPublisher()
       .sink { [weak self] url in
@@ -57,3 +61,8 @@ class RealCompanionAppRepository: CompanionAppRepository {
   }
 }
 
+extension RealCompanionAppRepository: WatchConnectvityManagerDelegate {
+  func watchConnectvityManager(_ manager: any WatchConnectvityManager, temporaryFileURLFor url: URL) -> URL? {
+    return try? fileCacheManager.makeFileCopy(for: url)
+  }
+}

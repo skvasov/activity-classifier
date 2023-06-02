@@ -27,6 +27,7 @@ class TrainingRecordsViewModel: ObservableObject {
   private let cancelEditingTrainingRecordsUseCaseFactory: CancelEditingTrainingRecordsUseCaseFactory
   private let closeTrainingRecordsErrorUseCaseFactory: CloseTrainingRecordsErrorUseCaseFactory
   private let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory
+  private let addTrainingRecordFromFileUseCaseFactory: AddTrainingRecordFromFileUseCaseFactory
   
   init(
     label: TrainingLabel,
@@ -38,7 +39,8 @@ class TrainingRecordsViewModel: ObservableObject {
     editTrainingRecordsUseCaseFactory: @escaping EditTrainingRecordsUseCaseFactory,
     cancelEditingTrainingRecordsUseCaseFactory: @escaping CancelEditingTrainingRecordsUseCaseFactory,
     closeTrainingRecordsErrorUseCaseFactory: @escaping CloseTrainingRecordsErrorUseCaseFactory,
-    updateWatchContextUseCaseFactory: @escaping UpdateWatchContextUseCaseFactory
+    updateWatchContextUseCaseFactory: @escaping UpdateWatchContextUseCaseFactory,
+    addTrainingRecordFromFileUseCaseFactory: @escaping AddTrainingRecordFromFileUseCaseFactory
   ) {
     self.label = label
     self.observerForTrainingRecords = observerForTrainingRecords
@@ -50,6 +52,7 @@ class TrainingRecordsViewModel: ObservableObject {
     self.cancelEditingTrainingRecordsUseCaseFactory = cancelEditingTrainingRecordsUseCaseFactory
     self.closeTrainingRecordsErrorUseCaseFactory = closeTrainingRecordsErrorUseCaseFactory
     self.updateWatchContextUseCaseFactory = updateWatchContextUseCaseFactory
+    self.addTrainingRecordFromFileUseCaseFactory = addTrainingRecordFromFileUseCaseFactory
   }
   
   func onAppear() {
@@ -115,5 +118,10 @@ extension TrainingRecordsViewModel: ObserverForTrainingRecordsEventResponder {
     else {
       isPresentingAlert = false
     }
+  }
+  
+  func received(newTrainingRecordFile fileURL: URL) {
+    let useCase = addTrainingRecordFromFileUseCaseFactory(fileURL)
+    useCase.execute()
   }
 }

@@ -9,4 +9,5 @@ import Foundation
 
 protocol ObserverForTrainingRecordsEventResponder: AnyObject {
   func received(newState state: TrainingRecordsState)
+  func received(newTrainingRecordFile fileURL: URL)
 }

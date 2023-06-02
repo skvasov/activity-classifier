@@ -15,3 +15,13 @@ struct TrainingRecord: Equatable, Storable {
   
   static var canHaveChildren = false
 }
+
+extension TrainingRecord {
+  init(content: Data) {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    self.name = dateFormatter.string(from: Date()) + ".json"
+    self.numOfChildren = 0
+    self.content = content
+  }
+}

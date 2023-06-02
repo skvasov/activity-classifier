@@ -150,6 +150,11 @@
 		5FD41CDD29F04E46003B5717 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CDB29F04E37003B5717 /* Storable.swift */; };
 		5FDC24B22A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */; };
 		5FDC24B32A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */; };
+		5FDC24B52A29E1F600F4FEE9 /* FileCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B42A29E1F600F4FEE9 /* FileCacheManager.swift */; };
+		5FDC24B62A29E1F600F4FEE9 /* FileCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B42A29E1F600F4FEE9 /* FileCacheManager.swift */; };
+		5FDC24B82A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24B72A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift */; };
+		5FDC24BB2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */; };
+		5FDC24BC2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */; };
 		5FE726B229DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */; };
 		5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */; };
 		5FE726B629DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */; };
@@ -371,6 +376,9 @@
 		5FD41CD629F04849003B5717 /* UpdateWatchContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWatchContextUseCase.swift; sourceTree = "<group>"; };
 		5FD41CDB29F04E37003B5717 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		5FDC24B12A29D8E300F4FEE9 /* MLModel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLModel+Ext.swift"; sourceTree = "<group>"; };
+		5FDC24B42A29E1F600F4FEE9 /* FileCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheManager.swift; sourceTree = "<group>"; };
+		5FDC24B72A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrainingRecordFromFileUseCase.swift; sourceTree = "<group>"; };
+		5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheUseCase.swift; sourceTree = "<group>"; };
 		5FE726B129DEBFE9008AF5E0 /* TrainingRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingRecordsViewModel.swift; sourceTree = "<group>"; };
 		5FE726B329DEC216008AF5E0 /* ObserverForTrainingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecords.swift; sourceTree = "<group>"; };
 		5FE726B529DEC243008AF5E0 /* ObserverForTrainingRecordsEventResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverForTrainingRecordsEventResponder.swift; sourceTree = "<group>"; };
@@ -966,6 +974,7 @@
 				5FB1A4F029E4145000A2220A /* EditTrainingRecordsUseCase.swift */,
 				5FB1A4F229E4145900A2220A /* CancelEditingTrainingRecordsUseCase.swift */,
 				5FB1A4F429E4146500A2220A /* CloseTrainingRecordsErrorUseCase.swift */,
+				5FDC24B72A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift */,
 			);
 			path = TrainingRecords;
 			sourceTree = "<group>";
@@ -973,6 +982,7 @@
 		5FB1A4F629E41E2A00A2220A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5FDC24B42A29E1F600F4FEE9 /* FileCacheManager.swift */,
 				5FB1A4F729E41E3500A2220A /* MotionManager.swift */,
 				5FD41C6D29EEE6FA003B5717 /* WatchConnectvityManager.swift */,
 			);
@@ -1013,6 +1023,7 @@
 			children = (
 				5FD41CD029F04028003B5717 /* StartWatchAppUseCase.swift */,
 				5FD41CD629F04849003B5717 /* UpdateWatchContextUseCase.swift */,
+				5FDC24BA2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1291,6 +1302,7 @@
 				5F0F7CE92A10063A00D12F02 /* SendModelUseCase.swift in Sources */,
 				5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */,
 				5FB1A4FA29E43BC000A2220A /* DeviceMotion.swift in Sources */,
+				5FDC24B52A29E1F600F4FEE9 /* FileCacheManager.swift in Sources */,
 				5F3C921429DD689B00BA5A2D /* AppReducer.swift in Sources */,
 				5F5BBDAB29E6AA03003D8646 /* VerifyViewModel.swift in Sources */,
 				5FE726B829DEC2A3008AF5E0 /* TrainingRecordsState.swift in Sources */,
@@ -1340,6 +1352,7 @@
 				5F5BBDB129E6AB45003D8646 /* ObserverForVerifyEventResponder.swift in Sources */,
 				5F5BBDC229E6EC7B003D8646 /* RunModelUseCase.swift in Sources */,
 				5F7E08EA29E93D6E003453D5 /* Settings.swift in Sources */,
+				5FDC24BB2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */,
 				5FE726B429DEC216008AF5E0 /* ObserverForTrainingRecords.swift in Sources */,
 				5F3C91E429DC60DF00BA5A2D /* AppDependencyContainer.swift in Sources */,
 				5F0F7CE22A0FF84E00D12F02 /* WatchMessage.swift in Sources */,
@@ -1364,6 +1377,7 @@
 				5FB1A4F129E4145000A2220A /* EditTrainingRecordsUseCase.swift in Sources */,
 				5FDC24B22A29D8E300F4FEE9 /* MLModel+Ext.swift in Sources */,
 				5FE726DE29E0207F008AF5E0 /* GoToTrainingRecordsUseCase.swift in Sources */,
+				5FDC24B82A2A06F400F4FEE9 /* AddTrainingRecordFromFileUseCase.swift in Sources */,
 				5F3C921629DD689B00BA5A2D /* TabBarActions.swift in Sources */,
 				5F3C922C29DDC4D700BA5A2D /* ErrorMessage.swift in Sources */,
 				5F3C921529DD689B00BA5A2D /* TabBarState.swift in Sources */,
@@ -1432,6 +1446,7 @@
 				5F01ECEE29F30B9F001D683B /* GetTrainingLabelUseCase.swift in Sources */,
 				5F01ECDE29F30669001D683B /* WatchAppActions.swift in Sources */,
 				5F18F6FE2A1E189100730483 /* StopModelUseCase.swift in Sources */,
+				5FDC24B62A29E1F600F4FEE9 /* FileCacheManager.swift in Sources */,
 				5FFD790B29F8538F0065B934 /* DeviceMotion.swift in Sources */,
 				5FFD790429F846780065B934 /* AddTrainingRecordUseCase.swift in Sources */,
 				5F01ECF129F30C50001D683B /* CompanionAppRepository.swift in Sources */,
@@ -1441,6 +1456,7 @@
 				5F2FD36729FC162500C7643D /* LoadModelUseCase.swift in Sources */,
 				5FFD790C29F8560E0065B934 /* PersistentStore.swift in Sources */,
 				5F01ECEC29F3098E001D683B /* StorePublisher.swift in Sources */,
+				5FDC24BC2A2A0AEE00F4FEE9 /* ClearCacheUseCase.swift in Sources */,
 				5F01ECDA29F3064C001D683B /* WatchAppReducer.swift in Sources */,
 				5F2FD35A29FC103B00C7643D /* ObserverForVerifyView.swift in Sources */,
 				5FFD790629F847A20065B934 /* Settings.swift in Sources */,

@@ -20,7 +20,7 @@ extension URL {
     documentsDirectory.appending(path: "models")
   }
   
-  static var modelArchive: URL {
-    temporaryDirectory.appending(path: "model").appendingPathExtension("zip")
+  static var fileCacheDirectory: URL {
+    temporaryDirectory.appending(path: "file_cache")
   }
 }

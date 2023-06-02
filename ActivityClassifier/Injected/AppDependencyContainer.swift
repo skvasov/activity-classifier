@@ -69,12 +69,14 @@ class AppDependencyContainer {
     return RealSettingsRepository(settingsStore: settingsStore)
   }()
   let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
+  let fileCacheManager: FileCacheManager
   let watchAppRepository: WatchAppRepository
   
   init() {
     self.tabBarGetters = TabBarGetters(getTabBarState: appGetters.getTabBarState)
     self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
-    self.watchAppRepository = RealWatchAppRepository(connectivityManager: watchConnectivityManager)
+    self.fileCacheManager = RealFileCacheManager(fileCacheDirectory: URL.fileCacheDirectory)
+    self.watchAppRepository = RealWatchAppRepository(connectivityManager: watchConnectivityManager, fileCacheManager: fileCacheManager)
   }
   
   func makeAppModel() -> ActivityClassifierAppModel {
@@ -84,10 +86,12 @@ class AppDependencyContainer {
     let sendModelUseCase = SendModelUseCase(
       modelRepository: modelRepository,
       watchAppRepository: watchAppRepository)
+    let clearCacheUseCase = ClearCacheUseCase(fileCacheManager: fileCacheManager)
     let model = ActivityClassifierAppModel(
       observerForActivityClassifierApp: observerForActivityClassifierApp,
       startWatchAppUseCase: startWatchAppUseCase,
-      sendModelUseCase: sendModelUseCase)
+      sendModelUseCase: sendModelUseCase,
+      clearCacheUseCase: clearCacheUseCase)
     observerForActivityClassifierApp.eventResponder = model
     return model
   }

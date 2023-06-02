@@ -18,9 +18,15 @@ enum WatchConnectvityManagerError: Error {
 private typealias ActivationContinuation = CheckedContinuation<WCSessionActivationState, Error>
 private typealias FileTransferContinuation = CheckedContinuation<Void, Error>
 
-protocol WatchConnectvityManager<Context, Message> {
+protocol WatchConnectvityManagerDelegate: AnyObject {
+  func watchConnectvityManager(_ manager: any WatchConnectvityManager, temporaryFileURLFor url: URL) -> URL?
+}
+
+protocol WatchConnectvityManager<Context, Message>: AnyObject {
   associatedtype Context: Codable
   associatedtype Message: Codable
+  
+  var delegate: WatchConnectvityManagerDelegate? { set get }
   
 #if os(iOS)
   func startWatchApp() async throws
@@ -49,6 +55,7 @@ class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDe
   private let fileTransferSubject = PassthroughSubject<URL, Never>()
   private let messagePublisherSubject = PassthroughSubject<M, Never>()
   
+  weak var delegate: WatchConnectvityManagerDelegate?
   
   override init() {
     super.init()
@@ -97,11 +104,9 @@ class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDe
   }
   
   func session(_ session: WCSession, didReceive file: WCSessionFile) {
-    // TODO: Make a copy of file before it's removed by system. Delegate this work instead of using FileManager
-    let url = URL.modelArchive
-    try? FileManager.default.removeItem(at: url)
-    try? FileManager.default.copyItem(at: file.fileURL, to: url)
-    fileTransferSubject.send(url)
+    if let tempURL = delegate?.watchConnectvityManager(self, temporaryFileURLFor: file.fileURL) {
+      fileTransferSubject.send(tempURL)
+    }
   }
   
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {

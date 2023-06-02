@@ -15,6 +15,7 @@ typealias RunModelUseCaseFactory = (Model) -> UseCase
 class WatchAppDependencyContainer {
   let watchAppGetters = WatchAppGetters()
   let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
+  let fileCacheManager: FileCacheManager
   let companionAppRepository: CompanionAppRepository
   let feedbackRepository: FeedbackRepository = {
     RealFeedbackRepository()
@@ -22,6 +23,7 @@ class WatchAppDependencyContainer {
   let trainingDataRepository: TrainingDataRepository = {
     let folderURL = URL.trainingDataDirectory
     let recordsStoreFactory: RecordsStoreFactory = {
+      // TODO: Probably refactor to use FileCacheManager insted of DiskManager
       DiskManager(folderURL: folderURL)
     }
     let motionManagerFactory: MotionManagerFactory = {
@@ -42,9 +44,8 @@ class WatchAppDependencyContainer {
   
   init() {
     self.watchConnectivityManager = RealWatchConnectvityManager<WatchContext, WatchMessage>()
-    self.companionAppRepository = RealCompanionAppRepository(watchConnectivityManager: watchConnectivityManager)
-    
-    
+    self.fileCacheManager = RealFileCacheManager(fileCacheDirectory: URL.fileCacheDirectory)
+    self.companionAppRepository = RealCompanionAppRepository(watchConnectivityManager: watchConnectivityManager, fileCacheManager: self.fileCacheManager)
   }
   
   let stateStore: Store = Store<WatchAppState>(reducer: Reducers.appReducer, state: WatchAppState(), middleware: [printActionMiddleware])
@@ -60,10 +61,12 @@ class WatchAppDependencyContainer {
                        url: url,
                        modelRepository: self.modelRepository)
     }
+    let clearCacheUseCase = ClearCacheUseCase(fileCacheManager: fileCacheManager)
     let model = WatchAppModel(
       observerForWatchApp: observerForWatchApp,
       getLatestModelUseCase: getLatestModelUseCase,
-      saveModelUseCaseFactory: saveModelUseCaseFactory
+      saveModelUseCaseFactory: saveModelUseCaseFactory,
+      clearCacheUseCase: clearCacheUseCase
     )
     observerForWatchApp.eventResponder = model
     return model

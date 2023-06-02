@@ -10,6 +10,7 @@ import Combine
 
 class ObserverForTrainingRecords: Observer {
   private let trainingRecordsState: AnyPublisher<TrainingRecordsState, Never>
+  private let trainingRecordFile: AnyPublisher<URL, Never>
   private var subscriptions = Set<AnyCancellable>()
   private var isObserving: Bool { !subscriptions.isEmpty }
   
@@ -21,8 +22,9 @@ class ObserverForTrainingRecords: Observer {
     }
   }
   
-  init(trainingRecordsState: AnyPublisher<TrainingRecordsState, Never>) {
+  init(trainingRecordsState: AnyPublisher<TrainingRecordsState, Never>, trainingRecordFile: AnyPublisher<URL, Never>) {
     self.trainingRecordsState = trainingRecordsState
+    self.trainingRecordFile = trainingRecordFile
   }
   
   func startObserving() {
@@ -34,6 +36,13 @@ class ObserverForTrainingRecords: Observer {
         self?.received(newState: state)
       }
       .store(in: &subscriptions)
+    
+    trainingRecordFile
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] fileURL in
+        self?.received(newTrainingRecordFile: fileURL)
+      }
+      .store(in: &subscriptions)
   }
   
   func stopObserving() {
@@ -42,5 +51,9 @@ class ObserverForTrainingRecords: Observer {
   
   func received(newState state: TrainingRecordsState) {
     eventResponder?.received(newState: state)
+  }
+  
+  func received(newTrainingRecordFile fileURL: URL) {
+    eventResponder?.received(newTrainingRecordFile: fileURL)
   }
 }
