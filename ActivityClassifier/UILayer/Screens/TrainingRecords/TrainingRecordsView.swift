@@ -42,7 +42,10 @@ struct TrainingRecordsView: View {
         } label: {
           model.isEditing
           ? AnyView(Text("Remove all"))
-          : AnyView(Image(systemName: "chevron.backward"))
+          : AnyView(
+            Image(systemName: "chevron.backward")
+              .frame(width: 44, height: 44)
+          )
         }
       }
     }

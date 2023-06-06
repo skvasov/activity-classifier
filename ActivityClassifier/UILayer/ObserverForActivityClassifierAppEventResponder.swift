@@ -9,4 +9,5 @@ import Foundation
 
 protocol ObserverForActivityClassifierAppEventResponder: AnyObject {
   func receivedLatestModelRequest()
+  func receivedSelectedTrainingLabel()
 }

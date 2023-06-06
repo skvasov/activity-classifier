@@ -9,12 +9,17 @@ import Foundation
 
 class BackToLabelsUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
+  private var trainingDataReposioty: TrainingDataRepository
   
-  init(actionDispatcher: ActionDispatcher) {
+  init(actionDispatcher: ActionDispatcher, trainingDataReposioty: TrainingDataRepository) {
     self.actionDispatcher = actionDispatcher
+    self.trainingDataReposioty = trainingDataReposioty
   }
   
   func execute() {
-    actionDispatcher.dispatchOnMain(LabelsActions.BackToLabels())
+    Task {
+      trainingDataReposioty.selectedTrainingLabel = nil
+      actionDispatcher.dispatchOnMain(LabelsActions.BackToLabels())
+    }
   }
 }

@@ -11,12 +11,12 @@ class UpdateWatchContextUseCase: UseCase {
   
   private let watchAppRepository: WatchAppRepository
   private let settingsRepository: SettingsRepository
-  private let label: TrainingLabel?
+  private let trainingDataRepository: TrainingDataRepository
   
-  init(watchAppRepository: WatchAppRepository, settingsRepository: SettingsRepository,  label: TrainingLabel?) {
+  init(watchAppRepository: WatchAppRepository, settingsRepository: SettingsRepository, trainingDataRepository: TrainingDataRepository) {
     self.watchAppRepository = watchAppRepository
     self.settingsRepository = settingsRepository
-    self.label = label
+    self.trainingDataRepository = trainingDataRepository
   }
   
   func execute() {
@@ -24,7 +24,8 @@ class UpdateWatchContextUseCase: UseCase {
       do {
         let settings = try await settingsRepository.load()
         var context = try await watchAppRepository.getAppContext() ?? WatchContext(settings: settings)
-        context.label = label
+        context.label = trainingDataRepository.selectedTrainingLabel
+        context.settings = settings
         try await watchAppRepository.updateAppContext(context)
       }
       catch {

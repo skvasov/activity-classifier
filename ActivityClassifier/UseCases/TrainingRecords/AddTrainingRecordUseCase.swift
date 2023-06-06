@@ -36,6 +36,8 @@ class AddTrainingRecordUseCase: UseCase {
         let trainingRecord = TrainingRecord(content: data)
         try await trainingDataRepository.addTrainingRecord(trainingRecord, for: label)
         actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddedTrainingRecord(trainingRecord: trainingRecord))
+        
+        trainingDataRepository.invalidateSelectedTrainingLabel()
       }
       catch {
         let errorMessage = ErrorMessage(error: error)

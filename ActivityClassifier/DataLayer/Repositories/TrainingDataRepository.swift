@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 typealias RecordsStoreFactory = (Storable) -> any PersistentStore<TrainingRecord>
 
 protocol TrainingDataRepository {
+  var selectedTrainingLabel: TrainingLabel? { get set }
+  func invalidateSelectedTrainingLabel()
+  func selectedTrainingLabelPublisher() -> AnyPublisher<TrainingLabel?, Never>
   func addLabel(_ label: TrainingLabel) async throws
   func getAllLabels() async throws -> [TrainingLabel]
   func removeLabels(_ labels: [TrainingLabel]) async throws
@@ -25,6 +29,13 @@ class RealTrainingDataRepository {
   private let recordsStoreFactory: RecordsStoreFactory
   private let motionManagerFactory: MotionManagerFactory
   private let archiver: Archiver
+  private let selectedTrainingRecordSubject = PassthroughSubject<TrainingLabel?, Never>()
+  
+  var selectedTrainingLabel: TrainingLabel? {
+    didSet {
+      selectedTrainingRecordSubject.send(selectedTrainingLabel)
+    }
+  }
   
   init(labelsStore: any PersistentStore<TrainingLabel>, recordsStoreFactory: @escaping RecordsStoreFactory, motionManagerFactory: @escaping MotionManagerFactory, archiver: Archiver) {
     self.labelsStore = labelsStore
@@ -35,6 +46,22 @@ class RealTrainingDataRepository {
 }
 
 extension RealTrainingDataRepository: TrainingDataRepository {
+  func invalidateSelectedTrainingLabel() {
+    Task {
+      if let name = selectedTrainingLabel?.name {
+        let upToDateLabel = try await self.labelsStore.loadAll().first { $0.name.compare(name) == .orderedSame }
+        self.selectedTrainingLabel = upToDateLabel
+      } else {
+        self.selectedTrainingLabel = nil
+      }
+    }
+  }
+  
+  func selectedTrainingLabelPublisher() -> AnyPublisher<TrainingLabel?, Never> {
+    selectedTrainingRecordSubject
+      .eraseToAnyPublisher()
+  }
+  
   func addLabel(_ label: TrainingLabel) async throws {
     try await labelsStore.save(label)
   }

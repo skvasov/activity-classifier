@@ -26,7 +26,6 @@ class TrainingRecordsViewModel: ObservableObject {
   private let editTrainingRecordsUseCaseFactory: EditTrainingRecordsUseCaseFactory
   private let cancelEditingTrainingRecordsUseCaseFactory: CancelEditingTrainingRecordsUseCaseFactory
   private let closeTrainingRecordsErrorUseCaseFactory: CloseTrainingRecordsErrorUseCaseFactory
-  private let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory
   private let addTrainingRecordFromFileUseCaseFactory: AddTrainingRecordFromFileUseCaseFactory
   
   init(
@@ -39,7 +38,6 @@ class TrainingRecordsViewModel: ObservableObject {
     editTrainingRecordsUseCaseFactory: @escaping EditTrainingRecordsUseCaseFactory,
     cancelEditingTrainingRecordsUseCaseFactory: @escaping CancelEditingTrainingRecordsUseCaseFactory,
     closeTrainingRecordsErrorUseCaseFactory: @escaping CloseTrainingRecordsErrorUseCaseFactory,
-    updateWatchContextUseCaseFactory: @escaping UpdateWatchContextUseCaseFactory,
     addTrainingRecordFromFileUseCaseFactory: @escaping AddTrainingRecordFromFileUseCaseFactory
   ) {
     self.label = label
@@ -51,16 +49,12 @@ class TrainingRecordsViewModel: ObservableObject {
     self.editTrainingRecordsUseCaseFactory = editTrainingRecordsUseCaseFactory
     self.cancelEditingTrainingRecordsUseCaseFactory = cancelEditingTrainingRecordsUseCaseFactory
     self.closeTrainingRecordsErrorUseCaseFactory = closeTrainingRecordsErrorUseCaseFactory
-    self.updateWatchContextUseCaseFactory = updateWatchContextUseCaseFactory
     self.addTrainingRecordFromFileUseCaseFactory = addTrainingRecordFromFileUseCaseFactory
   }
   
   func onAppear() {
     observerForTrainingRecords.startObserving()
     getTrainingRecordsUseCase.execute()
-    
-    let useCase = updateWatchContextUseCaseFactory(label)
-    useCase.execute()
   }
   
   func add() {
@@ -84,9 +78,6 @@ class TrainingRecordsViewModel: ObservableObject {
   }
   
   func goBack() {
-    // TODO: Find better place to update watch context?
-    let updateWatchContextUseCase = updateWatchContextUseCaseFactory(nil)
-    updateWatchContextUseCase.execute()
     backToLabelsUseCase.execute()
   }
   
@@ -123,5 +114,6 @@ extension TrainingRecordsViewModel: ObserverForTrainingRecordsEventResponder {
   func received(newTrainingRecordFile fileURL: URL) {
     let useCase = addTrainingRecordFromFileUseCaseFactory(fileURL)
     useCase.execute()
+    
   }
 }

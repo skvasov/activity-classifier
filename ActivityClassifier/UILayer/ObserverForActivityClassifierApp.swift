@@ -10,6 +10,7 @@ import Combine
 
 class ObserverForActivityClassifierApp: Observer {
   private let latestModelRequest: AnyPublisher<Void, Never>
+  private let selectedTrainingLabel: AnyPublisher<TrainingLabel?, Never>
   private var subscriptions = Set<AnyCancellable>()
   private var isObserving: Bool { !subscriptions.isEmpty }
   
@@ -21,8 +22,9 @@ class ObserverForActivityClassifierApp: Observer {
     }
   }
   
-  init(latestModelRequest: AnyPublisher<Void, Never>) {
+  init(latestModelRequest: AnyPublisher<Void, Never>, selectedTrainingLabel: AnyPublisher<TrainingLabel?, Never>) {
     self.latestModelRequest = latestModelRequest
+    self.selectedTrainingLabel = selectedTrainingLabel
   }
   
   func startObserving() {
@@ -34,6 +36,13 @@ class ObserverForActivityClassifierApp: Observer {
         self?.receivedLatestModelRequest()
       }
       .store(in: &subscriptions)
+    
+    selectedTrainingLabel
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        self?.receivedSelectedTrainingLabel()
+      }
+      .store(in: &subscriptions)
   }
   
   func stopObserving() {
@@ -42,5 +51,9 @@ class ObserverForActivityClassifierApp: Observer {
   
   func receivedLatestModelRequest() {
     eventResponder?.receivedLatestModelRequest()
+  }
+  
+  func receivedSelectedTrainingLabel() {
+    eventResponder?.receivedSelectedTrainingLabel()
   }
 }

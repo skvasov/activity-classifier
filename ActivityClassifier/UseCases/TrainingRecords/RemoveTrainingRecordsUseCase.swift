@@ -26,6 +26,8 @@ class RemoveTrainingRecordsUseCase: UseCase {
       do {
         try await trainingDataRepository.removeTrainingRecords(trainingRecords, for: label)
         actionDispatcher.dispatchOnMain(TrainingRecordsActions.RemovedTrainingRecords(removedTrainingRecords: trainingRecords))
+        
+        trainingDataRepository.invalidateSelectedTrainingLabel()
       }
       catch {
         let errorMessage = ErrorMessage(error: error)

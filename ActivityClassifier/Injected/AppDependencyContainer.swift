@@ -31,7 +31,7 @@ typealias StopModelUseCaseFactory = () -> UseCase
 typealias LoadModelUseCaseFactory = () -> UseCase
 
 typealias LoadSettingsUseCaseFactory = () -> UseCase
-typealias SaveSettingsUseCaseFactory = (Settings) -> UseCase
+typealias SaveSettingsUseCaseFactory = (Settings, @escaping () -> Void) -> UseCase
 typealias CloseSettingsErrorUseCaseFactory = () -> UseCase
 
 typealias TrainingDataSharingCallback = (Result<URL, Error>) -> Void
@@ -95,17 +95,25 @@ class AppDependencyContainer {
   
   func makeAppModel() -> ActivityClassifierAppModel {
     let observerForActivityClassifierApp = ObserverForActivityClassifierApp(
-      latestModelRequest: watchAppRepository.latestModelRequestPublisher())
+      latestModelRequest: watchAppRepository.latestModelRequestPublisher(),
+      selectedTrainingLabel: trainingDataRepository.selectedTrainingLabelPublisher()
+    )
     let startWatchAppUseCase = StartWatchAppUseCase(watchAppRepository: watchAppRepository)
     let sendModelUseCase = SendModelUseCase(
       modelRepository: modelRepository,
       watchAppRepository: watchAppRepository)
     let clearCacheUseCase = ClearCacheUseCase(fileCacheManager: fileCacheManager)
+    let updateWatchContextUseCase = UpdateWatchContextUseCase(
+      watchAppRepository: watchAppRepository,
+      settingsRepository: settingsRepository,
+      trainingDataRepository: trainingDataRepository)
     let model = ActivityClassifierAppModel(
       observerForActivityClassifierApp: observerForActivityClassifierApp,
       startWatchAppUseCase: startWatchAppUseCase,
       sendModelUseCase: sendModelUseCase,
-      clearCacheUseCase: clearCacheUseCase)
+      clearCacheUseCase: clearCacheUseCase,
+      updateWatchContextUseCase: updateWatchContextUseCase
+    )
     observerForActivityClassifierApp.eventResponder = model
     return model
   }
@@ -154,7 +162,9 @@ class AppDependencyContainer {
     let goToTrainingRecordsUseCaseFactory = { label in
       GoToTrainingRecordsUseCase(
         actionDispatcher: self.stateStore,
-        label: label)
+        label: label,
+        trainingDataRepository: self.trainingDataRepository
+      )
     }
     let editLabelsUseCaseFactory = {
       EditLabelsUseCase(actionDispatcher: self.stateStore)
@@ -242,11 +252,18 @@ class AppDependencyContainer {
     let settingsState = stateStore.publisher { $0.select(self.tabBarGetters.getSettingsState) }
     let observerForSettings = ObserverForSettings(settingsState: settingsState)
     let loadSettingsUseCase = LoadSettingsUseCase(actionDispatcher: stateStore, settingsRepository: settingsRepository)
-    let saveSettingsUseCaseFactory: SaveSettingsUseCaseFactory = { settings in
+    let saveSettingsUseCaseFactory: SaveSettingsUseCaseFactory = { settings, completion in
       SaveSettingsUseCase(
         actionDispatcher: self.stateStore,
         settings: settings,
-        settingsRepository: self.settingsRepository)
+        settingsRepository: self.settingsRepository,
+        completion: completion)
+    }
+    let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = {
+      UpdateWatchContextUseCase(
+        watchAppRepository: self.watchAppRepository,
+        settingsRepository: self.settingsRepository,
+        trainingDataRepository: self.trainingDataRepository)
     }
     let closeLabelsErrorUseCaseFactory: CloseLabelsErrorUseCaseFactory = {
       CloseSettingsErrorUseCase(actionDispatcher: self.stateStore)
@@ -255,6 +272,7 @@ class AppDependencyContainer {
       observerForSettings: observerForSettings,
       loadSettingsUseCase: loadSettingsUseCase,
       saveSettingsUseCaseFactory: saveSettingsUseCaseFactory,
+      updateWatchContextUseCaseFactory: updateWatchContextUseCaseFactory,
       closeLabelsErrorUseCaseFactory: closeLabelsErrorUseCaseFactory)
     observerForSettings.eventResponder = model
     return SettingsView(model: model)

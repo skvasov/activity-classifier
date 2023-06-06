@@ -14,7 +14,7 @@ typealias RemoveTrainingRecordsUseCaseFactory = ([TrainingRecord]) -> UseCase
 typealias EditTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CancelEditingTrainingRecordsUseCaseFactory = () -> UseCase
 typealias CloseTrainingRecordsErrorUseCaseFactory = () -> UseCase
-typealias UpdateWatchContextUseCaseFactory = (TrainingLabel?) -> UseCase
+typealias UpdateWatchContextUseCaseFactory = () -> UseCase
 typealias AddTrainingRecordFromFileUseCaseFactory = (URL) -> UseCase
 
 class LabelsDependencyContainer {
@@ -46,7 +46,7 @@ class LabelsDependencyContainer {
       actionDispatcher: stateStore,
       label: label,
       trainingDataRepository: trainingDataRepository)
-    let addTrainingRecordUseCaseFactory = {
+    let addTrainingRecordUseCaseFactory: AddTrainingRecordUseCaseFactory = {
       AddTrainingRecordUseCase(
         actionDispatcher: self.stateStore,
         label: label,
@@ -55,14 +55,15 @@ class LabelsDependencyContainer {
         feedbackRepository: self.feedbackRepository
       )
     }
-    let removeTrainingRecordsUseCaseFactory = { trainingRecords in
+    let removeTrainingRecordsUseCaseFactory: RemoveTrainingRecordsUseCaseFactory = { trainingRecords in
       RemoveTrainingRecordsUseCase(
         actionDispatcher: self.stateStore,
         label: label,
         trainingRecords: trainingRecords,
-        trainingDataRepository: self.trainingDataRepository)
+        trainingDataRepository: self.trainingDataRepository
+      )
     }
-    let backToLabelsUseCase = BackToLabelsUseCase(actionDispatcher: self.stateStore)
+    let backToLabelsUseCase = BackToLabelsUseCase(actionDispatcher: self.stateStore, trainingDataReposioty: self.trainingDataRepository)
     let editTrainingRecordsUseCaseFactory = {
       EditTrainingRecordsUseCase(actionDispatcher: self.stateStore)
     }
@@ -72,11 +73,11 @@ class LabelsDependencyContainer {
     let closeTrainingRecordsErrorUseCaseFactory = {
       CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
     }
-    let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = { label in
+    let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = {
       UpdateWatchContextUseCase(
         watchAppRepository: self.watchAppRepository,
         settingsRepository: self.settingsRepository,
-        label: label)
+        trainingDataRepository: self.trainingDataRepository)
     }
     let addTrainingRecordFromFileUseCaseFactory = { fileURL in
       AddTrainingRecordFromFileUseCase(
@@ -97,7 +98,6 @@ class LabelsDependencyContainer {
       editTrainingRecordsUseCaseFactory: editTrainingRecordsUseCaseFactory,
       cancelEditingTrainingRecordsUseCaseFactory: cancelEditingTrainingRecordsUseCaseFactory,
       closeTrainingRecordsErrorUseCaseFactory: closeTrainingRecordsErrorUseCaseFactory,
-      updateWatchContextUseCaseFactory: updateWatchContextUseCaseFactory,
       addTrainingRecordFromFileUseCaseFactory: addTrainingRecordFromFileUseCaseFactory
     )
     observerForLabels.eventResponder = model

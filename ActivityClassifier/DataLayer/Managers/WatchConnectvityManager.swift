@@ -43,10 +43,6 @@ protocol WatchConnectvityManager<Context, Message>: AnyObject {
 }
 
 class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDelegate {
-  private enum Keys: String {
-    case context
-  }
-  
   private var activationContinuations: [ActivationContinuation] = []
   private var fileTranferContinuations: [URL: FileTransferContinuation] = [:]
   private var encoder = JSONEncoder()
@@ -110,7 +106,7 @@ class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDe
   }
   
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    if let newContext = try? convert(from: applicationContext) {
+    if let newContext = try? convert(from: applicationContext[WCSession.Keys.context.rawValue] as? Data) {
       appContextSubject.send(newContext)
     }
   }
@@ -136,9 +132,9 @@ class RealWatchConnectvityManager<C: Codable, M: Codable>: NSObject, WCSessionDe
   }
 #endif
   
-  private func convert(from context: [String: Any]) throws -> C? {
+  private func convert(from contextData: Data?) throws -> C? {
     guard
-      let data = context[Keys.context.rawValue] as? Data
+      let data = contextData
     else { return nil }
     return try decoder.decode(C.self, from: data)
   }
@@ -155,12 +151,15 @@ extension RealWatchConnectvityManager: WatchConnectvityManager {
   func updateAppContext(_ context: C) async throws {
     try await activateSession()
     let data = try encoder.encode(context)
-    try WCSession.default.updateApplicationContext([Keys.context.rawValue: data])
+    try WCSession.default.updateApplicationContext([
+      WCSession.Keys.timestamp.rawValue: Date().timeIntervalSince1970,
+      WCSession.Keys.context.rawValue: data
+    ])
   }
   
   func getAppContext() async throws -> C? {
     try await activateSession()
-    return try convert(from: WCSession.default.receivedApplicationContext)
+    return try convert(from: WCSession.default.contextData)
   }
   
   func transferFile(_ fileURL: URL) async throws {

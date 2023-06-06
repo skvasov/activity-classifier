@@ -17,15 +17,18 @@ class SettingsViewModel: ObservableObject {
   private let observerForSettings: Observer
   private let loadSettingsUseCase: UseCase
   private let saveSettingsUseCaseFactory: SaveSettingsUseCaseFactory
+  private let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory
   private let closeLabelsErrorUseCaseFactory: CloseSettingsErrorUseCaseFactory
   
   init(observerForSettings: Observer,
        loadSettingsUseCase: UseCase,
        saveSettingsUseCaseFactory: @escaping SaveSettingsUseCaseFactory,
+       updateWatchContextUseCaseFactory: @escaping UpdateWatchContextUseCaseFactory,
        closeLabelsErrorUseCaseFactory: @escaping CloseSettingsErrorUseCaseFactory) {
     self.observerForSettings = observerForSettings
     self.loadSettingsUseCase = loadSettingsUseCase
     self.saveSettingsUseCaseFactory = saveSettingsUseCaseFactory
+    self.updateWatchContextUseCaseFactory = updateWatchContextUseCaseFactory
     self.closeLabelsErrorUseCaseFactory = closeLabelsErrorUseCaseFactory
   }
   
@@ -37,47 +40,49 @@ class SettingsViewModel: ObservableObject {
   func incrementFrequency() {
     var copy = settings
     copy.frequency += 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func decrementFrequency() {
     var copy = settings
     copy.frequency -= 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func incrementPredictionWindow() {
     var copy = settings
     copy.predictionWindow += 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func decrementPredictionWindow() {
     var copy = settings
     copy.predictionWindow -= 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func incrementDelay() {
     var copy = settings
     copy.delay += 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func decrementDelay() {
     var copy = settings
     copy.delay -= 1
-    let useCase = saveSettingsUseCaseFactory(copy)
-    useCase.execute()
+    saveSettings(copy)
   }
   
   func finishPresentingError() {
     let useCase = closeLabelsErrorUseCaseFactory()
+    useCase.execute()
+  }
+  
+  private func saveSettings(_ settings: Settings) {
+    let useCase = saveSettingsUseCaseFactory(settings) { [weak self] in
+      let updateWatchContextUseCase = self?.updateWatchContextUseCaseFactory()
+      updateWatchContextUseCase?.execute()
+    }
     useCase.execute()
   }
   

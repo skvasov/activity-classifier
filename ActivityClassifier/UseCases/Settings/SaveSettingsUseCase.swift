@@ -26,11 +26,13 @@ class SaveSettingsUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
   private let settings: Settings
   private let settingsRepository: SettingsRepository
+  private let completion: () -> Void
   
-  init(actionDispatcher: ActionDispatcher, settings: Settings, settingsRepository: SettingsRepository) {
+  init(actionDispatcher: ActionDispatcher, settings: Settings, settingsRepository: SettingsRepository, completion: @escaping () -> Void) {
     self.actionDispatcher = actionDispatcher
     self.settings = settings
     self.settingsRepository = settingsRepository
+    self.completion = completion
   }
   
   func execute() {
@@ -40,14 +42,17 @@ class SaveSettingsUseCase: UseCase {
         try validateSettings()
         try await settingsRepository.save(settings)
         actionDispatcher.dispatchOnMain(SettingsActions.SavedSettings(settings: settings))
+        completion()
       }
       catch _ as SaveSettingsUseCaseError {
         let errorMessage = ErrorMessage(message: "Invalid settings")
         actionDispatcher.dispatchOnMain(SettingsActions.SavingSettingsFailed(error: errorMessage))
+        completion()
       }
       catch {
         let errorMessage = ErrorMessage(error: error)
         actionDispatcher.dispatchOnMain(SettingsActions.SavingSettingsFailed(error: errorMessage))
+        completion()
       }
     }
   }
