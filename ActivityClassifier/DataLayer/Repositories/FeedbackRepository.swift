@@ -17,11 +17,6 @@ class RealFeedbackRepository {
   private static let stepInSec: Int = 1
   private static let stepInMillisec: Int = 1000
   
-  private enum SystemSound: UInt32 {
-    case shortBeep = 1117
-    case longBeep = 1118
-  }
-  
 #if os(iOS)
   private let hapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
 #endif
@@ -30,15 +25,26 @@ class RealFeedbackRepository {
 extension RealFeedbackRepository: FeedbackRepository {
   func generateFeedback(for duration: Int) async {
     Task {
+      guard let shortBeepURL = Bundle.main.url(forResource: "ShortBeep", withExtension: "mp3") else { return }
+      guard let longBeepURL = Bundle.main.url(forResource: "LongBeep", withExtension: "mp3") else { return }
+      
+      try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+      try? AVAudioSession.sharedInstance().setActive(true)
+      
+      
+      let shortBeepPlayer = try? AVAudioPlayer(contentsOf: shortBeepURL, fileTypeHint: AVFileType.mp3.rawValue)
+      let longBeepPlayer = try? AVAudioPlayer(contentsOf: longBeepURL, fileTypeHint: AVFileType.mp3.rawValue)
+      
       for second in 0..<duration {
-        //TODO: generate feedback for apple watch
+        
+        let player = second < duration - Self.stepInSec ? shortBeepPlayer : longBeepPlayer
+        player?.play()
 #if os(iOS)
-        let sound = second < duration - Self.stepInSec ? SystemSound.shortBeep : SystemSound.longBeep
-        AudioServicesPlaySystemSound(sound.rawValue)
         if second == duration - Self.stepInSec {
           await hapticFeedbackGenerator.impactOccurred()
         }
 #endif
+        
         let delay = second == duration - (Self.stepInSec * 2) ? Self.stepInMillisec + Self.stepInMillisec / 2 : Self.stepInMillisec
         try? await Task.sleep(for: .milliseconds(delay))
       }
