@@ -25,9 +25,12 @@ class AddTrainingRecordUseCase: UseCase {
       actionDispatcher.dispatchOnMain(RecordActions.AddTrainingRecord())
       do {
         let settings = try await companionAppRepository.getSettings()
-        await feedbackRepository.generateFeedback(for: settings.delay)
+        await feedbackRepository.generateStartFeedback(for: settings.delay)
         
         let motions = try await self.trainingDataRepository.getDeviceMotion(for: settings.predictionWindow, with: settings.frequency)
+        
+        await feedbackRepository.generateFinishFeedback()
+        
         let data = try JSONEncoder().encode(motions)
         
         let dateFormatter = DateFormatter()

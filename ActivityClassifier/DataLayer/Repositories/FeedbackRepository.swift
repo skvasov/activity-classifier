@@ -10,46 +10,48 @@ import UIKit
 import AVFoundation
 
 protocol FeedbackRepository {
-  func generateFeedback(for duration: Int) async
+  func generateStartFeedback(for duration: Int) async
+  func generateFinishFeedback() async
 }
 
-class RealFeedbackRepository {
+class RealFeedbackRepository: NSObject {
   private static let stepInSec: Int = 1
   private static let stepInMillisec: Int = 1000
   
-#if os(iOS)
-  private let hapticFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
-#endif
+  private var isAudioSessionActive = false
+  private lazy var shortBeepPlayer = makeAudioPlayer(fileName: "ShortBeep", withExtension: "wav")
+  private lazy var longBeepPlayer = makeAudioPlayer(fileName: "LongBeep", withExtension: "mp3")
+  private lazy var finishBeepPlayer = makeAudioPlayer(fileName: "FinishBeep", withExtension: "wav")
+  
+  private func activateAudioSessionIfNeeded() {
+    if !isAudioSessionActive {
+      try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+      try? AVAudioSession.sharedInstance().setActive(true)
+      isAudioSessionActive = true
+    }
+  }
+  
+  func makeAudioPlayer(fileName: String, withExtension ext: String) -> AVAudioPlayerAsync? {
+    guard let url = Bundle.main.url(forResource: fileName, withExtension: ext) else { return nil }
+    return AVAudioPlayerAsync(fileURL: url, fileTypeHint: ext)
+  }
 }
 
 extension RealFeedbackRepository: FeedbackRepository {
-  func generateFeedback(for duration: Int) async {
-    Task {
-      guard let shortBeepURL = Bundle.main.url(forResource: "ShortBeep", withExtension: "mp3") else { return }
-      guard let longBeepURL = Bundle.main.url(forResource: "LongBeep", withExtension: "mp3") else { return }
-      
-      try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-      try? AVAudioSession.sharedInstance().setActive(true)
-      
-      
-      let shortBeepPlayer = try? AVAudioPlayer(contentsOf: shortBeepURL, fileTypeHint: AVFileType.mp3.rawValue)
-      let longBeepPlayer = try? AVAudioPlayer(contentsOf: longBeepURL, fileTypeHint: AVFileType.mp3.rawValue)
-      
-      for second in 0..<duration {
-        
-        let player = second < duration - Self.stepInSec ? shortBeepPlayer : longBeepPlayer
-        player?.play()
-#if os(iOS)
-        if second == duration - Self.stepInSec {
-          await hapticFeedbackGenerator.impactOccurred()
-        }
-#endif
-        
-        let delay = second == duration - (Self.stepInSec * 2) ? Self.stepInMillisec + Self.stepInMillisec / 2 : Self.stepInMillisec
-        try? await Task.sleep(for: .milliseconds(delay))
+  func generateStartFeedback(for duration: Int) async {
+    activateAudioSessionIfNeeded()
+    
+    for _ in 0..<duration {
+      if let beepDuration = await shortBeepPlayer?.play() {
+        try? await Task.sleep(for: .milliseconds(Self.stepInMillisec - Int(beepDuration * 1000)))
       }
     }
+    await longBeepPlayer?.play()
+  }
+  
+  func generateFinishFeedback() async {
+    activateAudioSessionIfNeeded()
     
-    try? await Task.sleep(for: .seconds(duration))
+    await finishBeepPlayer?.play()
   }
 }

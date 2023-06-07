@@ -28,11 +28,13 @@ class AddTrainingRecordUseCase: UseCase {
       do {
         let settings = try await settingsRepository.load()
 
-        await feedbackRepository.generateFeedback(for: settings.delay)
+        await feedbackRepository.generateStartFeedback(for: settings.delay)
         
         let motions = try await trainingDataRepository.getDeviceMotion(for: settings.predictionWindow, with: settings.frequency)
-        let data = try JSONEncoder().encode(motions)
         
+        await feedbackRepository.generateFinishFeedback()
+        
+        let data = try JSONEncoder().encode(motions)
         let trainingRecord = TrainingRecord(content: data)
         try await trainingDataRepository.addTrainingRecord(trainingRecord, for: label)
         actionDispatcher.dispatchOnMain(TrainingRecordsActions.AddedTrainingRecord(trainingRecord: trainingRecord))

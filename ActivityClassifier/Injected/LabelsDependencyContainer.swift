@@ -73,12 +73,6 @@ class LabelsDependencyContainer {
     let closeTrainingRecordsErrorUseCaseFactory = {
       CloseTrainingRecordsErrorUseCase(actionDispatcher: self.stateStore)
     }
-    let updateWatchContextUseCaseFactory: UpdateWatchContextUseCaseFactory = {
-      UpdateWatchContextUseCase(
-        watchAppRepository: self.watchAppRepository,
-        settingsRepository: self.settingsRepository,
-        trainingDataRepository: self.trainingDataRepository)
-    }
     let addTrainingRecordFromFileUseCaseFactory = { fileURL in
       AddTrainingRecordFromFileUseCase(
         actionDispatcher: self.stateStore,
