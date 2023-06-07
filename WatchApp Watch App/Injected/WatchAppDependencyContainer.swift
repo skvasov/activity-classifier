@@ -19,9 +19,8 @@ class WatchAppDependencyContainer {
   let watchConnectivityManager: any WatchConnectvityManager<WatchContext, WatchMessage>
   let fileCacheManager: FileCacheManager
   let companionAppRepository: CompanionAppRepository
-  let feedbackRepository: FeedbackRepository = {
-    RealFeedbackRepository()
-  }()
+  let feedbackRepository: FeedbackRepository = { RealFeedbackRepository() }()
+  let workoutRepository: WorkoutRepository = { RealWorkoutRepository() }()
   let trainingDataRepository: TrainingDataRepository = {
     let folderURL = URL.trainingDataDirectory
     let recordsStoreFactory: RecordsStoreFactory = {
@@ -93,7 +92,9 @@ class WatchAppDependencyContainer {
       actionDispatcher: stateStore,
       companionAppRepository: companionAppRepository,
       trainingDataRepository: trainingDataRepository,
-      feedbackRepository: feedbackRepository)
+      feedbackRepository: feedbackRepository,
+      workoutRepository: workoutRepository
+    )
     let model = RecordViewModel(
       observerForRecord: observerForRecord,
       getTrainingLabelUseCase: getTrainingLabelUseCase,
@@ -115,7 +116,9 @@ class WatchAppDependencyContainer {
         actionDispatcher: self.stateStore,
         model: model,
         modelRepository: self.modelRepository,
-        companionAppRepository: self.companionAppRepository)
+        companionAppRepository: self.companionAppRepository,
+        workoutRepository: self.workoutRepository
+      )
     }
     let stopModelUseCase = StopModelUseCase(actionDispatcher: stateStore, modelRepository: modelRepository)
     let model = VerifyViewModel(

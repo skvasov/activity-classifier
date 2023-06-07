@@ -8,5 +8,11 @@
 	<array>
 		<string>workout-processing</string>
 	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>To keep the app active while recording sensor data</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>To keep the app active while recording sensor data</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>To keep the app active while recording sensor data</string>
 </dict>
 </plist>

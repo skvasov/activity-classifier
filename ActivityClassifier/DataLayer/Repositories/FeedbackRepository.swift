@@ -39,6 +39,7 @@ class RealFeedbackRepository: NSObject {
 
 extension RealFeedbackRepository: FeedbackRepository {
   func generateStartFeedback(for duration: Int) async {
+    
     activateAudioSessionIfNeeded()
     
     for _ in 0..<duration {
