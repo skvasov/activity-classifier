@@ -18,7 +18,7 @@ enum ModelRepositoryError: Error {
 protocol ModelRepository {
   func save(_ model: Model) async throws
   func load() async throws -> Model?
-  func run(_ model: Model, with frequency: Int) async throws -> AsyncStream<[DeviceMotion]>
+  func run(_ model: Model, with frequency: Int) async throws -> AsyncThrowingStream<[DeviceMotion], Error>
   func stop()
   func predict(_ deviceMotions: [DeviceMotion]) throws -> Prediction
   func latestModelPublisher() -> AnyPublisher<Model, Never>
@@ -105,7 +105,7 @@ extension RealModelRepository: ModelRepository {
     try await modelStore.loadAll().first
   }
   
-  func run(_ model: Model, with frequency: Int) async throws -> AsyncStream<[DeviceMotion]> {
+  func run(_ model: Model, with frequency: Int) async throws -> AsyncThrowingStream<[DeviceMotion], Error> {
     guard let url = model.url else { throw ModelRepositoryError.invalidModelFile }
     
     mlModel = try MLModel(contentsOf: url)
@@ -113,7 +113,7 @@ extension RealModelRepository: ModelRepository {
     guard let predictionWindow = mlModel?.predictionWindow else { throw ModelRepositoryError.invalidModelFile }
     
     stateOut = nil
-    return try motionManager.getDeviceMotion(for: predictionWindow, with: frequency)
+    return motionManager.getContinuousDeviceMotion(for: predictionWindow, with: frequency)
   }
   
   func stop() {

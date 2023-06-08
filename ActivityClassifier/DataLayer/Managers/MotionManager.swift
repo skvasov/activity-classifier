@@ -12,7 +12,7 @@ typealias MotionManagerFactory = () -> MotionManager
 
 protocol MotionManager {
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion]
-  func getDeviceMotion(for window: Int, with frequency: Int) throws -> AsyncStream<[DeviceMotion]>
+  func getContinuousDeviceMotion(for window: Int, with frequency: Int) -> AsyncThrowingStream<[DeviceMotion], Error>
   func stopGettingDeviceMotion()
 }
 
@@ -27,9 +27,7 @@ class RealMotionManager: MotionManager {
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion] {
     return try await withCheckedThrowingContinuation { continuation in
       var isStopped = false
-      let interval = 1.0 / Double(frequency)
-      let manager = CMMotionManager()
-      manager.deviceMotionUpdateInterval = interval
+      let manager = makeMotionManager(with: frequency)
       
       var motions: [CMDeviceMotion] = []
       manager.startDeviceMotionUpdates(to: .main) { motion, error in
@@ -58,20 +56,17 @@ class RealMotionManager: MotionManager {
     }
   }
   
-  func getDeviceMotion(for window: Int, with frequency: Int) throws -> AsyncStream<[DeviceMotion]> {
+  func getContinuousDeviceMotion(for window: Int, with frequency: Int) -> AsyncThrowingStream<[DeviceMotion], Error> {
     stopGettingDeviceMotion()
     
-    // TODO: Propagate error from `startDeviceMotionUpdates`
-    return AsyncStream { continuation in
-      let interval = 1 / Double(frequency)
-      let manager = CMMotionManager()
-      currentManager = manager
-      manager.deviceMotionUpdateInterval = interval
+    return AsyncThrowingStream { continuation in
+      currentManager = makeMotionManager(with: frequency)
       
       var motions: [CMDeviceMotion] = []
-      manager.startDeviceMotionUpdates(to: .main) { motion, error in
+      currentManager?.startDeviceMotionUpdates(to: .main) { motion, error in
         guard error == nil else {
           self.stopGettingDeviceMotion()
+          continuation.finish(throwing: error)
           return
         }
         
@@ -90,5 +85,12 @@ class RealMotionManager: MotionManager {
     currentManager?.stopDeviceMotionUpdates()
     continuation?.finish()
     continuation = nil
+  }
+  
+  private func makeMotionManager(with frequency: Int) -> CMMotionManager {
+    let interval = 1 / Double(frequency)
+    let manager = CMMotionManager()
+    manager.deviceMotionUpdateInterval = interval
+    return manager
   }
 }
