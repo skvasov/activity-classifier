@@ -23,7 +23,10 @@ class LoadModelUseCase: UseCase {
         let model = try await modelRepository.load()
         actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: model))
       }
-      catch {
+      catch let error as NSError where error.code == 260 { // Folder with ML models doesn't exist yet
+        actionDispatcher.dispatchOnMain(VerifyActions.LoadedModel(model: nil))
+      }
+      catch let error {
         let errorMessage = ErrorMessage(error: error)
         actionDispatcher.dispatchOnMain(VerifyActions.LoadingModelFailed(error: errorMessage))
       }
