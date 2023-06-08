@@ -38,14 +38,13 @@ struct VerifyView: View {
       }
       VStack {
         Spacer()
-        Text(trainingModel.name ?? "")
+        Text(trainingModel.name)
       }
     }
   }
   
   func makeRunButton() -> some View {
     Button(model.isRunning ? "Stop" : "Run") {
-      // TODO: remove logic from view
       model.isRunning ? model.stop() : model.run()
     }
     .buttonStyle(BorderedProminentButtonStyle())

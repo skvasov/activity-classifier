@@ -54,19 +54,19 @@ extension RealModelRepository: ModelRepository {
   func save(_ model: Model) async throws {
     guard let url = model.url else { throw ModelRepositoryError.invalidModelURL }
     
-    do { try await removeAll() } catch {}
+    try? await removeAll()
     
     var model = model
     
 #if os(iOS)
-    var compiledModelURL: URL?
-    do { compiledModelURL = try await MLModel.compileModel(at: url) } catch {}
+    guard
+      let compiledModelURL = try? await MLModel.compileModel(at: url)
+    else { throw ModelRepositoryError.invalidModelFile }
     
-    guard let compiledModelURL else { throw ModelRepositoryError.invalidModelFile }
     model.url = compiledModelURL
-    model.name += "c" // TODO:
+    model.name = compiledModelURL.lastPathComponent
     try await modelStore.save(model)
-    try FileManager.default.removeItem(at: compiledModelURL)
+    try? FileManager.default.removeItem(at: compiledModelURL)
 #endif
     
 #if os(watchOS)
@@ -84,11 +84,13 @@ extension RealModelRepository: ModelRepository {
       return
     }
     
+    // A compiled ML model is a package in file system. Archiver adds '/' to the end of package name after unarchiving. We have to remove the '/' to make a model readable by CoreML
     var path = modelURL.path()
     if path.last == .init("/") {
       path.removeLast()
       modelURL = URL(filePath: path)
     }
+    ///////
     
     model.name = modelURL.lastPathComponent
     model.url = modelURL

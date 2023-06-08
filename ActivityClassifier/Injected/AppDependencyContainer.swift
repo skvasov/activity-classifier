@@ -29,6 +29,7 @@ typealias SaveModelUseCaseFactory = (Result<URL, Error>) -> UseCase
 typealias RunModelUseCaseFactory = (Model) -> UseCase
 typealias StopModelUseCaseFactory = () -> UseCase
 typealias LoadModelUseCaseFactory = () -> UseCase
+typealias CloseVerifyErrorUseCaseFactory = () -> UseCase
 
 typealias LoadSettingsUseCaseFactory = () -> UseCase
 typealias SaveSettingsUseCaseFactory = (Settings, @escaping () -> Void) -> UseCase
@@ -235,6 +236,9 @@ class AppDependencyContainer {
     let loadModelUseCaseFactory = {
       LoadModelUseCase(actionDispatcher: self.stateStore, modelRepository: self.modelRepository)
     }
+    let closeVerifyErrorUseCaseFactory: CloseVerifyErrorUseCaseFactory = {
+      CloseVerifyModelErrorUseCase(actionDispatcher: self.stateStore)
+    }
     let model = VerifyViewModel(
       observerForVerify: observerForVerify,
       importModelUseCaseFactory: importModelUseCaseFactory,
@@ -242,7 +246,8 @@ class AppDependencyContainer {
       saveModelUseCaseFactory: saveModelUseCaseFactory,
       runModelUseCaseFactory: runModelUseCaseFactory,
       stopModelUseCaseFactory: stopModelUseCaseFactory,
-      loadModelUseCaseFactory: loadModelUseCaseFactory
+      loadModelUseCaseFactory: loadModelUseCaseFactory,
+      closeVerifyErrorUseCaseFactory: closeVerifyErrorUseCaseFactory
     )
     observerForVerify.eventResponder = model
     return VerifyView(model: model)

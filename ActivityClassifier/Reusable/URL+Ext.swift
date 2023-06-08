@@ -23,4 +23,8 @@ extension URL {
   static var fileCacheDirectory: URL {
     temporaryDirectory.appending(path: "file_cache")
   }
+  
+  func appendingRandomArchiveName() -> URL {
+    appending(path: "\(UUID().uuidString).zip")
+  }
 }

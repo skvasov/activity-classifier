@@ -136,6 +136,7 @@
 		5FC9EA4B2A308E07008C23B0 /* CompanionAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA492A308E07008C23B0 /* CompanionAppRepository.swift */; };
 		5FC9EA4C2A308E07008C23B0 /* TrainingDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA4A2A308E07008C23B0 /* TrainingDataRepository.swift */; };
 		5FC9EA4F2A308E20008C23B0 /* WorkoutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA4E2A308E20008C23B0 /* WorkoutRepository.swift */; };
+		5FC9EA512A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA502A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift */; };
 		5FD41C6E29EEE6FA003B5717 /* WatchConnectvityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41C6D29EEE6FA003B5717 /* WatchConnectvityManager.swift */; };
 		5FD41C7029EEF08D003B5717 /* WatchContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41C6F29EEF08D003B5717 /* WatchContext.swift */; };
 		5FD41CB729F03821003B5717 /* WatchApp_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CB629F03821003B5717 /* WatchApp_Watch_AppTests.swift */; };
@@ -376,6 +377,7 @@
 		5FC9EA492A308E07008C23B0 /* CompanionAppRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanionAppRepository.swift; sourceTree = "<group>"; };
 		5FC9EA4A2A308E07008C23B0 /* TrainingDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDataRepository.swift; sourceTree = "<group>"; };
 		5FC9EA4E2A308E20008C23B0 /* WorkoutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRepository.swift; sourceTree = "<group>"; };
+		5FC9EA502A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseVerifyModelErrorUseCase.swift; sourceTree = "<group>"; };
 		5FD41C6D29EEE6FA003B5717 /* WatchConnectvityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectvityManager.swift; sourceTree = "<group>"; };
 		5FD41C6F29EEF08D003B5717 /* WatchContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContext.swift; sourceTree = "<group>"; };
 		5FD41CA329F03821003B5717 /* WatchApp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchApp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -951,6 +953,7 @@
 				5F5BBDC929E70581003D8646 /* StopModelUseCase.swift */,
 				5F5BBDCB29E70C66003D8646 /* LoadModelUseCase.swift */,
 				5F0F7CE82A10063A00D12F02 /* SendModelUseCase.swift */,
+				5FC9EA502A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift */,
 			);
 			path = Verify;
 			sourceTree = "<group>";
@@ -1354,6 +1357,7 @@
 				5FE726E029E0207F008AF5E0 /* RemoveLabelsUseCase.swift in Sources */,
 				5F3C921E29DD689B00BA5A2D /* AppActions.swift in Sources */,
 				5F0F7CE92A10063A00D12F02 /* SendModelUseCase.swift in Sources */,
+				5FC9EA512A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift in Sources */,
 				5FB1A4EE29E40E7C00A2220A /* RemoveTrainingRecordsUseCase.swift in Sources */,
 				5FB1A4FA29E43BC000A2220A /* DeviceMotion.swift in Sources */,
 				5FDC24B52A29E1F600F4FEE9 /* FileCacheManager.swift in Sources */,

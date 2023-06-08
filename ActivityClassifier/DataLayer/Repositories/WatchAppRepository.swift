@@ -69,7 +69,7 @@ extension RealWatchAppRepository: WatchAppRepository {
   func sendModel(_ model: Model) async throws {
     guard let url = model.url else { throw WatchAppRepositoryError.invalidModelURL }
     let archiveDirectory = try fileCacheManager.createTemporaryDirectory()
-    let archiveFileURL = archiveDirectory.appending(path: "model.zip") // TODO: not nice
+    let archiveFileURL = archiveDirectory.appendingRandomArchiveName()
     
     let archiver = archiverFactory(url, archiveFileURL)
     try await archiver.archive()

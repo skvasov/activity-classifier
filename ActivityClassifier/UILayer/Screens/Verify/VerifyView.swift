@@ -38,13 +38,21 @@ struct VerifyView: View {
           .disabled(model.isLoading)
         }
       }
-      // TODO: Allow .mlmodel files only
-      .fileImporter(isPresented: $model.isImporting, allowedContentTypes: [.item]) { result in
-        model.saveModel(result)
-      }
-      .onAppear {
-        model.onAppear()
-      }
+      .fileImporter(
+        isPresented: $model.isImporting,
+        allowedContentTypes: [
+          .init(filenameExtension: "mlmodel", conformingTo: .item) ?? .item
+        ]) { result in
+          model.saveModel(result)
+        }
+        .alert(model.presentedAlert.title, isPresented: $model.isPresentingAlert, actions: {
+          model.presentedAlert.actions
+        }, message: {
+          model.presentedAlert.messageView
+        })
+        .onAppear {
+          model.onAppear()
+        }
     }
   }
   

@@ -10,7 +10,7 @@ import Foundation
 class VerifyViewModel: ObservableObject {
   @Published var model: Model?
   @Published var isImporting: Bool = false {
-    // TODO: There is no other way to track user closing file import popup
+    // There is no other way to track user closing file import popup
     didSet {
       if isImportingLastValue != isImporting && isImportingLastValue {
         let useCase = cancelImportingModelUseCaseFactory()
@@ -33,6 +33,7 @@ class VerifyViewModel: ObservableObject {
   private let runModelUseCaseFactory: RunModelUseCaseFactory
   private let stopModelUseCaseFactory: StopModelUseCaseFactory
   private let loadModelUseCaseFactory: LoadModelUseCaseFactory
+  private let closeVerifyErrorUseCaseFactory: CloseVerifyErrorUseCaseFactory
   
   init(
     observerForVerify: Observer,
@@ -41,7 +42,8 @@ class VerifyViewModel: ObservableObject {
     saveModelUseCaseFactory: @escaping SaveModelUseCaseFactory,
     runModelUseCaseFactory: @escaping RunModelUseCaseFactory,
     stopModelUseCaseFactory: @escaping StopModelUseCaseFactory,
-    loadModelUseCaseFactory: @escaping LoadModelUseCaseFactory
+    loadModelUseCaseFactory: @escaping LoadModelUseCaseFactory,
+    closeVerifyErrorUseCaseFactory: @escaping CloseVerifyErrorUseCaseFactory
   ) {
     self.observerForVerify = observerForVerify
     self.importModelUseCaseFactory = importModelUseCaseFactory
@@ -50,6 +52,7 @@ class VerifyViewModel: ObservableObject {
     self.runModelUseCaseFactory = runModelUseCaseFactory
     self.stopModelUseCaseFactory = stopModelUseCaseFactory
     self.loadModelUseCaseFactory = loadModelUseCaseFactory
+    self.closeVerifyErrorUseCaseFactory = closeVerifyErrorUseCaseFactory
   }
   
   func onAppear() {
@@ -85,7 +88,8 @@ class VerifyViewModel: ObservableObject {
   }
   
   func finishPresentingError() {
-    // TODO: Implement
+    let useCase = closeVerifyErrorUseCaseFactory()
+    useCase.execute()
   }
   
   deinit {

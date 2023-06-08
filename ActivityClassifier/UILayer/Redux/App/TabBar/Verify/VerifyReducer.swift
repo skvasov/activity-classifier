@@ -52,7 +52,7 @@ extension Reducers {
     case let action as VerifyActions.StoppingModelFailed:
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
-    case _ as TrainingRecordsActions.CloseTrainingRecordsErrorUseCase:
+    case _ as VerifyActions.CloseVerifyError:
       if !state.errorsToPresent.isEmpty {
         state.errorsToPresent.removeFirst()
       }
