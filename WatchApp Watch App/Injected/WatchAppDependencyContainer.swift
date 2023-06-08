@@ -70,11 +70,13 @@ class WatchAppDependencyContainer {
                        modelRepository: self.modelRepository)
     }
     let clearCacheUseCase = ClearCacheUseCase(fileCacheManager: fileCacheManager)
+    let requestWorkoutAuthorizationUseCase = RequestWorkoutAuthorizationUseCase(workoutRepository: workoutRepository)
     let model = WatchAppModel(
       observerForWatchApp: observerForWatchApp,
       getLatestModelUseCase: getLatestModelUseCase,
       saveModelUseCaseFactory: saveModelUseCaseFactory,
-      clearCacheUseCase: clearCacheUseCase
+      clearCacheUseCase: clearCacheUseCase,
+      requestWorkoutAuthorizationUseCase: requestWorkoutAuthorizationUseCase
     )
     observerForWatchApp.eventResponder = model
     return model

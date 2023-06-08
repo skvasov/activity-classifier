@@ -13,6 +13,7 @@ enum WorkoutManagerError: Error {
 }
 
 protocol WorkoutRepository {
+  func requestAuthorization() async throws
   func startWorkout() async throws
   func endWorkout()
 }
@@ -23,11 +24,9 @@ class RealWorkoutRepository {
 }
 
 extension RealWorkoutRepository: WorkoutRepository {
-  func startWorkout() async throws {
-    guard workoutSession == nil else { return }
-    
-    let typesToShare: Set = [HKQuantityType.workoutType()]
-    let typesToRead: Set = [HKQuantityType.workoutType()]
+  func requestAuthorization() async throws {
+    let type = HKQuantityType.workoutType()
+    guard healthStore.authorizationStatus(for: type) != .sharingAuthorized else { return }
     
     try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
       guard let self else {
@@ -35,34 +34,36 @@ extension RealWorkoutRepository: WorkoutRepository {
         return
       }
       
-      self.healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { [weak self] success, error in
-        guard let self = self else {
-          continuation.resume(throwing: WorkoutManagerError.unknownError)
-          return
-        }
-        
+      let typesToShare: Set = [type]
+      let typesToRead: Set = [type]
+      
+      self.healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { success, error in
         guard error == nil else {
           continuation.resume(throwing: error!)
           return
         }
         
-        if success {
-          let configuration = HKWorkoutConfiguration()
-          configuration.activityType = .golf
-          configuration.locationType = .outdoor
-          
-          do {
-            self.workoutSession = try HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
-            self.workoutSession?.startActivity(with: Date())
-            continuation.resume()
-          } catch {
-            continuation.resume(throwing: error)
-          }
-        } else {
+        guard success else {
           continuation.resume(throwing: WorkoutManagerError.unknownError)
+          return
         }
+        
+        continuation.resume()
       }
     }
+  }
+  
+  func startWorkout() async throws {
+    guard workoutSession == nil else { return }
+    
+    try await requestAuthorization()
+    
+    let configuration = HKWorkoutConfiguration()
+    configuration.activityType = .golf
+    configuration.locationType = .outdoor
+    
+    self.workoutSession = try HKWorkoutSession(healthStore: self.healthStore, configuration: configuration)
+    self.workoutSession?.startActivity(with: Date())
   }
   
   func endWorkout() {
