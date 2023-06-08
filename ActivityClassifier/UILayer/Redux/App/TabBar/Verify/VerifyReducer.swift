@@ -53,7 +53,9 @@ extension Reducers {
       state.viewState.isLoading = false
       state.errorsToPresent.insert(action.error)
     case _ as TrainingRecordsActions.CloseTrainingRecordsErrorUseCase:
-      state.errorsToPresent.removeFirst()
+      if !state.errorsToPresent.isEmpty {
+        state.errorsToPresent.removeFirst()
+      }
     case let action as VerifyActions.GotPrediction:
       state.viewState.isLoading = false
       state.viewState.isRunning = true

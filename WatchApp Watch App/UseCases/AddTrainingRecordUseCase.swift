@@ -35,13 +35,7 @@ class AddTrainingRecordUseCase: UseCase {
         
         await feedbackRepository.generateFinishFeedback()
         
-        let data = try JSONEncoder().encode(motions)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let name = dateFormatter.string(from: Date()) + ".json"
-        
-        var trainingRecord = TrainingRecord(name: name, numOfChildren: 0, content: data)
+        var trainingRecord = TrainingRecord(content: try motions.makeData())
         // TODO: Refactor URL
         let url = try await trainingDataRepository.addTrainingRecord(trainingRecord)
         trainingRecord.url = url

@@ -22,10 +22,7 @@ class SaveModelUseCase: UseCase {
   
   func execute() {
     Task {
-      // TODO: Check for bg thread?
-      await MainActor.run {
-        actionDispatcher.dispatchOnMain(VerifyActions.SaveModel())
-      }
+      actionDispatcher.dispatchOnMain(VerifyActions.SaveModel())
       switch importResult {
       case .success(var url):
         do {

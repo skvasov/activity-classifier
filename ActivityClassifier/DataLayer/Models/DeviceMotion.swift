@@ -215,3 +215,10 @@ class DeviceMotionFeatureProvider: MLFeatureProvider {
     return MLFeatureValue(multiArray: array)
   }
 }
+
+extension Array<DeviceMotion> {
+  
+  func makeData() throws -> Data {
+    try JSONEncoder().encode(self)
+  }
+}

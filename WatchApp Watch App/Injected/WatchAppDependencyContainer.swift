@@ -24,7 +24,7 @@ class WatchAppDependencyContainer {
   let trainingDataRepository: TrainingDataRepository = {
     let folderURL = URL.trainingDataDirectory
     let recordsStoreFactory: RecordsStoreFactory = {
-      // TODO: Probably refactor to use FileCacheManager insted of DiskManager
+      // TODO: Probably refactor to use FileCacheManager instead of DiskManager
       DiskManager(folderURL: folderURL)
     }
     let motionManagerFactory: MotionManagerFactory = {
