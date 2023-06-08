@@ -21,6 +21,7 @@ class WatchAppDependencyContainer {
   let companionAppRepository: CompanionAppRepository
   let feedbackRepository: FeedbackRepository = { RealFeedbackRepository() }()
   let workoutRepository: WorkoutRepository = { RealWorkoutRepository() }()
+  let speechSynthesizerRepository: SpeechSynthesizerRepository = { RealSpeechSynthesizerRepository() }()
   let trainingDataRepository: TrainingDataRepository = {
     let folderURL = URL.trainingDataDirectory
     let recordsStoreFactory: RecordsStoreFactory = {
@@ -117,7 +118,8 @@ class WatchAppDependencyContainer {
         model: model,
         modelRepository: self.modelRepository,
         companionAppRepository: self.companionAppRepository,
-        workoutRepository: self.workoutRepository
+        workoutRepository: self.workoutRepository,
+        speechSynthesizerRepository: self.speechSynthesizerRepository
       )
     }
     let stopModelUseCase = StopModelUseCase(actionDispatcher: stateStore, modelRepository: modelRepository)

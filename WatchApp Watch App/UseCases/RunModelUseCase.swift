@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import AVFoundation
 
 class RunModelUseCase: UseCase {
   private let actionDispatcher: ActionDispatcher
@@ -14,14 +13,16 @@ class RunModelUseCase: UseCase {
   private let modelRepository: ModelRepository
   private let companionAppRepository: CompanionAppRepository
   private let workoutRepository: WorkoutRepository
-  let synth = AVSpeechSynthesizer()
+  private let speechSynthesizerRepository: SpeechSynthesizerRepository
   
-  init(actionDispatcher: ActionDispatcher, model: Model, modelRepository: ModelRepository, companionAppRepository: CompanionAppRepository, workoutRepository: WorkoutRepository) {
+  
+  init(actionDispatcher: ActionDispatcher, model: Model, modelRepository: ModelRepository, companionAppRepository: CompanionAppRepository, workoutRepository: WorkoutRepository, speechSynthesizerRepository: SpeechSynthesizerRepository) {
     self.actionDispatcher = actionDispatcher
     self.model = model
     self.modelRepository = modelRepository
     self.companionAppRepository = companionAppRepository
     self.workoutRepository = workoutRepository
+    self.speechSynthesizerRepository = speechSynthesizerRepository
   }
   
   func execute() {
@@ -33,12 +34,8 @@ class RunModelUseCase: UseCase {
         for try await motions in try await modelRepository.run(model, with: settings.frequency) {
           let prediction = try modelRepository.predict(motions)
           
-          // TODO: Remove AVFoundation from here
           if let topLabel = prediction.topLabel {
-            let utterance = AVSpeechUtterance(string: topLabel)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-
-            synth.speak(utterance)
+            speechSynthesizerRepository.speak(topLabel)
           }
           
           actionDispatcher.dispatchOnMain(VerifyActions.GotPrediction(prediction: prediction))

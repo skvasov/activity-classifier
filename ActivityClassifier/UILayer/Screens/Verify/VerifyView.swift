@@ -59,7 +59,7 @@ struct VerifyView: View {
   func makeContentView() -> some View {
     ZStack {
       VStack {
-        Text("\(model.prediction?.topLabel ?? "-") \(String(format: "%.0f%%", (model.prediction?.topProbability ?? 0.0) * 100))")
+        Text(model.isRunning ? predictionString() : "")
         makeRunButton()
       }
       VStack {
@@ -84,6 +84,10 @@ struct VerifyView: View {
       model.isRunning ? model.stop() : model.run()
     }
     .buttonStyle(BorderedProminentButtonStyle())
+  }
+  
+  private func predictionString() -> String {
+    "\(model.prediction?.topLabel ?? "-") \(String(format: "%.0f%%", (model.prediction?.topProbability ?? 0.0) * 100))"
   }
 }
 

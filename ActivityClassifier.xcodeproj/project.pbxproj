@@ -137,6 +137,8 @@
 		5FC9EA4C2A308E07008C23B0 /* TrainingDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA4A2A308E07008C23B0 /* TrainingDataRepository.swift */; };
 		5FC9EA4F2A308E20008C23B0 /* WorkoutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA4E2A308E20008C23B0 /* WorkoutRepository.swift */; };
 		5FC9EA512A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA502A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift */; };
+		5FC9EA532A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA522A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift */; };
+		5FC9EA542A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9EA522A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift */; };
 		5FD41C6E29EEE6FA003B5717 /* WatchConnectvityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41C6D29EEE6FA003B5717 /* WatchConnectvityManager.swift */; };
 		5FD41C7029EEF08D003B5717 /* WatchContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41C6F29EEF08D003B5717 /* WatchContext.swift */; };
 		5FD41CB729F03821003B5717 /* WatchApp_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD41CB629F03821003B5717 /* WatchApp_Watch_AppTests.swift */; };
@@ -378,6 +380,7 @@
 		5FC9EA4A2A308E07008C23B0 /* TrainingDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingDataRepository.swift; sourceTree = "<group>"; };
 		5FC9EA4E2A308E20008C23B0 /* WorkoutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRepository.swift; sourceTree = "<group>"; };
 		5FC9EA502A31BF9A008C23B0 /* CloseVerifyModelErrorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseVerifyModelErrorUseCase.swift; sourceTree = "<group>"; };
+		5FC9EA522A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesizerRepository.swift; sourceTree = "<group>"; };
 		5FD41C6D29EEE6FA003B5717 /* WatchConnectvityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectvityManager.swift; sourceTree = "<group>"; };
 		5FD41C6F29EEF08D003B5717 /* WatchContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContext.swift; sourceTree = "<group>"; };
 		5FD41CA329F03821003B5717 /* WatchApp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchApp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -724,6 +727,7 @@
 				5F7E08FA29E94481003453D5 /* SettingsRepository.swift */,
 				5FB47AFC29ED58F600BAF5BB /* FeedbackRepository.swift */,
 				5FD41CD229F04085003B5717 /* WatchAppRepository.swift */,
+				5FC9EA522A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1339,6 +1343,7 @@
 				5F3C91DE29DC5B1B00BA5A2D /* VerifyView.swift in Sources */,
 				5F3C922B29DDC4D700BA5A2D /* Observer.swift in Sources */,
 				5F0F7CE72A1004BD00D12F02 /* ObserverForActivityClassifierAppEventResponder.swift in Sources */,
+				5FC9EA532A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift in Sources */,
 				5F3C921C29DD689B00BA5A2D /* TabBarReducer.swift in Sources */,
 				5F3C921729DD689B00BA5A2D /* LabelsActions.swift in Sources */,
 				5F5BBDBA29E6B5F8003D8646 /* ImportModelUseCase.swift in Sources */,
@@ -1481,6 +1486,7 @@
 				5F2FD36529FC12A800C7643D /* VerifyActions.swift in Sources */,
 				5F01ECE429F307E2001D683B /* ObserverForRecordViewEventResponder.swift in Sources */,
 				5FD41CDA29F04E16003B5717 /* TrainingLabel.swift in Sources */,
+				5FC9EA542A31C5B9008C23B0 /* SpeechSynthesizerRepository.swift in Sources */,
 				5FD41CD929F04E07003B5717 /* WatchContext.swift in Sources */,
 				5F2FD35C29FC103B00C7643D /* ObserverForVerifyViewEventResponder.swift in Sources */,
 				5F0F7CE32A0FF92600D12F02 /* WatchMessage.swift in Sources */,
