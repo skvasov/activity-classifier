@@ -15,7 +15,7 @@ enum TrainingDataRepositoryError: Error {
 
 protocol TrainingDataRepository {
   func getDeviceMotion(for window: Int, with frequency: Int) async throws ->  [DeviceMotion]
-  func addTrainingRecord(_ record: TrainingRecord) async throws -> URL
+  func addTrainingRecord(_ record: inout TrainingRecord) async throws
 }
 
 class RealTrainingDataRepository {
@@ -34,16 +34,17 @@ extension RealTrainingDataRepository: TrainingDataRepository {
     return try await motionManager.getDeviceMotion(for: window, with: frequency)
   }
   
-  func addTrainingRecord(_ record: TrainingRecord) async throws -> URL {
+  func addTrainingRecord(_ record: inout TrainingRecord) async throws {
     let store = recordsStoreFactory()
-    do {
-      let records = try await store.loadAll()
-      try await store.remove(records)
-    } catch {}
+  
+    if let records = try? await store.loadAll() {
+      try? await store.remove(records)
+    }
+    
     try await store.save(record)
     let url = try await store.loadAll().first?.url
     if let url {
-      return url
+      record.url = url
     } else {
       throw TrainingDataRepositoryError.failedToAddTrainingRecord
     }

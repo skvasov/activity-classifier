@@ -36,8 +36,7 @@ class AddTrainingRecordUseCase: UseCase {
         await feedbackRepository.generateFinishFeedback()
         
         var trainingRecord = TrainingRecord(content: try motions.makeData())
-        // TODO: Refactor URL
-        trainingRecord.url = try await trainingDataRepository.addTrainingRecord(trainingRecord)
+        try await trainingDataRepository.addTrainingRecord(&trainingRecord)
         try await companionAppRepository.addTrainingRecord(trainingRecord)
         actionDispatcher.dispatchOnMain(RecordActions.AddedTrainingRecord())
         workoutRepository.endWorkout()

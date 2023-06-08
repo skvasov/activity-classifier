@@ -32,7 +32,7 @@ struct RecordView: View {
   
   private func makeContentView(label: TrainingLabel) -> some View {
     VStack {
-      Text("Tap Record to add a new record")
+      Text("Tap Record to gather motion data")
         .multilineTextAlignment(.center)
       Button(model.isAddingNewRecord ? "Recording..." : "Record") {
         model.add()

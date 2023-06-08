@@ -88,7 +88,7 @@ struct TrainingRecordsView: View {
   
   func makeEmptyStateView() -> some View {
     VStack {
-      Text("Tap Record to add a new record")
+      Text("Tap Record to gather motion data")
       makeRecordButton()
     }
   }
